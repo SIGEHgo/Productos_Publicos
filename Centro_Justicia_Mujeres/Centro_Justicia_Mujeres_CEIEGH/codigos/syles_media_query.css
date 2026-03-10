@@ -1,0 +1,51 @@
+@media (max-width: 767px) {
+    header {
+        font-size: 0.9rem !important;
+    }
+
+    .sidebar {
+        width: 40vw !important;
+    }
+
+    .sidebar.collapsed {
+        width: 10vw !important;
+    }
+
+    .mapa_interfaz {
+        margin-left: 40vw !important;
+        width: calc(100vw - 40vw) !important;
+    }
+
+    .sidebar.collapsed + .mapa_interfaz {
+        margin-left: 10vw !important;
+        width: calc(100vw - 10vw) !important;
+    }
+
+    main .sidebar.collapsed ~ .mapa_interfaz {
+        margin-left: 10vw !important;
+        width: calc(100vw - 10vw) !important;
+    }
+
+    header img {
+        height: 20% !important;
+        width: auto !important;
+    }
+
+    #graficas_entorno_superior {
+        display: flex;
+       flex-direction: column;
+       justify-content: space-around;
+       /* separación uniforme */
+       align-items: center;
+    }
+
+    .flip-container {
+        width: 100% !important;
+        height: 30% !important;
+    }
+
+    .front, .back {
+        font-size: 0.9rem !important;
+    }
+
+}
