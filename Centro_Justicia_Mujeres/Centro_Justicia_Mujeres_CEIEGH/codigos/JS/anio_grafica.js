@@ -28,10 +28,11 @@ let actualizador_anio_grafica = new Chart(ctx, {
       title: {
         display: true,
         text: "Colonias con mayor número de mujeres usuarias en 2022",
+        color: 'rgb(0, 0, 0)',
         padding: { top: 0, bottom: 0 },
         font: {
           size: 24,
-          weight: 'bold'
+          // weight: 'bold',
         }
       },
       subtitle: {
@@ -42,7 +43,7 @@ let actualizador_anio_grafica = new Chart(ctx, {
 
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
       }
     }
   }

@@ -46,6 +46,7 @@ Sugiero que se haga en JS.
     <link rel="stylesheet" href="codigos/styles.css">  <!-- Mi CSS -->
     <link rel="stylesheet" href="codigos/syles_media_query.css">  <!-- Media Query CSS -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>  <!-- MathJax -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">    <!-- Letra Monserrat -->
 
 </head>
 <body>
@@ -95,7 +96,7 @@ Sugiero que se haga en JS.
                     <option value="Violencia Sexual">Sexual</option>
                     <option value="Violencia Obstetrica">Obstetrica</option>
                     <option value="Violencia Ninguna">Ninguna</option>
-                    <option value="">Todas</option>
+                    <option value="">Todas las violencia</option>
                 </select>
 
                 <p>Seleccione una modalidad:</p>
@@ -107,7 +108,7 @@ Sugiero que se haga en JS.
                     <option value="Modalidad En la Comunidad">En la Comunidad</option>
                     <option value="Modalidad Feminicidio">Feminicidio</option>
                     <option value="Modalidad Ninguno">Ninguna</option>
-                    <option value="">Todas</option>
+                    <option value="">Todas las modalidades</option>
                 </select>
             
             </div>
@@ -175,8 +176,18 @@ Sugiero que se haga en JS.
                     <canvas id="modalidad_grafica"></canvas>
                 </div>
             </div>
+
+            <div id = "boton_informe_entorno">
+                <button id = "boton_descargar_reporte">
+                    <i class="fa-solid fa-file-arrow-down me-2"></i> Descargar reporte
+                </button>
+            </div>
+
         </div>
     </div>
+
+
+    <!-- <div id = "ficha_descargar" style="display: none;"></div> -->
 
 
 
@@ -205,6 +216,8 @@ Sugiero que se haga en JS.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>  <!-- html2canvas para descargar el popup -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>   <!-- jspdf -->
+<script src="codigos/JS/reporte_grafica.js"></script>
 
 </body>
 </html>

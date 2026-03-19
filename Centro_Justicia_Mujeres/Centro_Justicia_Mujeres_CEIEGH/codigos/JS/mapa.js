@@ -198,6 +198,17 @@ document.getElementById("buscador").addEventListener("change", function() {
   colonia_buscada = this.value;
   buscar_en_mapa(colonia_buscada);
   actualizar_grafica()
+
+  // Mostrar / ocultar botón de descarga
+  // let boton_download = document.getElementById("boton_descargar_reporte");
+  
+  // let existe = datos.features.some(feature => feature.properties.Localidad_correcion === colonia_buscada);
+
+  // if (boton_download) {
+  //   boton_download.style.display = existe ? "block" : "none";      
+  //   boton_download.onclick = () => descargarReporteColonia(colonia_buscada);
+  // }
+  
 });
 
 // Limitar vista, zoom y centrado al cargar el mapa

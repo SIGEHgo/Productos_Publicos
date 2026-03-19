@@ -48,4 +48,61 @@
         font-size: 0.9rem !important;
     }
 
+
+
+    /* Para el popup */
+
+    .contenedor_popup {
+        width: 260px; 
+        aspect-ratio: 100 / 66;
+    }
+
+  .texto_popup_titulo {
+       font-family: 'Arial', sans-serif;
+       font-size: 9px;
+       font-weight: bold;
+       color: black;
+   }
+
+   .texto_popup_anio {
+       font-family: 'Arial', sans-serif;
+       font-size: 7px;
+       font-weight: bold;
+       color: rgb(141, 42, 60);
+   }
+
+   .texto_popup {
+       font-family: 'Arial', sans-serif;
+       font-size: 6.5px;
+   }
+
+   .resaltado {
+       font-weight: bold;
+       color: rgb(141, 42, 60);
+   }
+
+   .boton_ficha {
+        background-color: transparent;
+        color: transparent;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        padding: 3px 3px;
+        cursor: pointer;    
+   }
+
+   .boton_ficha:hover {
+       color: transparent;
+       font-weight: bold;
+   }
+
+   .leaflet-popup-content-wrapper,
+   .leaflet-popup-tip {
+       width: 300px; 
+       aspect-ratio: 100 / 66;
+       background: transparent;
+   }
+
+
 }

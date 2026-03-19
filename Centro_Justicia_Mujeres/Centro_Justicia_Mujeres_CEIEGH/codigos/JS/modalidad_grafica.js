@@ -28,10 +28,11 @@ let actualizador_modalidad_grafica = new Chart(ctx3, {
       title: {
         display: true,
         text: "Colonias con mayor número de Modalidad Familiar",
+        color: 'rgb(0, 0, 0)',
         padding: { top: 0, bottom: 0 },
         font: {
           size: 24,
-          weight: 'bold'
+          // weight: 'bold'
         }
       },
       subtitle: {

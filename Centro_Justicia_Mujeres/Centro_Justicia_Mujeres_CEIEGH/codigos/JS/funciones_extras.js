@@ -76,7 +76,13 @@ function resetHighlight(e) {
 // Click
 
 function descargarFicha() {
-  html2canvas(document.getElementById("ficha"), {
+
+  ficha = document.getElementById("ficha")
+  ficha.querySelector("img").src = "Img/Popup_entorno_descargar.png"
+
+  setTimeout(() => {
+  
+html2canvas(ficha, {
     scale: 3,
     useCORS: true
   }).then(canvas => {
@@ -85,6 +91,9 @@ function descargarFicha() {
     link.href = canvas.toDataURL();
     link.click();
   });
+
+}, 500);
+
 }
 
 let colonia_seleccionada_popup = "";
@@ -95,6 +104,7 @@ function clicFeature(e) {
 
   let cuentas = cuentas_para_popup();
   let col = columna_seleccionada().columna;
+
 
 //   const popupContent = `
 // <div id="ficha" class="contenedor_popup" style="width: 250px; aspect-ratio: 100 / 143; background: rgb(246, 210, 211); position: relative;">
@@ -109,10 +119,10 @@ function clicFeature(e) {
 //         <span class="resaltado">Municipio:</span> <strong>${cuentas.total_anio} usuarias</strong>
 //     </div>
 //     <div class="texto_popup" style="position: absolute; top: 73%; left: 15%;">
-//         <span class="resaltado">${columna_seleccionada().violencia == "" ? "Violencia no seleccionado" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia} usuarias</strong>
+//         <span class="resaltado">${columna_seleccionada().violencia == "" ? "Violencia todas" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia == 0 ? `${cuentas.total_anio} usuarias en el municipio` : `${cuentas.total_violencia} usuarias en el municipio`}</strong>
 //     </div>
 //     <div class="texto_popup" style="position: absolute; top: 78%; left: 15%;">
-//         <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Modalidad no seleccionado" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad} usuarias</strong>
+//         <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Modalidad todas" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad == 0 ? `${cuentas.total_anio} usuarias en el municipio` : `${cuentas.total_modalidad} usuarias en el municipio`}</strong>
 //     </div>
 //     <div class="texto_popup" style="position: absolute; top: 91%; left: 50%;">
 //         <button class="boton_ficha" onclick="descargarFicha()">Descargar ficha</button>
@@ -120,33 +130,88 @@ function clicFeature(e) {
 // </div>
 // `;
 
+
   const popupContent = `
-<div id="ficha" class="contenedor_popup" style="width: 250px; aspect-ratio: 100 / 143; background: rgb(246, 210, 211); position: relative;">
-    <img src="Img/Popup_entorno.png" alt="" style="width: 100%; height: auto;">
-    <div class="texto_popup" style="position: absolute; top: 58%; left: 15%;">
-        <span class="resaltado">${propiedades.Localidad_correcion} - ${columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio}</span>
-    </div>
-    <div class="texto_popup" style="position: absolute; top: 63%; left: 15%;">
-        <span class="resaltado">Colonia:</span> <strong>${propiedades[col]} usuarias (${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
-    </div>
-    <div class="texto_popup" style="position: absolute; top: 68%; left: 15%;">
-        <span class="resaltado">Municipio:</span> <strong>${cuentas.total_anio} usuarias</strong>
-    </div>
-    <div class="texto_popup" style="position: absolute; top: 73%; left: 15%;">
-        <span class="resaltado">${columna_seleccionada().violencia == "" ? "Violencia todas" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia == 0 ? `${cuentas.total_anio} usuarias en el municipio` : `${cuentas.total_violencia} usuarias en el municipio`}</strong>
-    </div>
-    <div class="texto_popup" style="position: absolute; top: 78%; left: 15%;">
-        <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Modalidad todas" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad == 0 ? `${cuentas.total_anio} usuarias en el municipio` : `${cuentas.total_modalidad} usuarias en el municipio`}</strong>
-    </div>
-    <div class="texto_popup" style="position: absolute; top: 91%; left: 50%;">
-        <button class="boton_ficha" onclick="descargarFicha()">Descargar ficha</button>
-    </div>
+<div id="ficha" class="contenedor_popup" style="background: rgb(246, 210, 211); position: relative;">
+    <img src="Img/Popup_entorno_boton_new.png" alt="" style="width: 100%; height: auto;">
+    <div style="position: absolute; top: 37%; left: 28%; right: 26%; text-align: center;">
+            <div class="texto_popup_titulo">
+                <span>${propiedades.Localidad_correcion} </span>
+            </div>
+            <div class="texto_popup_anio">
+                <span>${columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio}</span>
+            </div>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
+            <span class="resaltado">Numero de usuarias en la colonia:</span> <strong>${propiedades[col]} </strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 65%; left: 27%;">
+            <strong>(${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 71%; left: 27%;">
+            <span class="resaltado">Total de usuarias en el municipio:</span> <strong>${cuentas.total_anio}</strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 77%; left: 27%;">
+            <span class="resaltado">${columna_seleccionada().violencia == "" ? "Todos los tipos de violencia" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia == 0 ? `${cuentas.total_anio}` : `${cuentas.total_violencia} usuarias`}</strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 81%; left: 27%;">
+            <strong>${columna_seleccionada().violencia == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 87%; left: 27%;">
+            <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Todos los tipos de modalidad" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad == 0 ? `${cuentas.total_anio}` : `${cuentas.total_modalidad} usuarias`}</strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 91%; left: 27%;">
+             <strong>${columna_seleccionada().modalidad == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
+        </div>
+        <div class="texto_popup" style="position: absolute; top: 85%; left: 78%;">
+            <button class="boton_ficha" onclick="descargarFicha()">Descargar ficha</button>
+      </div>
 </div>
 `;
 
 
 
-  e.target.bindPopup(popupContent).openPopup();
+  
+
+//   ficha_descargar.innerHTML = `
+// <div class="contenedor_popup" style="width: 600px; aspect-ratio: 100 / 66; background: rgb(246, 210, 211); position: relative;">
+//     <img src="Img/Popup_entorno_descargar.png" alt="" style="width: 100%; height: auto;">
+//     <div style="position: absolute; top: 37%; left: 28%; right: 26%; text-align: center;">
+//             <div class="texto_popup_titulo">
+//                 <span>${propiedades.Localidad_correcion} </span>
+//             </div>
+//             <div class="texto_popup_anio">
+//                 <span>${columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio}</span>
+//             </div>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
+//             <span class="resaltado">Numero de usuarias en la colonia:</span> <strong>${propiedades[col]} </strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 65%; left: 27%;">
+//             <strong>(${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 71%; left: 27%;">
+//             <span class="resaltado">Total de usuarias en el municipio:</span> <strong>${cuentas.total_anio}</strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 77%; left: 27%;">
+//             <span class="resaltado">${columna_seleccionada().violencia == "" ? "Todos los tipos de violencia" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia == 0 ? `${cuentas.total_anio}` : `${cuentas.total_violencia} usuarias`}</strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 81%; left: 27%;">
+//             <strong>${columna_seleccionada().violencia == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 87%; left: 27%;">
+//             <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Todos los tipos de modalidad" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad == 0 ? `${cuentas.total_anio}` : `${cuentas.total_modalidad} usuarias`}</strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 91%; left: 27%;">
+//              <strong>${columna_seleccionada().modalidad == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
+//         </div>
+//         <div class="texto_popup" style="position: absolute; top: 85%; left: 78%;">
+//             <button class="boton_ficha" onclick="descargarFicha()">Descargar ficha</button>
+//       </div>
+// </div>
+// `;
+
+e.target.bindPopup(popupContent).openPopup();
 }
 
 

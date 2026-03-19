@@ -28,10 +28,11 @@ let actualizador_violencia_grafica = new Chart(ctx2, {
       title: {
         display: true,
         text: "Colonias con mayor número de Violencia Digital",
+        color: 'rgb(0, 0, 0)',
         padding: { top: 0, bottom: 0 },
         font: {
           size: 24,
-          weight: 'bold'
+          // weight: 'bold'
         }
       },
       subtitle: {
