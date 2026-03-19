@@ -81,14 +81,14 @@
        color: rgb(141, 42, 60);
    }
 
-   .boton_ficha {
+    .boton_ficha {
         background-color: transparent;
         color: transparent;
         border: none;
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        padding: 3px 3px;
+        padding: 6px 4px;
         cursor: pointer;    
    }
 
