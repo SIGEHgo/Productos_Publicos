@@ -87,7 +87,7 @@ html2canvas(ficha, {
     useCORS: true
   }).then(canvas => {
     const link = document.createElement("a");
-    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Violencia No seleccionada" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Modalidad No seleccionada" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
+    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
     link.href = canvas.toDataURL();
     link.click();
   });
@@ -536,6 +536,109 @@ function anio_datos_colonia_grafico(colonia) {
 
 
 
+function datos_reporte(colonia) {
+
+  const feature = datos.features.find(
+    feature => feature.properties.Localidad_correcion === colonia
+  );
+
+  if (!feature) return null;
+
+  let casos_colonia_general = feature.properties.General
+  let casos_total_general = datos.features.map(feature => feature.properties["General"]).filter(v => v !== null && v !== undefined).reduce((a, b) => a + b, 0);
+
+  let porcentaje_repecto_municipio = ((casos_colonia_general/casos_total_general)*100).toFixed(2)
+
+
+  const columnas_general = columnas_geojson.filter(columna =>
+    !columna.includes("_") 
+  );
+
+  const columnas_violencia = columnas_geojson.filter(columna =>
+    columna.includes("Violencia") && !columna.includes("Modalidad")
+  );
+
+  const columnas_modalidad = columnas_geojson.filter(columna =>
+    columna.includes("Modalidad") && !columna.includes("Violencia")
+  );
+
+  const acumulado_general = columnas_general.reduce((acc, columna) => {
+    acc[columna] = feature.properties[columna];
+    return acc;
+  }, {});
+
+   const acumulado_violencia = columnas_violencia.reduce((acc, columna) => {
+    acc[columna] = feature.properties[columna];
+    return acc;
+  }, {});
+
+  const acumulado_modalidad = columnas_modalidad.reduce((acc, columna) => {
+    acc[columna] = feature.properties[columna];
+    return acc;
+  }, {});
+
+
+  //////////////
+  let columnas_violencia_general = columnas_violencia.filter(columna =>columna.includes("General"))
+  let violencia_top_acumulado = columnas_violencia_general.reduce((acc, columna) => {
+    acc[columna] = feature.properties[columna];
+    return acc;
+  }, {});
+
+  let violecia_top = columnas_violencia_general.map(columna => ({
+    l: columna.replace(/^\d+_/, '').replace("Violencia ", "").replace("General_", ""),
+    v: violencia_top_acumulado[columna]
+  })).sort((a, b) => b.v - a.v).slice(0, 1);
+
+
+
+  let columnas_modalidad_general = columnas_modalidad.filter(columna =>columna.includes("General"))
+  let modalidad_top_acumulado = columnas_modalidad_general.reduce((acc, columna) => {
+    acc[columna] = feature.properties[columna];
+    return acc;
+  }, {});
+
+  let modalidad_top = columnas_modalidad_general.map(columna => ({
+    l: columna.replace(/^\d+_/, '').replace("Modalidad ", "").replace("General_", ""),
+    v: modalidad_top_acumulado[columna]
+  })).sort((a, b) => b.v - a.v).slice(0, 1);
+
+  //////////////
+
+  
+
+
+  let generales = transformarAcumulado_general(acumulado_general);
+  let violencia = transformarAcumulado_violencia(acumulado_violencia);
+  let modalidad = transformarAcumulado_modalidad(acumulado_modalidad)
+
+
+  // datos_reporte(colonia_buscada).distribuccion_modalidad.data.sort((a, b) => b.General - a.General);
+  return {
+    casos_colonia_general: casos_colonia_general,
+    casos_total_municipio: casos_total_general,
+    porcentaje_colonia: porcentaje_repecto_municipio,
+    violencia_mas_frecuente: violecia_top.map(d => d.l)[0],
+    violencia_mas_frecuente_valor: violecia_top.map(d => d.v)[0],
+    modalidad_mas_frecuente: modalidad_top.map(d => d.l)[0],
+    modalidad_mas_frecuente_valor: modalidad_top.map(d => d.v)[0],
+    datos_generales: generales,
+    distribuccion_violencia: violencia,
+    distribuccion_modalidad: modalidad,
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////
 /// Modal ///
 /////////////
@@ -571,3 +674,81 @@ document.addEventListener("click", (e) => {
 
 });
 
+
+
+
+
+
+
+
+
+
+
+
+// Funciones hechas con Claude por que no le se todavia tanto a la manipulacion de datos con JS
+
+function transformarAcumulado_general(obj) {
+  // "General" al frente, años ordenados
+  const periodos = Object.keys(obj).sort((a, b) => {
+    if (a === 'General') return -1;
+    if (b === 'General') return 1;
+    return a.localeCompare(b);
+  });
+
+  return { row: obj, periodos };
+}
+
+function transformarAcumulado_violencia(obj) {
+  const rows = {};
+  const periodosSet = new Set();
+
+  for (const [key, value] of Object.entries(obj)) {
+    const sep = key.indexOf('_');
+    const periodo = key.slice(0, sep);
+    const tipo    = key.slice(sep + 1).replace('Violencia ', '');
+
+    periodosSet.add(periodo);
+    if (!rows[tipo]) rows[tipo] = {};
+    rows[tipo][periodo] = value;
+  }
+
+  const periodos = [...periodosSet].sort((a, b) => {
+    if (a === 'General') return -1;
+    if (b === 'General') return 1;
+    return a.localeCompare(b);
+  });
+  
+  const data = Object.entries(rows).map(([tipo, vals]) => {
+    return [tipo, ...periodos.map(p => vals[p] ?? 0)];
+  });
+
+  return { data, periodos };
+}
+
+
+function transformarAcumulado_modalidad(obj) {
+  const rows = {};
+  const periodosSet = new Set();
+
+  for (const [key, value] of Object.entries(obj)) {
+    const sep = key.indexOf('_');
+    const periodo = key.slice(0, sep);
+    const tipo    = key.slice(sep + 1).replace('Modalidad ', '');
+
+    periodosSet.add(periodo);
+    if (!rows[tipo]) rows[tipo] = {};
+    rows[tipo][periodo] = value;
+  }
+
+  const periodos = [...periodosSet].sort((a, b) => {
+    if (a === 'General') return -1;
+    if (b === 'General') return 1;
+    return a.localeCompare(b);
+  });
+
+  const data = Object.entries(rows).map(([tipo, vals]) => {
+    return [tipo, ...periodos.map(p => vals[p] ?? 0)];
+  });
+
+  return { data, periodos};
+}

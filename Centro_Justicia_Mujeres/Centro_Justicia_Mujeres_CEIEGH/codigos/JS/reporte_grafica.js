@@ -1,15 +1,3 @@
-/**
- * reporte_grafica.js
- * Genera un reporte PDF para la colonia buscada en el entorno de gráficas.
- * Depende de: jsPDF (window.jspdf.jsPDF) cargado vía CDN en index.html
- * Usa las funciones ya definidas en funciones_extras.js:
- *   - anio_datos_colonia_grafico(colonia)
- *   - violencia_datos_colonia_grafico(colonia)
- *   - modalidad_datos_colonia_grafico(colonia)
- *   - cuentas_para_popup()
- *   - columna_seleccionada()
- */
-
 function descargarReporteColonia(colonia) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -27,26 +15,23 @@ function descargarReporteColonia(colonia) {
   const negro      = [30,  30,  30];
 
   // ── Datos de la colonia ───────────────────────────────────────────────────
-  const anio       = columna_seleccionada().anio;
-  const anioLabel  = anio === "General" ? "2022-2024" : anio;
 
-  const datosAnio      = anio_datos_colonia_grafico(colonia)      || [];
-  const datosViolencia = violencia_datos_colonia_grafico(colonia) || [];
-  const datosModalidad = modalidad_datos_colonia_grafico(colonia) || [];
+  let interes = datos_reporte(colonia);
 
-  const totalColonia   = datosAnio.reduce((s, d) => s + (d.v || 0), 0);
-  const cuentas        = cuentas_para_popup();
-  const totalMunicipio = cuentas.total_anio || 0;
-  const pctMunicipio   = totalMunicipio > 0
-    ? ((totalColonia / totalMunicipio) * 100).toFixed(1)
-    : "0.0";
+  let casos_colonia_general = interes.casos_colonia_general;
+  let casos_total_municipio = interes.casos_total_municipio;
+  let porcentaje_colonia = interes.porcentaje_colonia;
 
-  const violenciaMax = datosViolencia.length
-    ? datosViolencia.reduce((a, b) => (b.v > a.v ? b : a), datosViolencia[0])
-    : { l: "—", v: 0 };
-  const modalidadMax = datosModalidad.length
-    ? datosModalidad.reduce((a, b) => (b.v > a.v ? b : a), datosModalidad[0])
-    : { l: "—", v: 0 };
+
+  let violencia_mas_frecuente = interes.violencia_mas_frecuente;
+  let violencia_mas_frecuente_valor = interes.violencia_mas_frecuente_valor;
+
+  let modalidad_mas_frecuente = interes.modalidad_mas_frecuente;
+  let modalidad_mas_frecuente_valor = interes.modalidad_mas_frecuente_valor;
+
+  /// Para grafica
+
+  const datosAnio = anio_datos_colonia_grafico(colonia) || [];
 
   // ── Helper: texto seguro (evita undefined/null) ───────────────────────────
   const txt = v => (v === null || v === undefined ? "0" : String(v));
@@ -63,16 +48,23 @@ function descargarReporteColonia(colonia) {
   doc.text("Reporte Estadístico", margen, 10);
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  doc.text("Diagnóstico de Violencia de Género", margen, 16);
-  doc.text(`Colonia: ${colonia}  ·  Período ${anioLabel}`, margen, 22);
+  doc.text("Mujeres en situación de violencia de género", margen, 16);
+  doc.text(`${colonia}`, margen, 22);
 
-  // Sello "CJMH" a la derecha
-  doc.setFillColor(...dorado);
-  doc.roundedRect(W - 36, 4, 22, 20, 3, 3, "F");
-  doc.setTextColor(...vino);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.text("CJMH", W - 25, 15, { align: "center" });
+
+  const logoHeight = 10;
+  const widthPlaneacion = (1035 / 178) * logoHeight;
+  const widthCJMH = (1023 / 370) * (logoHeight + 4);
+
+  const separacion = 3;
+  const xCJMH = W - widthCJMH - margen;
+  const xPlaneacion = xCJMH - widthPlaneacion - separacion;
+  const yLogo = (28 - logoHeight) / 2;
+
+  doc.addImage("Img/Logo_Planeacion_Dorado.png", "PNG", xPlaneacion, yLogo, widthPlaneacion, logoHeight);
+  doc.addImage("Img/Logo_CJMH_Dorado.png", "PNG", xCJMH, (yLogo - 1.5), widthCJMH, (logoHeight + 4));
+
+
 
   y = 34;
 
@@ -80,10 +72,10 @@ function descargarReporteColonia(colonia) {
   // TARJETAS DE RESUMEN
   // ══════════════════════════════════════════════════════════════════════════
   const tarjetas = [
-    { titulo: "Casos en la colonia", valor: txt(totalColonia), sub: anioLabel },
-    { titulo: "% del municipio",     valor: pctMunicipio + "%", sub: `de ${totalMunicipio} usuarias` },
-    { titulo: "Tipo más frecuente",  valor: violenciaMax.l,     sub: `~${violenciaMax.v} registros` },
-    { titulo: "Modalidad principal", valor: modalidadMax.l,     sub: `~${modalidadMax.v} registros` },
+    { titulo: "Casos en la colonia", valor: txt(casos_colonia_general), sub: "2022-2023" },
+    { titulo: "% respecto al municipio", valor: porcentaje_colonia + "%", sub: `de ${casos_total_municipio} usuarias` },
+    { titulo: "Violencia más frecuente", valor: violencia_mas_frecuente,     sub: `${violencia_mas_frecuente_valor} registros` },
+    { titulo: "Modalidad más frecuente", valor: modalidad_mas_frecuente,     sub: `${modalidad_mas_frecuente_valor} registros` },
   ];
 
   const tarjW  = (W - margen * 2 - 6) / 4;
@@ -99,16 +91,16 @@ function descargarReporteColonia(colonia) {
 
     doc.setTextColor(...blanco);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(6);
+    doc.setFontSize(9);
     doc.text(t.titulo, x + tarjW / 2, y + 3.8, { align: "center" });
 
     doc.setTextColor(...vino);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
+    doc.setFontSize(13);
     doc.text(txt(t.valor), x + tarjW / 2, y + 14, { align: "center" });
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(6.5);
+    doc.setFontSize(8);
     doc.setTextColor(...negro);
     doc.text(t.sub, x + tarjW / 2, y + 19, { align: "center" });
   });
@@ -158,21 +150,6 @@ function descargarReporteColonia(colonia) {
         xCursor += colWidths[i];
       });
 
-      // Barra de nivel (última columna visual)
-      const nivel = fila[fila.length - 1];
-      const nivelColor = nivel === "Alto"
-        ? [183, 28, 28]
-        : nivel === "Medio"
-          ? [230, 150, 50]
-          : [72, 153, 77];
-      const badgeX = margen + colWidths[0] + colWidths[1] + colWidths[2] + 2;
-      doc.setFillColor(...nivelColor);
-      doc.roundedRect(badgeX, startY + 1.5, 18, 4, 1, 1, "F");
-      doc.setTextColor(...blanco);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(6);
-      doc.text(nivel, badgeX + 9, startY + 4.5, { align: "center" });
-
       startY += filaH;
     });
 
@@ -182,18 +159,6 @@ function descargarReporteColonia(colonia) {
     doc.rect(margen, startY - filas.length * filaH - 14, W - margen * 2, filas.length * filaH + 14);
 
     return startY + 4;
-  }
-
-  // ── Clasificar nivel ───────────────────────────────────────────────────────
-  function clasificarNivel(valor, datos) {
-    if (!datos.length) return "Sin registro";
-    const max = Math.max(...datos.map(d => d.v || 0));
-    if (max === 0) return "Sin registro";
-    const pct = valor / max;
-    if (pct >= 0.6) return "Alto";
-    if (pct >= 0.25) return "Medio";
-    if (valor > 0) return "Bajo";
-    return "Sin registro";
   }
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -230,7 +195,7 @@ function descargarReporteColonia(colonia) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
     xc = margen + 2;
-    const variacion = idx === 0 ? "Año base" : `↑ +${(((d.v - datosAnio[0].v) / (datosAnio[0].v || 1)) * 100).toFixed(0)}%`;
+    const variacion = idx === 0 ? "Año base" : `${(((d.v - datosAnio[0].v) / (datosAnio[0].v || 1)) * 100).toFixed(0)}%`;
     [d.l, txt(d.v), variacion].forEach((cel, i) => {
       doc.text(cel, xc, y + 5);
       xc += cwAnio[i];
@@ -245,36 +210,37 @@ function descargarReporteColonia(colonia) {
   // ══════════════════════════════════════════════════════════════════════════
   // 2. Distribución por tipo de violencia
   // ══════════════════════════════════════════════════════════════════════════
-  const filasViolencia = datosViolencia.map(d => [
-    d.l,
-    txt(d.v),
-    d.v > 0 ? d.v : 0,
-    clasificarNivel(d.v, datosViolencia)
-  ]);
+  
+  let distribuccion_violencia = interes.distribuccion_violencia.data
+  let distribuccion_violencia_periodos = interes.distribuccion_violencia.periodos
+  let encabezado_violencia = ["Tipo de violencia "].concat(distribuccion_violencia_periodos)
+  encabezado_violencia[1] = "2022-2023"
+
+
 
   y = dibujarTabla(
     "2. Distribución por tipo de violencia",
-    filasViolencia,
-    ["Tipo de violencia", "Frecuencia", "Casos", "Nivel"],
-    [60, 40, 40, 30]
+    distribuccion_violencia,
+    encabezado_violencia,
+    [60, 40, 40, 40]
     , y
   );
 
   // ══════════════════════════════════════════════════════════════════════════
   // 3. Distribución por tipo de modalidad
   // ══════════════════════════════════════════════════════════════════════════
-  const filasModalidad = datosModalidad.map(d => [
-    d.l,
-    txt(d.v),
-    d.v > 0 ? d.v : 0,
-    clasificarNivel(d.v, datosModalidad)
-  ]);
+
+  let distribuccion_modalidad = interes.distribuccion_modalidad.data
+  let distribuccion_modalidad_periodos = interes.distribuccion_modalidad.periodos
+  let encabezado_modalidad = ["Modalidad"].concat(distribuccion_modalidad_periodos)
+  encabezado_modalidad[1] = "2022-2023"
+  
 
   y = dibujarTabla(
     "3. Distribución por tipo de modalidad",
-    filasModalidad,
-    ["Modalidad", "Frecuencia", "Casos", "Nivel"],
-    [60, 40, 40, 30],
+    distribuccion_modalidad,
+    encabezado_modalidad,
+    [60, 40, 40, 40],
     y
   );
 
@@ -288,12 +254,28 @@ function descargarReporteColonia(colonia) {
   doc.setTextColor(...blanco);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7);
-  doc.text("Fuente: Centro de Justicia para las Mujeres de Hidalgo (CJMH)", margen, pageH - 5);
-
-  doc.setTextColor(...dorado);
-  doc.text(`Colonia: ${colonia}  ·  Datos aproximados  ·  Período: ${anioLabel}`, W - margen, pageH - 5, { align: "right" });
+  doc.text("Fuente: Centro de Justicia para Mujeres del Estado de Hidalgo (CJMH)", margen, pageH - 5);
 
   // ── Guardar ───────────────────────────────────────────────────────────────
-  const nombreArchivo = `CJMH_Reporte_${colonia.replace(/\s+/g, "_")}_${anioLabel}.pdf`;
+  // const url = doc.output('bloburl');
+  // window.open(url);
+
+  const nombreArchivo = `CJMH_Reporte_${colonia}.pdf`;
   doc.save(nombreArchivo);
 }
+
+
+
+
+
+
+
+// //// Idea pendiente
+// var vegetables = ["parsnip", "potato"];
+// var moreVegs = ["celery", "beetroot"];
+
+// // Merge the second array into the first one
+// // Equivalent to vegetables.push('celery', 'beetroot');
+// Array.prototype.push.apply(vegetables, moreVegs);
+
+// console.log(vegetables); // ['parsnip', 'potato', 'celery', 'beetroot']

@@ -130,7 +130,7 @@ function actualizarMapa() {
   document.getElementById("violencia_texto_front").textContent = "Tipo de violencia: " + (columna_seleccionada().violencia == "" ? "Todas" : columna_seleccionada().violencia.replace("Violencia ", ""));
   document.getElementById("violencia_texto_back").textContent = (columna_seleccionada().violencia == "" ? "Violencia Todas" : columna_seleccionada().violencia) + ": " + (cuentas_para_popup().total_violencia == 0 ? cuentas_para_popup().total_anio : cuentas_para_popup().total_violencia) + " usuarias";
   
-  document.getElementById("modalidad_texto_front").textContent = "Tipo de modalidad: " + (columna_seleccionada().modalidad == "" ? "No seleccionado" : columna_seleccionada().modalidad.replace("Modalidad ", ""));
+  document.getElementById("modalidad_texto_front").textContent = "Tipo de modalidad: " + (columna_seleccionada().modalidad == "" ? "Todas" : columna_seleccionada().modalidad.replace("Modalidad ", ""));
   document.getElementById("modalidad_texto_back").textContent = (columna_seleccionada().modalidad == "" ? "Modalidad Todas" : columna_seleccionada().modalidad) + ": " + (cuentas_para_popup().total_modalidad == 0 ? cuentas_para_popup().total_anio : cuentas_para_popup().total_modalidad) + " usuarias";
 }
 
@@ -197,17 +197,18 @@ document.getElementById("selector_modalidad").addEventListener("change", actuali
 document.getElementById("buscador").addEventListener("change", function() {
   colonia_buscada = this.value;
   buscar_en_mapa(colonia_buscada);
-  actualizar_grafica()
+  actualizar_grafica();
+  datos_reporte(colonia_buscada)
 
   // Mostrar / ocultar botón de descarga
-  // let boton_download = document.getElementById("boton_descargar_reporte");
+  let boton_download = document.getElementById("boton_descargar_reporte");
   
-  // let existe = datos.features.some(feature => feature.properties.Localidad_correcion === colonia_buscada);
+  let existe = datos.features.some(feature => feature.properties.Localidad_correcion === colonia_buscada);
 
-  // if (boton_download) {
-  //   boton_download.style.display = existe ? "block" : "none";      
-  //   boton_download.onclick = () => descargarReporteColonia(colonia_buscada);
-  // }
+  if (boton_download) {
+    boton_download.style.display = existe ? "block" : "none";      
+    boton_download.onclick = () => descargarReporteColonia(colonia_buscada);
+  }
   
 });
 
