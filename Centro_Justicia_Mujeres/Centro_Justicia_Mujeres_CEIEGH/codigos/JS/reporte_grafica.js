@@ -72,7 +72,7 @@ function descargarReporteColonia(colonia) {
   // TARJETAS DE RESUMEN
   // ══════════════════════════════════════════════════════════════════════════
   const tarjetas = [
-    { titulo: "Casos en la colonia", valor: txt(casos_colonia_general), sub: "2022-2024" },
+    { titulo: "Usuarias en la colonia", valor: txt(casos_colonia_general), sub: "2022-2024" },
     { titulo: "% respecto al municipio", valor: porcentaje_colonia + "%", sub: `de ${casos_total_municipio} usuarias` },
     { titulo: "Violencia más frecuente", valor: violencia_mas_frecuente,     sub: `${violencia_mas_frecuente_valor} registros` },
     { titulo: "Modalidad más frecuente", valor: modalidad_mas_frecuente,     sub: `${modalidad_mas_frecuente_valor} registros` },
@@ -165,7 +165,7 @@ function descargarReporteColonia(colonia) {
   // 1. Distribución por año
   // ══════════════════════════════════════════════════════════════════════════
   let distribuccion_general = interes.datos_generales.data;
-  let encabezado_general = ["Año", "Casos", "Edad Promedio", "Mes más frecuente"]
+  let encabezado_general = ["Año", "Usuarias", "Edad Promedio", "Mes más frecuente"]
 
   y = dibujarTabla(
     "1. Datos Generales",

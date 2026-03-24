@@ -53,9 +53,37 @@ function getColor(d) {
 
 
 // Pasar el mouse sobre el mapa
-function highlightFeature(e) {
-    var layer = e.target;
 
+// function highlightFeature(e) {
+//     var layer = e.target;
+
+//     layer.setStyle({
+//         weight: 5,
+//         color: '#666',
+//         dashArray: '',
+//         fillOpacity: 0.7
+//     });
+
+//     layer.bringToFront();
+//     info.update(layer.feature.properties);
+// }
+
+// function resetHighlight(e) {
+//     datos_capa.resetStyle(e.target);
+//     info.update();
+// }
+
+// Mejora de Claude para evitar el caso que  resalte varias capas
+
+let capaDestacada = null;
+
+function highlightFeature(e) {
+    // 1. Resetea la capa anterior ANTES de destacar la nueva
+    if (capaDestacada) {
+        datos_capa.resetStyle(capaDestacada);
+    }
+
+    var layer = e.target;
     layer.setStyle({
         weight: 5,
         color: '#666',
@@ -65,11 +93,15 @@ function highlightFeature(e) {
 
     layer.bringToFront();
     info.update(layer.feature.properties);
+
+    // 2. Guarda la referencia
+    capaDestacada = layer;
 }
 
 function resetHighlight(e) {
     datos_capa.resetStyle(e.target);
     info.update();
+    capaDestacada = null;
 }
 
 
@@ -143,7 +175,7 @@ function clicFeature(e) {
             </div>
         </div>
         <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
-            <span class="resaltado">Numero de usuarias en la colonia:</span> <strong>${propiedades[col]} </strong>
+            <span class="resaltado">Número de usuarias en la colonia:</span> <strong>${propiedades[col]} </strong>
         </div>
         <div class="texto_popup" style="position: absolute; top: 65%; left: 27%;">
             <strong>(${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
@@ -220,7 +252,8 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: clicFeature
+        click: clicFeature,
+        touchend:  resetHighlight         // Para telefono
     });
 }
 
