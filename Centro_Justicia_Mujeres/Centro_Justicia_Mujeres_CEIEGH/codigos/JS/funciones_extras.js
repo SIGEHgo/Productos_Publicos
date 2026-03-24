@@ -87,7 +87,7 @@ html2canvas(ficha, {
     useCORS: true
   }).then(canvas => {
     const link = document.createElement("a");
-    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
+    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
     link.href = canvas.toDataURL();
     link.click();
   });
@@ -110,7 +110,7 @@ function clicFeature(e) {
 // <div id="ficha" class="contenedor_popup" style="width: 250px; aspect-ratio: 100 / 143; background: rgb(246, 210, 211); position: relative;">
 //     <img src="Img/Popup_entorno.png" alt="" style="width: 100%; height: auto;">
 //     <div class="texto_popup" style="position: absolute; top: 58%; left: 15%;">
-//         <span class="resaltado">${propiedades.Localidad_correcion} - ${columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio}</span>
+//         <span class="resaltado">${propiedades.Localidad_correcion} - ${columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio}</span>
 //     </div>
 //     <div class="texto_popup" style="position: absolute; top: 63%; left: 15%;">
 //         <span class="resaltado">Colonia:</span> <strong>${propiedades[col]} usuarias (${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
@@ -139,7 +139,7 @@ function clicFeature(e) {
                 <span>${propiedades.Localidad_correcion} </span>
             </div>
             <div class="texto_popup_anio">
-                <span>${columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio}</span>
+                <span>${columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio}</span>
             </div>
         </div>
         <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
@@ -181,7 +181,7 @@ function clicFeature(e) {
 //                 <span>${propiedades.Localidad_correcion} </span>
 //             </div>
 //             <div class="texto_popup_anio">
-//                 <span>${columna_seleccionada().anio == "General" ? "2022-2023" : columna_seleccionada().anio}</span>
+//                 <span>${columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio}</span>
 //             </div>
 //         </div>
 //         <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
@@ -435,7 +435,7 @@ function anio_datos_grafico() {
       .slice(0, 10);
     } else {
     columnas_nombres = columnas_geojson.filter(columna =>
-      !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion") && !columna.includes("General")
+      !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion") && !columna.includes("General") && !columna.includes("_")
     );
 
     const acumulado = datos.features.reduce((acc, feature) => {
@@ -512,7 +512,8 @@ function anio_datos_colonia_grafico(colonia) {
     !columna.includes("Violencia") &&
     !columna.includes("Modalidad") &&
     !columna.includes("Localidad_correcion") &&
-    !columna.includes("General")
+    !columna.includes("General") &&
+    !columna.includes("_")
   );
 
   const feature = datos.features.find(
@@ -551,7 +552,7 @@ function datos_reporte(colonia) {
 
 
   const columnas_general = columnas_geojson.filter(columna =>
-    !columna.includes("_") 
+    !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion")
   );
 
   const columnas_violencia = columnas_geojson.filter(columna =>
@@ -576,6 +577,9 @@ function datos_reporte(colonia) {
     acc[columna] = feature.properties[columna];
     return acc;
   }, {});
+
+
+  
 
 
   //////////////
@@ -610,9 +614,9 @@ function datos_reporte(colonia) {
 
   let generales = transformarAcumulado_general(acumulado_general);
   let violencia = transformarAcumulado_violencia(acumulado_violencia);
-  let modalidad = transformarAcumulado_modalidad(acumulado_modalidad)
+  let modalidad = transformarAcumulado_modalidad(acumulado_modalidad);
 
-
+  
   // datos_reporte(colonia_buscada).distribuccion_modalidad.data.sort((a, b) => b.General - a.General);
   return {
     casos_colonia_general: casos_colonia_general,
@@ -688,15 +692,29 @@ document.addEventListener("click", (e) => {
 // Funciones hechas con Claude por que no le se todavia tanto a la manipulacion de datos con JS
 
 function transformarAcumulado_general(obj) {
-  // "General" al frente, años ordenados
-  const periodos = Object.keys(obj).sort((a, b) => {
-    if (a === 'General') return -1;
-    if (b === 'General') return 1;
-    return a.localeCompare(b);
-  });
+  const periodos = Object.keys(obj)
+    .filter(k => !k.includes('_'))
+    .sort((a, b) => {
+      if (a === 'General') return -1;
+      if (b === 'General') return 1;
+      return a.localeCompare(b);
+    });
 
-  return { row: obj, periodos };
+  const data = periodos.map(periodo => [
+    periodo,
+    obj[periodo],
+    obj[`${periodo}_Edad`],
+    obj[`${periodo}_Mes`],
+  ]).map(row => row.map(cell => cell === 'General' ? '2022-2024' : cell));
+
+  return { data, periodos };
 }
+
+
+
+
+
+
 
 function transformarAcumulado_violencia(obj) {
   const rows = {};

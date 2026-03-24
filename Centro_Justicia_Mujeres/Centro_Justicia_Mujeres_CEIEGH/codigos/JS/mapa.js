@@ -56,7 +56,7 @@ info.onAdd = function (map) {
 }
 
 info.update = function (props) {
-    this._div.innerHTML = '<h6>' +"Año: " + "<b>"+ (columna_seleccionada().anio === "General" ? "2022-2023" : columna_seleccionada().anio)  +"</b>"+ '</h6>' +  
+    this._div.innerHTML = '<h6>' +"Año: " + "<b>"+ (columna_seleccionada().anio === "General" ? "2022-2024" : columna_seleccionada().anio)  +"</b>"+ '</h6>' +  
     '<h6>' + "Tipo de violencia: " + "<b>" + (columna_seleccionada().violencia === "" ? "Todas" : columna_seleccionada().violencia.replace("Violencia ", ""))  + "</b></h6>" +
     '<h6>' + "Tipo de modalidad: " + "<b>" + (columna_seleccionada().modalidad === "" ? "Todas" : columna_seleccionada().modalidad.replace("Modalidad ", "")) + "</b></h6>" +
     (props ?
@@ -124,7 +124,7 @@ function actualizarMapa() {
   info.update();
 
 
-  document.getElementById("periodo_texto_front").textContent = "Año: " + (columna_seleccionada().anio === "General" ? "2022-2023" : columna_seleccionada().anio);
+  document.getElementById("periodo_texto_front").textContent = "Año: " + (columna_seleccionada().anio === "General" ? "2022-2024" : columna_seleccionada().anio);
   document.getElementById("periodo_texto_back").textContent = "Municipio: " + cuentas_para_popup().total_anio + " usuarias";
 
   document.getElementById("violencia_texto_front").textContent = "Tipo de violencia: " + (columna_seleccionada().violencia == "" ? "Todas" : columna_seleccionada().violencia.replace("Violencia ", ""));

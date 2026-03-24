@@ -72,7 +72,7 @@ function descargarReporteColonia(colonia) {
   // TARJETAS DE RESUMEN
   // ══════════════════════════════════════════════════════════════════════════
   const tarjetas = [
-    { titulo: "Casos en la colonia", valor: txt(casos_colonia_general), sub: "2022-2023" },
+    { titulo: "Casos en la colonia", valor: txt(casos_colonia_general), sub: "2022-2024" },
     { titulo: "% respecto al municipio", valor: porcentaje_colonia + "%", sub: `de ${casos_total_municipio} usuarias` },
     { titulo: "Violencia más frecuente", valor: violencia_mas_frecuente,     sub: `${violencia_mas_frecuente_valor} registros` },
     { titulo: "Modalidad más frecuente", valor: modalidad_mas_frecuente,     sub: `${modalidad_mas_frecuente_valor} registros` },
@@ -164,48 +164,19 @@ function descargarReporteColonia(colonia) {
   // ══════════════════════════════════════════════════════════════════════════
   // 1. Distribución por año
   // ══════════════════════════════════════════════════════════════════════════
-  // Título de sección
-  doc.setFillColor(...vino);
-  doc.rect(margen, y, W - margen * 2, 7, "F");
-  doc.setTextColor(...blanco);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.text("1. Distribución por año", margen + 3, y + 5);
-  y += 7;
+  let distribuccion_general = interes.datos_generales.data;
+  let encabezado_general = ["Año", "Casos", "Edad Promedio", "Mes más frecuente"]
 
-  // Tabla manual (sin niveles)
-  const encAnio = ["Año", "Casos registrados", "Variación"];
-  const cwAnio  = [30, 80, 60];
-  const filaH   = 7;
+  y = dibujarTabla(
+    "1. Datos Generales",
+    distribuccion_general,
+    encabezado_general,
+    [60, 40, 40, 40]
+    , y
+  );
 
-  doc.setFillColor(...dorado);
-  doc.rect(margen, y, W - margen * 2, filaH, "F");
-  doc.setTextColor(...blanco);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
-  let xc = margen + 2;
-  encAnio.forEach((e, i) => { doc.text(e, xc, y + 5); xc += cwAnio[i]; });
-  y += filaH;
-
-  datosAnio.forEach((d, idx) => {
-    const bg = idx % 2 === 0 ? grisClaro : blanco;
-    doc.setFillColor(...bg);
-    doc.rect(margen, y, W - margen * 2, filaH, "F");
-    doc.setTextColor(...negro);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    xc = margen + 2;
-    const variacion = idx === 0 ? "Año base" : `${(((d.v - datosAnio[0].v) / (datosAnio[0].v || 1)) * 100).toFixed(0)}%`;
-    [d.l, txt(d.v), variacion].forEach((cel, i) => {
-      doc.text(cel, xc, y + 5);
-      xc += cwAnio[i];
-    });
-    y += filaH;
-  });
-  doc.setDrawColor(...vino);
-  doc.setLineWidth(0.3);
-  doc.rect(margen, y - datosAnio.length * filaH - 7, W - margen * 2, datosAnio.length * filaH + 7);
-  y += 6;
+  
+  console.log(distribuccion_general);
 
   // ══════════════════════════════════════════════════════════════════════════
   // 2. Distribución por tipo de violencia
@@ -214,7 +185,7 @@ function descargarReporteColonia(colonia) {
   let distribuccion_violencia = interes.distribuccion_violencia.data
   let distribuccion_violencia_periodos = interes.distribuccion_violencia.periodos
   let encabezado_violencia = ["Tipo de violencia "].concat(distribuccion_violencia_periodos)
-  encabezado_violencia[1] = "2022-2023"
+  encabezado_violencia[1] = "2022-2024"
 
 
 
@@ -222,7 +193,7 @@ function descargarReporteColonia(colonia) {
     "2. Distribución por tipo de violencia",
     distribuccion_violencia,
     encabezado_violencia,
-    [60, 40, 40, 40]
+    [60, 30, 30, 30, 30]
     , y
   );
 
@@ -233,14 +204,14 @@ function descargarReporteColonia(colonia) {
   let distribuccion_modalidad = interes.distribuccion_modalidad.data
   let distribuccion_modalidad_periodos = interes.distribuccion_modalidad.periodos
   let encabezado_modalidad = ["Modalidad"].concat(distribuccion_modalidad_periodos)
-  encabezado_modalidad[1] = "2022-2023"
+  encabezado_modalidad[1] = "2022-2024"
   
 
   y = dibujarTabla(
     "3. Distribución por tipo de modalidad",
     distribuccion_modalidad,
     encabezado_modalidad,
-    [60, 40, 40, 40],
+    [60, 30, 30, 30, 30],
     y
   );
 
