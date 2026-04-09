@@ -1,0 +1,224 @@
+   * {
+       margin: 0;
+       padding: 0;
+   }
+
+
+   html,
+   body {
+       padding: 0;
+       margin: 0;
+       background-color: rgb(255, 255, 255);
+       display: flex;
+       flex-direction: column;
+       height: 100vh;
+       width: 100vw;
+       color: rgb(98, 17, 50);
+   }
+
+   header {
+       background-color: rgb(255, 255, 255);
+       height: 10vh;
+       width: 100vw;
+       padding: 0;
+       margin: 0;
+       display: flex;
+       align-items: center;
+       justify-content: space-around;
+       color: #000;
+       font-size: 1.5rem;
+       font-weight: bold;
+       /* margin: 0 0 1% 0%; */
+       font-family: 'Montserrat', sans-serif !important;
+   }
+
+
+   main {
+       display: flex;
+       height: 90vh;
+       width: 100vw;
+   }
+
+   /* Aqui modificamos un tamaño de barra lateral */
+   .sidebar {
+       width: 20vw;
+       /* Ajusta a gusto */
+       height: 90vh;
+       background-color: rgb(98, 17, 50);
+       color: white;
+       position: fixed;
+       /* <-- NECESARIO */
+       left: 0;
+       top: 10vh;
+       /* debajo del header */
+       transition: width 0.3s;
+       overflow: hidden;
+       font-family: 'Montserrat', sans-serif !important;
+   }
+
+   /* Aqui modificamos un tamaño de barra lateral para el colapso*/
+   .sidebar.collapsed {
+       width: 5vw;
+   }
+
+   .toggle-btn {
+       background: none;
+       border: none;
+       color: white;
+       font-size: 1.5rem;
+       padding: 10px 15px;
+       cursor: pointer;
+       transition: transform 0.3s;
+   }
+
+   /* Rota el ícono cuando colapsa */
+   .sidebar.collapsed .toggle-btn i {
+       transform: rotate(180deg);
+   }
+
+   .sidebar-link {
+       color: white;
+       display: flex;
+       align-items: center;
+       padding: 2vh 2vw;
+       transition: background-color 0.2s;
+       text-decoration: none;
+   }
+
+   .sidebar-link:hover,
+   .sidebar-link.active {
+       background-color: rgb(179, 142, 93);
+   }
+
+   .sidebar-link i {
+       font-size: 1.2rem;
+   }
+
+   .main-content {
+       transition: margin-left 0.3s;
+   }
+
+
+   .hide-on-collapse {
+       display: inline-block;
+       transition: opacity 0.2s;
+   }
+
+   .sidebar.collapsed .hide-on-collapse {
+       opacity: 0;
+   }
+
+
+   /* Aqui modificamos el tamaño del mapa  */
+   .mapa_interfaz {
+       margin-left: 20vw;
+       height: 90vh;
+       width: calc(100vw - 20vw);
+       transition: margin-left 0.3s, width 0.3s;
+   }
+
+/* Aqui modificamos un tamaño de barra lateral para el colapso */
+   .sidebar.collapsed+.mapa_interfaz {
+       margin-left: 5vw;
+       width: calc(100vw - 5vw);
+   }
+
+   main .sidebar.collapsed~.mapa_interfaz {
+       margin-left: 5vw;
+       width: calc(100vw - 5vw);
+   }
+
+   .acordion {
+       margin: 2vh 0 2vh 5vw;
+   }
+
+   #map {
+       height: 100%;
+       width: 100%;
+   }
+
+
+
+
+
+   .info_tablero_seg {
+       margin: 0 0 5px;
+       color: rgb(98, 17, 50);
+       text-align: center;
+   }
+
+    .info {
+       padding: 6px 8px;
+       font: 14px/16px 'Montserrat', sans-serif;
+       background: rgba(98, 17, 50, 0.8);
+       box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+       color: white;
+       border-radius: 5px;
+   }
+
+   .contenedor_popup {
+            width: 300px;
+        }
+
+        .infobox {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            background: #f8f9fa;
+        }
+
+        .infobox th,
+        .infobox td {
+            border: 1px solid #aaa;
+            padding: 4px;
+        }
+
+        .cabecera {
+            background: rgb(98, 17, 50);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .seccion {
+            background: rgb(98, 17, 50);
+            text-align: center;
+            color: white;
+        }
+
+        .imagen {
+            text-align: center;
+        }
+
+        .imagen img {
+            width: 100%;
+            height: 150px;        /* tope fijo */
+            object-fit: cover;    /* recorta centrando, sin deformar */
+            object-position: center;
+        }
+
+        .descripcion {
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .link {
+            text-align: center;
+        }
+
+
+   /* Modal */
+   .modal-body {
+       color: black;
+       font-family: 'Montserrat', sans-serif !important;
+   }
+
+    .btn-cerrar {
+         background-color: rgba(98, 17, 50, 1);
+         color: white;
+    }
+
+    .btn-cerrar:hover {
+         background-color: rgb(179, 142, 93);
+         color: white;
+    }
