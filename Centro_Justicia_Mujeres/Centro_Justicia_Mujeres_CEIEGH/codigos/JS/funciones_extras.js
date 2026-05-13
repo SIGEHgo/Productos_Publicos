@@ -119,7 +119,7 @@ html2canvas(ficha, {
     useCORS: true
   }).then(canvas => {
     const link = document.createElement("a");
-    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
+    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
     link.href = canvas.toDataURL();
     link.click();
   });
@@ -142,7 +142,7 @@ function clicFeature(e) {
 // <div id="ficha" class="contenedor_popup" style="width: 250px; aspect-ratio: 100 / 143; background: rgb(246, 210, 211); position: relative;">
 //     <img src="Img/Popup_entorno.png" alt="" style="width: 100%; height: auto;">
 //     <div class="texto_popup" style="position: absolute; top: 58%; left: 15%;">
-//         <span class="resaltado">${propiedades.Localidad_correcion} - ${columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio}</span>
+//         <span class="resaltado">${propiedades.Localidad_correcion} - ${columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio}</span>
 //     </div>
 //     <div class="texto_popup" style="position: absolute; top: 63%; left: 15%;">
 //         <span class="resaltado">Colonia:</span> <strong>${propiedades[col]} usuarias (${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
@@ -171,7 +171,7 @@ function clicFeature(e) {
                 <span>${propiedades.Localidad_correcion} </span>
             </div>
             <div class="texto_popup_anio">
-                <span>${columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio}</span>
+                <span>${columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio}</span>
             </div>
         </div>
         <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
@@ -213,7 +213,7 @@ function clicFeature(e) {
 //                 <span>${propiedades.Localidad_correcion} </span>
 //             </div>
 //             <div class="texto_popup_anio">
-//                 <span>${columna_seleccionada().anio == "General" ? "2022-2024" : columna_seleccionada().anio}</span>
+//                 <span>${columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio}</span>
 //             </div>
 //         </div>
 //         <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
@@ -325,6 +325,7 @@ colonias_lista.forEach(colonia => {
 
 function buscar_en_mapa(nombre_colonia) {
   datos_capa.eachLayer(function(layer) {
+    console.log(layer.feature.properties.Localidad_correcion);
     if (layer.feature.properties.Localidad_correcion.toLowerCase() === nombre_colonia.toLowerCase()) {
       map.fitBounds(layer.getBounds(), { maxZoom: 15 });
       layer.fire('click');
@@ -738,7 +739,7 @@ function transformarAcumulado_general(obj) {
     obj[periodo],
     obj[`${periodo}_Edad`],
     obj[`${periodo}_Mes`],
-  ]).map(row => row.map(cell => cell === 'General' ? '2022-2024' : cell));
+  ]).map(row => row.map(cell => cell === 'General' ? '2022-2025' : cell));
 
   return { data, periodos };
 }

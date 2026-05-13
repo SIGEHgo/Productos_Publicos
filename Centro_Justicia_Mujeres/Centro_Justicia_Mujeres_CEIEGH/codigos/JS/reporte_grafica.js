@@ -72,7 +72,7 @@ function descargarReporteColonia(colonia) {
   // TARJETAS DE RESUMEN
   // ══════════════════════════════════════════════════════════════════════════
   const tarjetas = [
-    { titulo: "Usuarias en la colonia", valor: txt(casos_colonia_general), sub: "2022-2024" },
+    { titulo: "Usuarias en la colonia", valor: txt(casos_colonia_general), sub: "2022-2025" },
     { titulo: "% respecto al municipio", valor: porcentaje_colonia + "%", sub: `de ${casos_total_municipio} usuarias` },
     { titulo: "Violencia más frecuente", valor: violencia_mas_frecuente,     sub: `${violencia_mas_frecuente_valor} registros` },
     { titulo: "Modalidad más frecuente", valor: modalidad_mas_frecuente,     sub: `${modalidad_mas_frecuente_valor} registros` },
@@ -185,7 +185,7 @@ function descargarReporteColonia(colonia) {
   let distribuccion_violencia = interes.distribuccion_violencia.data
   let distribuccion_violencia_periodos = interes.distribuccion_violencia.periodos
   let encabezado_violencia = ["Tipo de violencia "].concat(distribuccion_violencia_periodos)
-  encabezado_violencia[1] = "2022-2024"
+  encabezado_violencia[1] = "2022-2025"
 
 
 
@@ -193,7 +193,7 @@ function descargarReporteColonia(colonia) {
     "2. Distribución por tipo de violencia",
     distribuccion_violencia,
     encabezado_violencia,
-    [60, 30, 30, 30, 30]
+    [50, 26, 26, 26, 26, 26]
     , y
   );
 
@@ -204,14 +204,14 @@ function descargarReporteColonia(colonia) {
   let distribuccion_modalidad = interes.distribuccion_modalidad.data
   let distribuccion_modalidad_periodos = interes.distribuccion_modalidad.periodos
   let encabezado_modalidad = ["Modalidad"].concat(distribuccion_modalidad_periodos)
-  encabezado_modalidad[1] = "2022-2024"
+  encabezado_modalidad[1] = "2022-2025"
   
 
   y = dibujarTabla(
     "3. Distribución por tipo de modalidad",
     distribuccion_modalidad,
     encabezado_modalidad,
-    [60, 30, 30, 30, 30],
+    [50, 26, 26, 26, 26, 26],
     y
   );
 
