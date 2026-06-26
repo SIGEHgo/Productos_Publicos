@@ -14,9 +14,9 @@ function construir_popup(data, vector) {
     ${data.nombre_comun ? `<div class="autor">Nombre común: ${data.nombre_comun}</div>` : ""}
   </td></tr>`;
 
-  html += data.fotografia ? `<tr><td>Fotografia:</td><td> Pendiente </td></tr>` : "";
+  html += data.fotografia ? `<tr><td>Fotografia:</td><td> © <a href="https://www.inaturalist.org/people/${data.user_id}" target="_blank">${data.fotografia}</a> </td></tr>` : "";
   html += data.fecha ? `<tr><td>Fecha</td><td> ${data.fecha} </td></tr>` : "";
-  html += data.fotografia ? `<tr><td colspan="2" style="text-align:center;font-size:11px;"> © Todos los derechos reservados </td></tr>` : "";
+  //html += data.fotografia ? `<tr><td colspan="2" style="text-align:center;font-size:11px;"> © Todos los derechos reservados </td></tr>` : "";
 
   html += `<tr><th colspan="2" class="seccion">Taxonomía</th></tr>`;
 
