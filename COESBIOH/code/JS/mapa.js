@@ -1,5 +1,10 @@
 var map = L.map('map').setView([20.47875, -98.88702], 9);
+map.createPane('heatmapPane');
+map.createPane('otrasCapas');
+map.getPane('heatmapPane').style.zIndex = 500;
+map.getPane('heatmapPane').style.pointerEvents = 'none';
 
+map.getPane('otrasCapas').style.zIndex = 400;
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
@@ -54,37 +59,58 @@ info.onAdd = function (map) {
 }
 
 info.update = function () {
-    let contenido = '';
+  let contenido = "";
+  
 
-    if (seleccion.reino && seleccion.reino !== "Todos") {
-        contenido += '<h6>Reino: <b>' + seleccion.reino + '</b></h6>';
-    }
-    if (seleccion.orden && seleccion.orden !== "Todos") {
-        contenido += '<h6>Orden: <b>' + seleccion.orden + '</b></h6>';
-    }
-    if (seleccion.familia && seleccion.familia !== "Todos") {
-        contenido += '<h6>Familia: <b>' + seleccion.familia + '</b></h6>';
-    }
-    if (seleccion.nombre && seleccion.nombre !== "Todos") {
-        contenido += '<h6>Nombre científico: <b>' + seleccion.nombre + '</b></h6>';
-    }
+  if (seleccion.riesgo_reino && seleccion.riesgo_reino !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") {
+    contenido += "<h6>Riesgo por reino: <b>" + seleccion.riesgo_reino + "</b></h6>";
+  }
+  if (seleccion.riesgo_orden && seleccion.riesgo_orden !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") {
+    contenido += "<h6>Riesgo por orden: <b>" + seleccion.riesgo_orden + "</b></h6>";
+  }
+  if (seleccion.riesgo_familia && seleccion.riesgo_familia !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") { 
+    contenido += "<h6>Riesgo por familia: <b>" + seleccion.riesgo_familia + "</b></h6>";
+  }
+  if (seleccion.riesgo_nombre && seleccion.riesgo_nombre !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") {
+    contenido += "<h6>Riesgo por nombre científico: <b>" + seleccion.riesgo_nombre + "</b></h6>";
+  }
 
-    if (!contenido) {
-        if(document.getElementById("buscador").value != ""){
-            contenido = '<h6><i>Busqueda: <b>' + document.getElementById("buscador").value + '</b></i></h6>';
-        } else {
-            contenido = '<h6><i>Todos los reinos</i></h6>';
-        }
+
+
+  
+
+  if (seleccion.reino && seleccion.reino !== "Todos") {
+    contenido += "<h6>Reino: <b>" + seleccion.reino + "</b></h6>";
+  }
+  if (seleccion.orden && seleccion.orden !== "Todos") {
+    contenido += "<h6>Orden: <b>" + seleccion.orden + "</b></h6>";
+  }
+  if (seleccion.familia && seleccion.familia !== "Todos") {
+    contenido += "<h6>Familia: <b>" + seleccion.familia + "</b></h6>";
+  }
+  if (seleccion.nombre && seleccion.nombre !== "Todos") {
+    contenido += "<h6>Nombre científico: <b>" + seleccion.nombre + "</b></h6>";
+  }
+
+  if (!contenido) {
+    if (busqueda_lista.map((x) => x.toLowerCase()).includes(document.getElementById("buscador").value.trim().toLowerCase())) {
+      contenido = "<h6><i>Busqueda: <b>" + document.getElementById("buscador").value.trim().toLowerCase() + "</b></i></h6>";
+    } else {
+      contenido = "<h6><i>Todos los reinos</i></h6>";
     }
+  }
 
-    contenido += '<h6>Observaciones en visualización: <b>' + FeaturesVisibles() + '</b></h6>';
+  contenido +=
+    "<h6>Observaciones en visualización: <b>" +
+    FeaturesVisibles((datos_filtrados = datos_filtrados)) +
+    "</b></h6>";
 
-    this._div.innerHTML = contenido;
+  this._div.innerHTML = contenido;
 };
 
 info.addTo(map);
 
-function FeaturesVisibles() {
+function FeaturesVisibles(datos_filtrados) {
     if (!datos_filtrados) return 0;
 
     const bounds = map.getBounds();
@@ -119,7 +145,7 @@ map.on('zoomend', function () {
     }
 });
 
-actualizar_mapa();
+actualizar_mapa(datos = datos);
 
 
 

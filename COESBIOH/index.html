@@ -20,7 +20,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
 
     <link rel="stylesheet" href="code/styles.css">  <!-- Mi CSS -->
-    <!-- <link rel="stylesheet" href="code/syles_media_query.css">  Media Query CSS -->
+    <link rel="stylesheet" href="code/style_switch.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">          <!-- Letra Monserrat -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>          <!-- Para leer archivos csv -->
@@ -28,80 +28,179 @@
 </head>
 <body>
     <header>
-       Reconstrucción del Sistema Estatal de Biodiversidad
-          <img src="Img/Logotipo_PLANEACION.png" style="width: 20%;">
-          <img src="Img/Logotipo_COESBIOH.png" style="width: 13%;">
+        Reconstrucción del Sistema Estatal de Biodiversidad
+        <img src="Img/Logotipo_PLANEACION.png" style="width: 20%;">
+        <img src="Img/Logotipo_COESBIOH.png" style="width: 13%;">
     </header>
 
-<main>
-    <nav class="sidebar collapsed d-flex flex-column flex-shrink-0 position-fixed">
-        <!-- Botón de colapso -->
-        <button class="toggle-btn" aria-label="Toggle sidebar" onclick="toggleSidebar()">
-            <i class="fas fa-chevron-left"></i>
-        </button>
+    <main>
+        <nav class="sidebar collapsed d-flex flex-column flex-shrink-0 position-fixed" id="sidebar">
+            <!-- Botón de colapso -->
+            <button class="toggle-btn" aria-label="Toggle sidebar" onclick="toggleSidebar()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
 
-        <!-- Links -->
-        <div class="nav flex-column">
-            <a href="#" class="sidebar-link active" data-seccion="mapa">
-                <i class="fa-regular fa-map me-3"></i>
-                <span class="hide-on-collapse">Mapa</span>
-            </a>
-            <div id="mapa-contenido" class="acordion" style="display: none;">
-                <p>Interactuar con los diversos apartados</p>
+            <!-- Links -->
+            <div class="nav flex-column">
+                <a href="#" class="sidebar-link active" data-seccion="mapa">
+                    <i class="fa-regular fa-map me-3"></i>
+                    <span class="hide-on-collapse">Avistamientos</span>
+                </a>
+
+                <div id="mapa-contenido" class="acordion" style="display: none;">
+                    <p>Seleccione un reino:</p>
+                    <select name="reino" id="selector_reino"></select>
+
+                    <p>Seleccione un orden:</p>
+                    <select id="selector_orden" list="lista_orden"></select>
+
+                    <p>Seleccione la familia:</p>
+                    <select id="selector_familia" list="lista_familia"></select>
+
+                    <p>Seleccione por nombre científico:</p>
+                    <select id="selector_nombre" list="lista_nombre"></select>
+                </div>
+
+
+                <a href="#" class="sidebar-link" data-seccion="riesgo">
+                    <i class="fa-solid fa-triangle-exclamation me-3"></i>
+                    <span class="hide-on-collapse">Especies en Riesgo</span>
+                </a>
+                <div id="riesgo-contenido" class="acordion" style="display: none;">
+
+                    <p>Seleccione un reino:</p>
+                    <select id="selector_reino_riesgo"></select>
+
+                    <p>Seleccione un orden:</p>
+                    <select id="selector_orden_riesgo"></select>
+
+                    <p>Seleccione la familia:</p>
+                    <select id="selector_familia_riesgo"></select>
+
+                    <p>Seleccione por nombre científico:</p>
+                    <select id="selector_nombre_riesgo"></select>
+
+
+                    <ul class="capas">
+                        <li class="capa_i">
+                            <div class="toggle">
+                                <input type="checkbox" id="checkbox_endemicas">
+                                <label for="checkbox_endemicas"></label>
+                            </div>
+                            <span class="capa_label">Sólo Endémicas</span>
+                        </li>
+
+
+
+                        <div class="accordion">
+                            <h2 class="accordion-titulo">
+                                <button class="accordion-button collapsed" type="button">
+                                    NOM-059
+                                </button>
+                            </h2>
+                            <div class="accordion-contenido">
+                                <!-- data-nombre = amenaza, lo anterior sirve para hacer otro identificador y asi encontrarlos mas facil -->
+                                <li class="capa_i">
+                                    <div class="toggle">
+                                        <input type="checkbox" id="checkbox_amenazada" data-nombre="Amenazada" checked>
+                                        <label for="checkbox_amenazada"></label>
+                                    </div>
+                                    <span class="capa_label">Amenazada</span>
+                                </li>
+
+                                <li class="capa_i">
+                                    <div class="toggle">
+                                        <input type="checkbox" id="checkbox_peligro"
+                                            data-nombre="En peligro de extinción" checked>
+                                        <label for="checkbox_peligro"></label>
+                                    </div>
+                                    <span class="capa_label">En peligro de extinción</span>
+                                </li>
+
+                                <li class="capa_i">
+                                    <div class="toggle">
+                                        <input type="checkbox" id="checkbox_extinta"
+                                            data-nombre="Probablemente extinta en el medio silvestre" checked>
+                                        <label for="checkbox_extinta"></label>
+                                    </div>
+                                    <span class="capa_label">Probablemente extinta en el <br> medio silvestre</span>
+                                </li>
+
+                                <li class="capa_i">
+                                    <div class="toggle">
+                                        <input type="checkbox" id="checkbox_proteccion"
+                                            data-nombre="Sujeta a protección especial" checked>
+                                        <label for="checkbox_proteccion"></label>
+                                    </div>
+                                    <span class="capa_label">Sujeta a protección especial</span>
+                                </li>
+
+                                <li class="capa_i">
+                                    <div class="toggle">
+                                        <input type="checkbox" id="checkbox_otras" data-nombre="Sin especificar"
+                                            checked>
+                                        <label for="checkbox_otras"></label>
+                                    </div>
+                                    <span class="capa_label">Sin especificar</span>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+
+
+                <a href="#" class="sidebar-link" data-seccion="capas">
+                    <i class="fa-solid fa-layer-group me-3"></i>
+                    <span class="hide-on-collapse">Capas de Información</span>
+                </a>
+                <div id="capas-contenido" class="acordion" style="display: none;">
+                    <ul id='capas_info_extra' class="capas">
+                        <!-- <li class="capa_i">
+                            <div class="toggle">
+                                <input type="checkbox" id="btn">
+                                <label for="btn"></label>
+                            </div>
+                            <span class="capa_label">Capa_i</span>
+                        </li> -->
+
+                    </ul>
+                </div>
+
+
+
+
+                <a href="#" class="sidebar-link" data-seccion="busqueda">
+                    <i class="fa-solid fa-magnifying-glass me-3"></i>
+                    <span class="hide-on-collapse">Búsqueda</span>
+                </a>
+                <div id="busqueda-contenido" class="acordion" style="display: none;">
+                    <p>Busque por nombre común.</p>
+                    <input id="buscador" list="lista" placeholder="Escriba el nombre común">
+                    <datalist id="lista"></datalist>
+                </div>
+
+                <a href="#" class="sidebar-link" id="btnInformacion" data-seccion="informacion">
+                    <i class="fa-solid fa-circle-info me-3"></i> <!-- fa-solid fa-circle-question me-3 -->
+                    <span class="hide-on-collapse">Información</span>
+                </a>
+                <div id="informacion-contenido" class="acordion" style="display: none;">
+                    <p>Información adicional sobre los datos.</p>
+                </div>
             </div>
+        </nav>
 
-            <a href="#" class="sidebar-link" data-seccion="capas">
-                <i class="fa-solid fa-layer-group me-3"></i>
-                <span class="hide-on-collapse">Capas</span>
-            </a>
 
-            <div id="capas-contenido" class="acordion" style="display: none;">
-                <p>Seleccione un reino:</p>
-                <select name="reino" id="selector_reino"></select>
 
-                <p>Seleccione un orden:</p>
-                <select id="selector_orden" id="lista_orden"></select>
-
-                <p>Seleccione la familia:</p>
-                <select id="selector_familia" list="lista_familia"></select>
-
-                <p>Seleccione por nombre científico:</p>
-                <select id="selector_nombre" list="lista_nombre"></select>
-            
-            </div>
-
-            <a href="#" class="sidebar-link" data-seccion="busqueda">
-                <i class="fa-solid fa-magnifying-glass me-3"></i>
-                <span class="hide-on-collapse">Búsqueda</span>
-            </a>
-            <div id="busqueda-contenido" class="acordion" style="display: none;">
-                <p>Busque por nombre común.</p>
-                <input id="buscador" list="lista" placeholder="Escriba el nombre común">
-                <datalist id="lista"></datalist>
-            </div>
-
-            <a href="#" class="sidebar-link" id="btnInformacion" data-seccion="informacion">
-                 <i class="fa-solid fa-circle-info me-3"></i>   <!-- fa-solid fa-circle-question me-3 -->
-                <span class="hide-on-collapse">Información</span>
-            </a>
-            <div id="informacion-contenido" class="acordion" style="display: none;">
-                <p>Información adicional sobre los datos.</p>
-            </div>
+        <div class="mapa_interfaz">
+            <div id="map"></div>
         </div>
-    </nav>
-
-
-
-    <div class="mapa_interfaz">
-        <div id="map"></div>
-    </div>
 
 
 
 
 
 
-</main>
+    </main>
     
 
 <div id="contenedor-modales"></div>
@@ -118,7 +217,9 @@
 
 <script src="code/JS/datos.js"></script>
 <script src="code/JS/diccionario.js"></script>
+<script src="code/JS/diccionario_sigeh.js"></script>
 <script src="code/JS/hidalgo.js"></script>
+<script src="code/JS/taxonomia_sigeh.js"></script>
 
 <script src="code/JS/sidebar.js"></script>
 <script src="code/JS/funciones_extras.js"></script>
@@ -126,5 +227,138 @@
 
 <script src="code/JS/popup.js"></script>
 
+
+
+<script>
+    
+                    let catalogo;
+                    const RUTA_CATALOGO = 'outputs/otras_fuentes_de_info/catalogo.csv';
+                    const capasEnMapa = {};
+
+                    Papa.parse(RUTA_CATALOGO, {
+                        download: true,
+                        header: true,
+                        complete: function(results) {
+                            console.log(results.data)
+                            catalogo = results.data;
+                            agregarCatalogo(results.data);
+                        },
+                        error: function(err) {
+                            console.error("Error al leer el CSV:", err);
+                        }
+                    });
+
+                    function agregarCatalogo(capas) {
+                        const contenedor = document.getElementById('capas_info_extra');
+                        capas.forEach(capa => {
+                            const li = document.createElement('li');
+                            li.classList.add('capa_i');
+                            li.style.cursor = 'pointer'; 
+                            const div = document.createElement('div');
+                            div.classList.add('toggle');
+                            const input = document.createElement('input');
+                            input.type = 'checkbox';
+                            input.id = `btn_${capa.nombre_capa}`;
+                        
+                            input.onchange = (e) => {
+                                e.stopPropagation(); 
+                                fetchCapa(capa, input);
+                            };
+                            const label = document.createElement('label');
+                            label.htmlFor = `btn_${capa.nombre_capa}`;
+                            div.appendChild(input);
+                            div.appendChild(label);
+                            const span = document.createElement('span');
+                            span.classList.add('capa_label');
+                            span.innerText = capa.nombre_explicito;
+                            li.onclick = (e) => {
+                                if (e.target !== input && e.target !== label) {
+                                    input.checked = !input.checked;
+                                    input.dispatchEvent(new Event('change'));
+                                }
+                            };
+                            li.appendChild(div);
+                            li.appendChild(span);
+                            contenedor.appendChild(li);
+                        });
+                    }
+                    var LeafIcon = L.Icon.extend({
+                        options: {
+                            
+                        }
+                    });
+                    var greenIcon = new LeafIcon({iconUrl: 'img/marker-icon-green.png'});
+                    var grayIcon = new LeafIcon({iconUrl: 'img/marker-icon-grey.png'});
+                    L.icon = function (options) {
+                        return new L.Icon(options);
+                    };
+                    async function fetchCapa(capa, boton) {
+                        const idCapa = capa.nombre_capa;
+                        const estilos = capa.estilos;
+                        const campoEstilo = capa.campo_fill_color;
+                        const tipoGeom = capa.tipo_geometria;
+                        
+                        if (capasEnMapa[idCapa]) {
+                            map.removeLayer(capasEnMapa[idCapa]);
+                            delete capasEnMapa[idCapa];
+                            return;
+                        }
+                        
+                        try {
+                            const response = await fetch(`outputs/otras_fuentes_de_info/${idCapa}.geojson`);
+                            if (!response.ok) throw new Error("No se encontró el archivo");
+                            const data = await response.json();
+                            console.log(tipoGeom)
+                            let nuevaCapa;
+                            if (tipoGeom === 'POINT') {
+                                nuevaCapa = L.geoJSON(data, {
+                                    pointToLayer: function (feature, latlng) {
+                                        return L.marker(latlng, { icon: idCapa=='plagas'?greenIcon : grayIcon });
+                                    },
+                                    onEachFeature: (feature, layer) => {
+                                        if (feature.properties) {
+                                            layer.bindPopup(Object.entries(feature.properties)
+                                                .map(([k, v]) => v ? `<b>${k}:</b> ${v}` : '')
+                                                .join("<br>"));
+                                        }
+                                    }
+                                });
+                            }
+                            else{
+                                nuevaCapa = L.geoJSON(data, {
+                                    pane:'otrasCapas',
+                                    onEachFeature: (feature, layer) => {
+                                        if (feature.properties && tipoGeom !== 'POINT') {
+                                            layer.bindPopup(Object.entries(feature.properties)
+                                                .map(([k, v]) => v ? `<b>${k}:</b> ${v}` : '')
+                                                .join("<br>"));
+                                        }
+                                    },
+                                    style: function(feature) {
+                                        const color_i = feature.properties[campoEstilo] 
+                                            ? JSON.parse(estilos).filter((item) => item.clases === feature.properties[campoEstilo])[0].color 
+                                            : '#3388ff';
+                                        return {
+                                            fillColor: color_i,
+                                            fillOpacity: 0.8,
+                                            color: color_i,
+                                            opacity: 1,
+                                            weight: 3
+                                        }
+                                    }
+                                });}
+
+                            nuevaCapa.addTo(map);
+//                          nuevaCapa.bringToBack();
+                            capasEnMapa[idCapa] = nuevaCapa;
+                            boton.disabled = false;
+                            boton.style.backgroundColor = "#add8e6";
+
+                        } catch (err) {
+                            console.error("Error cargando la capa:", err);
+                            boton.disabled = false;
+                        }
+                    }
+                </script>
 </body>
 </html>

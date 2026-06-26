@@ -1,4 +1,4 @@
- const mapa = document.getElementById("map");
+const mapa = document.getElementById("map");
 const graficas = document.getElementById("graficas_entorno");
 
 function toggleSidebar() {
@@ -8,6 +8,11 @@ function toggleSidebar() {
         acordion.style.display = "none";  // Oculta todos los acordeones
     });
 }
+
+
+let sidebar_seleccion = null;
+
+
 document.querySelectorAll(".sidebar-link").forEach(link => {
     link.addEventListener("click", function () {
 
@@ -28,20 +33,42 @@ document.querySelectorAll(".sidebar-link").forEach(link => {
         document.querySelectorAll(".acordion").forEach(acordion => {
             acordion.style.display = "none";  // Oculta todos los acordeones
         });
-        acordion_seleccionado.style.display = "block"; // Muestra el acordeón seleccionado
+        acordion_seleccionado.style.display = "block"; // Muestra el acordeón seleccionado        
 
-        if (seccion === "graficas") {
-            mapa.style.display = "none";
-            graficas.style.display = "block";
-        } else if (seccion === "mapa") {
-            graficas.style.display = "none";
-            mapa.style.display = "block";
-        }
-
+        sidebar_seleccion = this.dataset.seccion;
     });
 });
 
 
 
+const accordionTitles = document.querySelectorAll(".accordion-titulo");
+accordionTitles.forEach(title => {
+    title.addEventListener("click", function () {   
+        const content = this.nextElementSibling; 
+        const boton = this.querySelector(".accordion-button");
+
+        if (content.style.display === "block") {
+            content.style.display = "none"; 
+            boton.classList.add("collapsed");
+        } else {
+            content.style.display = "block"; 
+            boton.classList.remove("collapsed");
+        }
+    });
+});
+
+
+// Solo endemicas y lo de la NOM-059
+document.querySelectorAll(".capa_i").forEach(li => {
+    li.addEventListener("click", function(e) {
+        const input = this.querySelector("input[type='checkbox']");
+        const texto = this.querySelector("label");
+
+        if (e.target !== input && e.target !== texto) {
+            input.checked = !input.checked;  // Invierte el estado del checkbox
+            input.dispatchEvent(new Event("change"));
+        }
+    });
+});
 
 

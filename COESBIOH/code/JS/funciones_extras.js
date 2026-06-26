@@ -5,6 +5,12 @@ const seleccion = {
   familia: null,
   nombre:  null,
   busqueda: null, 
+  riesgo: null,
+  
+  riesgo_reino:   null,
+  riesgo_orden:   null,
+  riesgo_familia: null,
+  riesgo_nombre:  null,
 };
 
 // IDs de los selectores en el DOM
@@ -13,6 +19,13 @@ const selector_ids = {
   orden:   "selector_orden",
   familia: "selector_familia",
   nombre:  "selector_nombre",
+};
+
+const selector_ids_riesgo = {
+  reino:   "selector_reino_riesgo",
+  orden:   "selector_orden_riesgo",
+  familia: "selector_familia_riesgo",
+  nombre:  "selector_nombre_riesgo",
 };
 
 
@@ -64,6 +77,7 @@ function iniciar_filtros() {
 
 function al_cambiar_reino() {
     seleccion.busqueda = null;
+    seleccion.riesgo = null;
     document.getElementById("buscador").value = "";
 
     let valor = document.getElementById(selector_ids.reino).value;
@@ -80,11 +94,12 @@ function al_cambiar_reino() {
         llenar_selector(selector_ids.orden, ordenes, false);
     }
 
-    actualizar_mapa();
+    actualizar_mapa(datos = datos);
 }
 
 function al_cambiar_orden() {
     seleccion.busqueda = null;
+    seleccion.riesgo = null;
     document.getElementById("buscador").value = "";
 
     let valor = document.getElementById(selector_ids.orden).value;
@@ -101,11 +116,12 @@ function al_cambiar_orden() {
         llenar_selector(selector_ids.familia, familias, false);
     }
 
-    actualizar_mapa();
+    actualizar_mapa(datos = datos);
 }
 
 function al_cambiar_familia() {
     seleccion.busqueda = null;
+    seleccion.riesgo = null;
     document.getElementById("buscador").value = "";
 
     let valor = document.getElementById(selector_ids.familia).value;
@@ -126,24 +142,178 @@ function al_cambiar_familia() {
         llenar_selector(selector_ids.nombre, nombres, false);
     }
 
-    actualizar_mapa();
+    actualizar_mapa(datos = datos);
 }
 
 function al_cambiar_nombre() {
     seleccion.busqueda = null;
+    seleccion.riesgo = null;
     document.getElementById("buscador").value = "";
 
     let valor = document.getElementById(selector_ids.nombre).value;
     seleccion.nombre = valor || null;
-    actualizar_mapa();
+    actualizar_mapa(datos = datos);
 }
 
 
-function generar_datos_filtrados() {
+
+
+// Lo mismo pero para el otro apartado,  pero con algunas pequeñas modificaciones
+
+
+function iniciar_filtros_riesgo() {
+    let reinos = [...new Set(diccionario_sigeh.map(i => i.reino).filter(Boolean))].sort();
+    llenar_selector(selector_ids_riesgo.reino, reinos, false);
+    llenar_selector(selector_ids_riesgo.orden,   [], true);
+    llenar_selector(selector_ids_riesgo.familia, [], true);
+    llenar_selector(selector_ids_riesgo.nombre,  [], true);
+}
+
+function resetear_filtros_riesgo() {
+    seleccion.riesgo_reino   = null;
+    seleccion.riesgo_orden   = null;
+    seleccion.riesgo_familia = null;
+    seleccion.riesgo_nombre  = null;
+    iniciar_filtros_riesgo();
+}
+
+function al_cambiar_reino_riesgo() {
+    let valor = document.getElementById(selector_ids_riesgo.reino).value;
+    seleccion.riesgo_reino   = valor !== "Todos" ? valor : null;
+    seleccion.riesgo_orden   = null;
+    seleccion.riesgo_familia = null;
+    seleccion.riesgo_nombre  = null;
+
+    llenar_selector(selector_ids_riesgo.orden,   [], true);
+    llenar_selector(selector_ids_riesgo.familia, [], true);
+    llenar_selector(selector_ids_riesgo.nombre,  [], true);
+
+    if (valor && valor !== "Todos") {
+        let ordenes = [...new Set(
+            diccionario_sigeh
+                .filter(i => i.reino === valor)
+                .map(i => i.orden)
+                .filter(Boolean)
+        )].sort();
+        llenar_selector(selector_ids_riesgo.orden, ordenes, false);
+    }
+
+    modo_actual = null;
+    actualizar_mapa(datos = datos);
+}
+
+function al_cambiar_orden_riesgo() {
+    let valor = document.getElementById(selector_ids_riesgo.orden).value;
+    seleccion.riesgo_orden   = valor !== "Todos" ? valor : null;
+    seleccion.riesgo_familia = null;
+    seleccion.riesgo_nombre  = null;
+
+    llenar_selector(selector_ids_riesgo.familia, [], true);
+    llenar_selector(selector_ids_riesgo.nombre,  [], true);
+
+    if (valor && valor !== "Todos") {
+        let familias = [...new Set(
+            diccionario_sigeh
+                .filter(i => i.reino === seleccion.riesgo_reino && i.orden === valor)
+                .map(i => i.familia)
+                .filter(Boolean)
+        )].sort();
+        llenar_selector(selector_ids_riesgo.familia, familias, false);
+    }
+
+    modo_actual = null;
+    actualizar_mapa(datos = datos);
+}
+
+function al_cambiar_familia_riesgo() {
+    let valor = document.getElementById(selector_ids_riesgo.familia).value;
+    seleccion.riesgo_familia = valor !== "Todos" ? valor : null;
+    seleccion.riesgo_nombre  = null;
+
+    llenar_selector(selector_ids_riesgo.nombre, [], true);
+
+    if (valor && valor !== "Todos") {
+        let nombres = [...new Set(
+            diccionario_sigeh
+                .filter(i =>
+                    i.reino   === seleccion.riesgo_reino  &&
+                    i.orden   === seleccion.riesgo_orden  &&
+                    i.familia === valor
+                )
+                .map(i => i.nombre_cientifico)
+                .filter(Boolean)
+        )].sort();
+        llenar_selector(selector_ids_riesgo.nombre, nombres, false);
+    }
+
+    modo_actual = null;
+    actualizar_mapa(datos = datos);
+}
+
+function al_cambiar_nombre_riesgo() {
+    let valor = document.getElementById(selector_ids_riesgo.nombre).value;
+    seleccion.riesgo_nombre = valor !== "Todos" ? valor : null;
+    modo_actual = null;
+    actualizar_mapa(datos = datos);
+}
+
+
+
+
+function generar_datos_filtrados(datos) {
 
     if (seleccion.busqueda) {
         return datos.filter(i => i.nombre_comun === seleccion.busqueda);
     }
+
+   if (sidebar_seleccion === "riesgo") {
+    let resultado;
+
+    if (!seleccion.riesgo || seleccion.riesgo.length === 0) {
+        resultado = sigeh;
+    } else {
+        resultado = sigeh.filter(i => {
+
+            console.log(`Evaluando ${seleccion.riesgo}`);
+
+            // criterios NOM-059
+            const coincideNom059 = seleccion.riesgo.some(criterio =>
+                criterio !== "endemicas" &&
+                i.NOM_059 === criterio
+            );
+
+            if (seleccion.riesgo.includes("endemicas")) {
+
+                // Si no hay criterios NOM, solo validar endémicas
+                const hayNom059 = seleccion.riesgo.some(
+                    c => c !== "endemicas"
+                );
+
+                if (!hayNom059) {
+                    return i.endemicas == 1;
+                }
+
+                return i.endemicas == 1 && coincideNom059;
+            }
+
+            return coincideNom059;
+        });
+    }
+
+    // Filtro taxonómico adicional para Especies en Riesgo
+    resultado = resultado.filter(i => {
+        if (seleccion.riesgo_reino   && seleccion.riesgo_reino   !== "Todos" && i.reino            !== seleccion.riesgo_reino)   return false;
+        if (seleccion.riesgo_orden   && seleccion.riesgo_orden   !== "Todos" && i.orden            !== seleccion.riesgo_orden)   return false;
+        if (seleccion.riesgo_familia && seleccion.riesgo_familia !== "Todos" && i.familia          !== seleccion.riesgo_familia) return false;
+        if (seleccion.riesgo_nombre  && seleccion.riesgo_nombre  !== "Todos" && i.nombre_cientifico !== seleccion.riesgo_nombre)  return false;
+        return true;
+    });
+
+    return resultado;
+}
+
+
+
 
   let datos_filtrados = datos.filter((i) => {
     if (seleccion.reino && seleccion.reino !== "Todos" && i.reino !== seleccion.reino) return false;
@@ -189,9 +359,13 @@ function limpiar_capas() {
 function dibujar_heatmap(datos) {
     let heatData = datos.map(i => [i.latitude, i.longitude, 1]);
     if (heatData.length > 1000) {
-        capa_actual.heat = L.heatLayer(heatData, { radius: 25 }).addTo(map);
+        capa_actual.heat = L.heatLayer(heatData, { radius: 25,
+            pane: 'heatmapPane'
+         }).addTo(map);
     } else {
-        capa_actual.heat = L.heatLayer(heatData, { radius: 25, blur: 15, minOpacity: 0.4 }).addTo(map);
+        capa_actual.heat = L.heatLayer(heatData, { radius: 25, blur: 15, minOpacity: 0.4,
+            pane: 'heatmapPane'
+         }).addTo(map);
     }
     legend.addTo(map);
 }
@@ -284,6 +458,7 @@ function dibujar_marcadores(datos) {
 
 function nivel_activo() {
     if (seleccion.busqueda)                                         return "orden"; // comportamiento igual que orden: heat → cluster
+    if (seleccion.riesgo && seleccion.riesgo.length > 0)          return "orden"; 
     if (seleccion.nombre  && seleccion.nombre  !== "Todos")        return "nombre";
     if (seleccion.familia && seleccion.familia !== "Todos")        return "familia";
     if (seleccion.orden   && seleccion.orden   !== "Todos")        return "orden";
@@ -293,44 +468,13 @@ function nivel_activo() {
 
 
 
-// let datos_filtrados = null;
-
-// function actualizar_mapa() {
-//     datos_filtrados = generar_datos_filtrados();  
-//     let nivel = nivel_activo();
-//     console.log(`Nivel activo: ${nivel} | Registros: ${datos_filtrados.length}`);
-
-//     limpiar_capas();
-//     renderizar_segun_zoom(nivel);
-// }
-
-// function renderizar_segun_zoom(nivel) {
-//     if (!datos_filtrados) return;
-//     let zoom = map.getZoom();
-
-//     if (nivel === "reino") {
-//         dibujar_heatmap(datos_filtrados);
-
-//     } else if (nivel === "orden") {
-//         if (zoom < 14) {
-//             dibujar_heatmap(datos_filtrados);
-//         } else {
-//             dibujar_cluster(datos_filtrados);
-//         }
-
-//     } else {
-//         dibujar_marcadores(datos_filtrados);
-//     }
-// }
-
-
 // La idea de modo actual, lo añadio la IA por que el mapa se actualiza cada vez que se cambia el zoom, lo que hace que se vuelva a dibujar el heatmap o cluster aunque no sea necesario. Con esta variable, solo se redibuja si el modo de visualización cambia (por ejemplo, de heatmap a cluster), evitando redibujos innecesarios al hacer zoom dentro del mismo modo.
 
 let datos_filtrados = null;
 let modo_actual = null; // "heat" | "cluster" | "markers"
 
-function actualizar_mapa() {
-    datos_filtrados = generar_datos_filtrados();
+function actualizar_mapa(datos) {
+    datos_filtrados = generar_datos_filtrados(datos = datos);
     modo_actual = null; // Fuerza redibujo al cambiar selección
     let nivel = nivel_activo();
     console.log(`Nivel activo: ${nivel} | Registros: ${datos_filtrados.length}`);
@@ -395,12 +539,13 @@ document.getElementById("buscador").addEventListener("input", function () {
     seleccion.orden   = null;
     seleccion.familia = null;
     seleccion.nombre  = null;
+    seleccion.riesgo  = null;
   } else {
     seleccion.busqueda = null;
   }
 
   modo_actual = null;
-  actualizar_mapa();
+  actualizar_mapa(datos = datos);
 });
 
 /////////////
@@ -439,6 +584,51 @@ document.addEventListener("click", (e) => {
 });
 
 
+// Checkbocxes de Riesgo, para saber cuales estan activos y filtrar mapa
+
+function actualizar_riesgo() {
+
+    let activos = [];
+
+    if (document.getElementById("checkbox_endemicas").checked) {
+        activos.push("endemicas");
+    }
+    
+    document.querySelectorAll("[data-nombre]").forEach(checkbox => {
+        if (checkbox.checked) {
+            activos.push(checkbox.dataset.nombre);
+        }
+    });
+
+    if (activos.length > 0) {
+        seleccion.riesgo = activos;
+        seleccion.busqueda = null;
+        seleccion.reino    = null;
+        seleccion.orden    = null;
+        seleccion.familia  = null;
+        seleccion.nombre   = null;
+        document.getElementById("buscador").value = "";
+        iniciar_filtros();
+    } else {
+        seleccion.riesgo = null;
+    }
+
+    modo_actual = null;
+    actualizar_mapa(datos = datos);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 // Para iniciar el proceso 
 document.addEventListener("DOMContentLoaded", () => {
     iniciar_filtros();
@@ -454,5 +644,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById(selector_ids.nombre)
         .addEventListener("change", al_cambiar_nombre);
+
+
+    // Selectores de Riesgo
+    iniciar_filtros_riesgo();
+
+    document.getElementById(selector_ids_riesgo.reino)
+        .addEventListener("change", al_cambiar_reino_riesgo);
+
+    document.getElementById(selector_ids_riesgo.orden)
+        .addEventListener("change", al_cambiar_orden_riesgo);
+
+    document.getElementById(selector_ids_riesgo.familia)
+        .addEventListener("change", al_cambiar_familia_riesgo);
+
+    document.getElementById(selector_ids_riesgo.nombre)
+        .addEventListener("change", al_cambiar_nombre_riesgo);
+
+    // Actualizar cuando hacemos click en los checkboxes de riesgo
+    document.getElementById("checkbox_endemicas").addEventListener("change", actualizar_riesgo);
+    document.querySelectorAll("[data-nombre]").forEach(checkbox => {
+        checkbox.addEventListener("change", actualizar_riesgo);
+    });
+
+
+    document.querySelectorAll(".sidebar-link").forEach(link => {
+        link.addEventListener("click", function () {
+            const seccion = this.dataset.seccion;
+
+            if (seccion === "riesgo") {
+                seleccion.riesgo   = [];
+                seleccion.busqueda = null;
+                seleccion.reino    = null;
+                seleccion.orden    = null;
+                seleccion.familia  = null;
+                seleccion.nombre   = null;
+                document.getElementById("buscador").value = "";
+                iniciar_filtros();
+                modo_actual = null;
+                actualizar_riesgo()
+                actualizar_mapa(datos = datos);
+
+            } else if (seccion === "mapa") {
+                seleccion.riesgo = null;
+                modo_actual = null;
+                actualizar_mapa(datos = datos);     
+            }
+        });
+    });
+
+
+
+
 });
 
+generar_datos_filtrados(datos = datos)
