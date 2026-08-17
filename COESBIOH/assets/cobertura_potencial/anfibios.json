@@ -1,0 +1,1450 @@
+[
+  {
+    "ID": "aal022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma altamirani",
+    "nombre_comun": "ajolote de Zempoala"
+  },
+  {
+    "ID": "aam022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma amblycephalum",
+    "nombre_comun": "ajolote de cabeza chata"
+  },
+  {
+    "ID": "ade001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Anaxyrus debilis",
+    "nombre_comun": "sapo verde"
+  },
+  {
+    "ID": "adu022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma dumerilii",
+    "nombre_comun": "achoque de Pátzcuaro"
+  },
+  {
+    "ID": "agr022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma granulosum",
+    "nombre_comun": "ajolote de Toluca"
+  },
+  {
+    "ID": "aler022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma lermaense",
+    "nombre_comun": "ajolote de Lerma"
+  },
+  {
+    "ID": "ame022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma mexicanum",
+    "nombre_comun": "ajolote de Xochimilco"
+  },
+  {
+    "ID": "amex022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Anaxyrus mexicanus",
+    "nombre_comun": "sapo pie de pala"
+  },
+  {
+    "ID": "aor022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma ordinarium",
+    "nombre_comun": "achoque michoacano"
+  },
+  {
+    "ID": "ari022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma rivulare",
+    "nombre_comun": "siredón de Toluca"
+  },
+  {
+    "ID": "ave001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma velasci",
+    "nombre_comun": "ajolote del altiplano"
+  },
+  {
+    "ID": "ave001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma velasci",
+    "nombre_comun": "ajolote del altiplano"
+  },
+  {
+    "ID": "ave022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma velasci",
+    "nombre_comun": "ajolote del Altiplano"
+  },
+  {
+    "ID": "ave022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Ambystomatidae",
+    "nombre_cientifico": "Ambystoma velasci",
+    "nombre_comun": "ajolote del Altiplano"
+  },
+  {
+    "ID": "bde022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Bromeliohyla dendroscarta",
+    "nombre_comun": "rana de árbol de bromelia mayor"
+  },
+  {
+    "ID": "bde022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Bromeliohyla dendroscarta",
+    "nombre_comun": "rana de árbol de bromelia mayor"
+  },
+  {
+    "ID": "bpl001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Bolitoglossa platydactyla",
+    "nombre_comun": "salamandra lengua de hongo pies anchos"
+  },
+  {
+    "ID": "bpl001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Bolitoglossa platydactyla",
+    "nombre_comun": "salamandra lengua de hongo pies anchos"
+  },
+  {
+    "ID": "bru001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Bolitoglossa rufescens",
+    "nombre_comun": "salamandra lengua de hongo rojiza"
+  },
+  {
+    "ID": "bufo_compgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Bufo compactilis",
+    "nombre_comun": "Sapo de meseta"
+  },
+  {
+    "ID": "bufo_marigw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Bufo marinus",
+    "nombre_comun": "Sapo gigante"
+  },
+  {
+    "ID": "bufo_marmgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Bufo marmoreus",
+    "nombre_comun": "Sapo marmoleado"
+  },
+  {
+    "ID": "bufo_occigw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Bufo occidentalis",
+    "nombre_comun": "Sapo pinero"
+  },
+  {
+    "ID": "bufo_puncgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Bufo punctatus",
+    "nombre_comun": "Sapo manchas rojas"
+  },
+  {
+    "ID": "car022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton arboreus",
+    "nombre_comun": "salamandra pies planos arborícola"
+  },
+  {
+    "ID": "car022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton arboreus",
+    "nombre_comun": "salamandra pies planos arborícola"
+  },
+  {
+    "ID": "cch001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chiropterus",
+    "nombre_comun": "salamandra de pie plano"
+  },
+  {
+    "ID": "cch001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chiropterus",
+    "nombre_comun": "salamandra de pie plano"
+  },
+  {
+    "ID": "cch022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chiropterus",
+    "nombre_comun": "salamandra pie plano"
+  },
+  {
+    "ID": "cch022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chiropterus",
+    "nombre_comun": "salamandra pie plano"
+  },
+  {
+    "ID": "ccho001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chondrostega",
+    "nombre_comun": "salamandra pie plano cartilaginosa"
+  },
+  {
+    "ID": "ccho001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chondrostega",
+    "nombre_comun": "salamandra pie plano cartilaginosa"
+  },
+  {
+    "ID": "ccho022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chondrostega",
+    "nombre_comun": "salamandra pie plano cartilaginosa"
+  },
+  {
+    "ID": "ccho022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton chondrostega",
+    "nombre_comun": "salamandra pie plano cartilaginosa"
+  },
+  {
+    "ID": "cdi022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton dimidiatus",
+    "nombre_comun": "salamandra pie plano enana"
+  },
+  {
+    "ID": "cdi022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton dimidiatus",
+    "nombre_comun": "salamandra pie plano enana"
+  },
+  {
+    "ID": "chara_taengw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Charadrahyla taeniopus",
+    "nombre_comun": "Rana de árbol jarocha"
+  },
+  {
+    "ID": "cho022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Craugastoridae",
+    "nombre_cientifico": "Craugastor hobartsmithi",
+    "nombre_comun": "rana ladradora pigmea"
+  },
+  {
+    "ID": "cho022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Craugastoridae",
+    "nombre_cientifico": "Craugastor hobartsmithi",
+    "nombre_comun": "rana ladradora pigmea"
+  },
+  {
+    "ID": "cla022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton lavae",
+    "nombre_comun": "salamandra pie plano pigmea"
+  },
+  {
+    "ID": "cma022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton magnipes",
+    "nombre_comun": "salamandra pie plano patona"
+  },
+  {
+    "ID": "cmex022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Craugastoridae",
+    "nombre_cientifico": "Craugastor mexicanus",
+    "nombre_comun": "rana ladradora mexicana"
+  },
+  {
+    "ID": "cmex022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Craugastoridae",
+    "nombre_cientifico": "Craugastor mexicanus",
+    "nombre_comun": "rana ladradora mexicana"
+  },
+  {
+    "ID": "cmu001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton multidentatus",
+    "nombre_comun": "salamandra pie plano multidentada"
+  },
+  {
+    "ID": "cmu001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton multidentatus",
+    "nombre_comun": "salamandra pie plano multidentada"
+  },
+  {
+    "ID": "cmu042dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton multidentatus",
+    "nombre_comun": "salamandra pie plano multidentata"
+  },
+  {
+    "ID": "coc022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Craugastoridae",
+    "nombre_cientifico": "Craugastor occidentalis",
+    "nombre_comun": "rana ladradora costeña"
+  },
+  {
+    "ID": "cor022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton orculus",
+    "nombre_comun": "salamandra pies planos"
+  },
+  {
+    "ID": "cpr022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton priscus",
+    "nombre_comun": "salamandra pie plano primitiva"
+  },
+  {
+    "ID": "csp022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Craugastoridae",
+    "nombre_cientifico": "Craugastor spatulatus",
+    "nombre_comun": "rana espatulada"
+  },
+  {
+    "ID": "cta022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Charadrahyla taeniopus",
+    "nombre_comun": "calate jarocho"
+  },
+  {
+    "ID": "cta022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Charadrahyla taeniopus",
+    "nombre_comun": "calate jarocho"
+  },
+  {
+    "ID": "cte022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton terrestris",
+    "nombre_comun": "salamandra terrestre hidalguense"
+  },
+  {
+    "ID": "cte022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Chiropterotriton terrestris",
+    "nombre_comun": "salamandra terrestre hidalguense"
+  },
+  {
+    "ID": "doa022dpgw",
+    "reino": "Animalia",
+    "orden": "Gymnophiona",
+    "familia": "Dermophiidae",
+    "nombre_cientifico": "Dermophis oaxacae",
+    "nombre_comun": "cecilia del Pacífico"
+  },
+  {
+    "ID": "eal022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus albolabris",
+    "nombre_comun": "rana fisgona labios blancos"
+  },
+  {
+    "ID": "ean022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus angustidigitorum",
+    "nombre_comun": "rana fisgona de Pátzcuaro"
+  },
+  {
+    "ID": "ecno_miotgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Ecnomiohyla miotympanum",
+    "nombre_comun": "Rana de árbol orejas chicas"
+  },
+  {
+    "ID": "ede022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus dennisi",
+    "nombre_comun": "rana chirriadora de dennis"
+  },
+  {
+    "ID": "eleu_augugw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus augusti",
+    "nombre_comun": "Rana ladradora común"
+  },
+  {
+    "ID": "eleu_berkgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus berkenbuschi",
+    "nombre_comun": "Rana chirriadora"
+  },
+  {
+    "ID": "eleu_cystgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus cystignathoides",
+    "nombre_comun": "Rana chirriadora mexicana"
+  },
+  {
+    "ID": "eleu_decogw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus decoratus",
+    "nombre_comun": "Rana ladrona adornada"
+  },
+  {
+    "ID": "eleu_guttgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus guttilatus",
+    "nombre_comun": "Rana chirriadora punteada"
+  },
+  {
+    "ID": "eleu_hobagw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus hobartsmithi",
+    "nombre_comun": "Rana ladrona de Smith"
+  },
+  {
+    "ID": "eleu_longgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus longipes",
+    "nombre_comun": "Rana chirriadora de la Huasteca"
+  },
+  {
+    "ID": "eleu_mexigw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus mexicanus",
+    "nombre_comun": "Rana ladrona mexicana"
+  },
+  {
+    "ID": "eleu_nitigw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus nitidus",
+    "nombre_comun": "Rana fisgona deslumbrante"
+  },
+  {
+    "ID": "eleu_pygmgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus pygmaeus",
+    "nombre_comun": "Rana ladrona pigmea"
+  },
+  {
+    "ID": "eleu_rhodgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus rhodopis",
+    "nombre_comun": "Rana ladrona polimorfa"
+  },
+  {
+    "ID": "eleu_verrgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Eleutherodactylus verrucipes",
+    "nombre_comun": "Rana chirrionera orejona"
+  },
+  {
+    "ID": "elo022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus longipes",
+    "nombre_comun": "ranita chirriadora de la Huasteca"
+  },
+  {
+    "ID": "elo022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus longipes",
+    "nombre_comun": "ranita chirriadora de la Huasteca"
+  },
+  {
+    "ID": "eme022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Exerodonta melanomma",
+    "nombre_comun": "ranita de ojos negros"
+  },
+  {
+    "ID": "eme022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Exerodonta melanomma",
+    "nombre_comun": "ranita de ojos negros"
+  },
+  {
+    "ID": "emo022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus modestus",
+    "nombre_comun": "rana chirriadora dedos chatos"
+  },
+  {
+    "ID": "esm022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Exerodonta smaragdina",
+    "nombre_comun": "ranita de pastizal"
+  },
+  {
+    "ID": "eve022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus verrucipes",
+    "nombre_comun": "rana chirrionera orejona"
+  },
+  {
+    "ID": "eve022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Eleutherodactylidae",
+    "nombre_cientifico": "Eleutherodactylus verrucipes",
+    "nombre_comun": "rana chirrionera orejona"
+  },
+  {
+    "ID": "exe022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Exerodonta xera",
+    "nombre_comun": "ranita de Puebla"
+  },
+  {
+    "ID": "hex022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla eximia",
+    "nombre_comun": "rana de árbol de montaña"
+  },
+  {
+    "ID": "hex022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla eximia",
+    "nombre_comun": "rana de árbol de montaña"
+  },
+  {
+    "ID": "hpl001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla plicata",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "hpl001rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla plicata",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "hpl022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla plicata",
+    "nombre_comun": "rana de árbol plegada o surcada"
+  },
+  {
+    "ID": "hpl022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla plicata",
+    "nombre_comun": "rana de árbol plegada o surcada"
+  },
+  {
+    "ID": "hyla_arengw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla arenicolor",
+    "nombre_comun": "Ranita de cañon"
+  },
+  {
+    "ID": "hyla_eximgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla eximia",
+    "nombre_comun": "Rana de árbol de montaña"
+  },
+  {
+    "ID": "hyla_plicgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Hyla plicata",
+    "nombre_comun": "Rana de árbol plegada o surcada"
+  },
+  {
+    "ID": "icr022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius cristatus",
+    "nombre_comun": "sapo cresta grande"
+  },
+  {
+    "ID": "ima022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius macrocristatus",
+    "nombre_comun": "sapo común de cresta larga"
+  },
+  {
+    "ID": "imar022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius marmoreus",
+    "nombre_comun": "sapo jaspeado"
+  },
+  {
+    "ID": "imar022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius marmoreus",
+    "nombre_comun": "sapo jaspeado"
+  },
+  {
+    "ID": "imaz022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius mazatlanensis",
+    "nombre_comun": "sapito pinto de Mazatlán"
+  },
+  {
+    "ID": "imc022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius mccoyi",
+    "nombre_comun": "sapo chihuahuense"
+  },
+  {
+    "ID": "ioc022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius occidentalis",
+    "nombre_comun": "sapo de los pinos"
+  },
+  {
+    "ID": "ioc022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius occidentalis",
+    "nombre_comun": "sapo de los pinos"
+  },
+  {
+    "ID": "ipe022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius perplexus",
+    "nombre_comun": "sapo confuso"
+  },
+  {
+    "ID": "isp022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Bufonidae",
+    "nombre_cientifico": "Incilius spiculatus",
+    "nombre_comun": "sapo espiculado"
+  },
+  {
+    "ID": "lbe001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates berlandieri",
+    "nombre_comun": "rana leopardo"
+  },
+  {
+    "ID": "lbe001rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates berlandieri",
+    "nombre_comun": "rana leopardo"
+  },
+  {
+    "ID": "ldu022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates dunni",
+    "nombre_comun": "rana de Pátzcuaro"
+  },
+  {
+    "ID": "lepta_fraggw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Leptodactylidae",
+    "nombre_cientifico": "Leptodactylus fragilis",
+    "nombre_comun": "Rana de bigotes"
+  },
+  {
+    "ID": "ljo022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates johni",
+    "nombre_comun": "rana de la Huasteca"
+  },
+  {
+    "ID": "ljo022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates johni",
+    "nombre_comun": "rana de la Huasteca"
+  },
+  {
+    "ID": "ljo042dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates johni",
+    "nombre_comun": "rana de la huasteca"
+  },
+  {
+    "ID": "ljo042rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates johni",
+    "nombre_comun": "rana de la huasteca"
+  },
+  {
+    "ID": "lle022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates lemosespinali",
+    "nombre_comun": "rana leopardo de lemos-espinal"
+  },
+  {
+    "ID": "lme022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates megapoda",
+    "nombre_comun": "rana leopardo patas grandes"
+  },
+  {
+    "ID": "lmo001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates montezumae",
+    "nombre_comun": "rana leopardo de Moctezuma"
+  },
+  {
+    "ID": "lmo001rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates montezumae",
+    "nombre_comun": "rana leopardo de Moctezuma"
+  },
+  {
+    "ID": "lmo022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates montezumae",
+    "nombre_comun": "rana leopardo de moctezuma"
+  },
+  {
+    "ID": "lmo022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates montezumae",
+    "nombre_comun": "rana leopardo de moctezuma"
+  },
+  {
+    "ID": "lne022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates neovolcanicus",
+    "nombre_comun": "rana leopardo neovolcánica"
+  },
+  {
+    "ID": "lpu022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates pustulosus",
+    "nombre_comun": "rana de rayas blancas"
+  },
+  {
+    "ID": "lsp022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates spectabilis",
+    "nombre_comun": "rana manchada"
+  },
+  {
+    "ID": "lsp022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates spectabilis",
+    "nombre_comun": "rana manchada"
+  },
+  {
+    "ID": "ltl022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates tlaloci",
+    "nombre_comun": "rana de Tláloc"
+  },
+  {
+    "ID": "lzw022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Lithobates zweifeli",
+    "nombre_comun": "rana de zweifel"
+  },
+  {
+    "ID": "mmix022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Megastomatohyla mixomaculata",
+    "nombre_comun": "rana de árbol jaspeada"
+  },
+  {
+    "ID": "pal022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea altamontana",
+    "nombre_comun": "tlaconete morelense"
+  },
+  {
+    "ID": "par001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla arborescandens",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "par022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla arborescandens",
+    "nombre_comun": "ranita menor de bromelia"
+  },
+  {
+    "ID": "pbe001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea bellii",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pbe001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea bellii",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pbe022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea bellii",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pbe022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea bellii",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pbi001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla bistincta",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pbi022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla bistincta",
+    "nombre_comun": "rana de árbol de pliegue mexicana"
+  },
+  {
+    "ID": "pce001dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea cephalica",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pce001rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea cephalica",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pce022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla celata",
+    "nombre_comun": "ranita de Oaxaca"
+  },
+  {
+    "ID": "pcep022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea cephalica",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pcep022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea cephalica",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pch022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla charadricola",
+    "nombre_comun": "rana de árbol poblana"
+  },
+  {
+    "ID": "pch022rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla charadricola",
+    "nombre_comun": "rana de árbol poblana"
+  },
+  {
+    "ID": "pch042dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla charadricola",
+    "nombre_comun": "rana de árbol poblana"
+  },
+  {
+    "ID": "pch042rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla charadricola",
+    "nombre_comun": "rana de árbol poblana"
+  },
+  {
+    "ID": "pco022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea cochranae",
+    "nombre_comun": "tlaconete de cochran"
+  },
+  {
+    "ID": "pcr022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla crassa",
+    "nombre_comun": "rana de árbol acuática"
+  },
+  {
+    "ID": "pfi022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea firscheini",
+    "nombre_comun": "tlaconete de firschein"
+  },
+  {
+    "ID": "pga022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea gadovii",
+    "nombre_comun": "tlaconete"
+  },
+  {
+    "ID": "pgal022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea galeanae",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pgal022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea galeanae",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pju022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea juarezi",
+    "nombre_comun": "tlaconete de Sierra de Juárez"
+  },
+  {
+    "ID": "ple022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea leprosa",
+    "nombre_comun": "tlaconete dorado"
+  },
+  {
+    "ID": "ple022rpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea leprosa",
+    "nombre_comun": "tlaconete dorado"
+  },
+  {
+    "ID": "plec_arbogw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla arborescandens",
+    "nombre_comun": "Rana de árbol de bromelia menor"
+  },
+  {
+    "ID": "plec_chargw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla charadricola",
+    "nombre_comun": "Rana de árbol poblana"
+  },
+  {
+    "ID": "plec_robegw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Plectrohyla robertsorum",
+    "nombre_comun": "Rana de árbol de Robert"
+  },
+  {
+    "ID": "pli022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea lineola",
+    "nombre_comun": "Veracruz worm salamander"
+  },
+  {
+    "ID": "plo022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea longicauda",
+    "nombre_comun": "tlaconete cola larga"
+  },
+  {
+    "ID": "ply022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea lynchi",
+    "nombre_comun": "tlaconete verde"
+  },
+  {
+    "ID": "pme022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea melanomolga",
+    "nombre_comun": "tlaconete negro"
+  },
+  {
+    "ID": "pmix022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea mixteca",
+    "nombre_comun": "salamandra Mixteca"
+  },
+  {
+    "ID": "pro022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea robertsi",
+    "nombre_comun": "tlaconete de Roberts"
+  },
+  {
+    "ID": "psal022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea saltator",
+    "nombre_comun": "tlaconete saltarín de Comaltepec"
+  },
+  {
+    "ID": "psc022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea scandens",
+    "nombre_comun": {}
+  },
+  {
+    "ID": "pseuoe_cephgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea cephalica",
+    "nombre_comun": "Tlaconete regordete"
+  },
+  {
+    "ID": "psm022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea smithi",
+    "nombre_comun": "tlaconete de smith"
+  },
+  {
+    "ID": "pto022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Parvimolge townsendi",
+    "nombre_comun": "salamandra enana de la Sierra Madre Oriental"
+  },
+  {
+    "ID": "pun022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Pseudoeurycea unguidentis",
+    "nombre_comun": "tlaconete dientón"
+  },
+  {
+    "ID": "pzo022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Ptychohyla zophodes",
+    "nombre_comun": "ranita oscura de montaña"
+  },
+  {
+    "ID": "rana_berlgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Rana berlandieri",
+    "nombre_comun": "Rana del Río Grande"
+  },
+  {
+    "ID": "rana_johngw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Rana johni",
+    "nombre_comun": "Rana de Moore"
+  },
+  {
+    "ID": "rana_montgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Rana montezumae",
+    "nombre_comun": "Rana de Moctezuma"
+  },
+  {
+    "ID": "rana_specgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Ranidae",
+    "nombre_cientifico": "Rana spectabilis",
+    "nombre_comun": "Rana vistosa"
+  },
+  {
+    "ID": "rdo001dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Rhinophrynidae",
+    "nombre_cientifico": "Rhinophrynus dorsalis",
+    "nombre_comun": "sapo excavador mexicano"
+  },
+  {
+    "ID": "rdo001rpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Rhinophrynidae",
+    "nombre_cientifico": "Rhinophrynus dorsalis",
+    "nombre_comun": "sapo excavador mexicano"
+  },
+  {
+    "ID": "rhinp_dorsgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Rhinophrynidae",
+    "nombre_cientifico": "Rhinophrynus dorsalis",
+    "nombre_comun": "Sapo excavador mexicano"
+  },
+  {
+    "ID": "scina_staugw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Scinax staufferi",
+    "nombre_comun": "Rana de árbol de Stauffer"
+  },
+  {
+    "ID": "smil_baudgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Smilisca baudini",
+    "nombre_comun": "Rana de árbol mexicana"
+  },
+  {
+    "ID": "tdu022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Thorius dubitus",
+    "nombre_comun": "salamandra de Acultzingo"
+  },
+  {
+    "ID": "tgo022dpgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Tlalocohyla godmani",
+    "nombre_comun": "rana de árbol de Godman"
+  },
+  {
+    "ID": "tlal_pictgw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Tlalocohyla picta",
+    "nombre_comun": "Rana de árbol pintada"
+  },
+  {
+    "ID": "tmu022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Thorius munificus",
+    "nombre_comun": "tlaconete de Perote"
+  },
+  {
+    "ID": "tpe022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Thorius pennatulus",
+    "nombre_comun": "salamandra pigmea veracruzana"
+  },
+  {
+    "ID": "tracy_venugw",
+    "reino": "Animalia",
+    "orden": "Anura",
+    "familia": "Hylidae",
+    "nombre_cientifico": "Trachycephalus venulosus",
+    "nombre_comun": "Rana lechera"
+  },
+  {
+    "ID": "tsc022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Thorius schmidti",
+    "nombre_comun": "salamandra pigmea"
+  },
+  {
+    "ID": "tsp022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Thorius spilogaster",
+    "nombre_comun": "tlaconete del Citlaltepetl"
+  },
+  {
+    "ID": "ttr022dpgw",
+    "reino": "Animalia",
+    "orden": "Caudata",
+    "familia": "Plethodontidae",
+    "nombre_cientifico": "Thorius troglodytes",
+    "nombre_comun": "salamandra pigmea troglodita"
+  }
+]

@@ -32,6 +32,19 @@
        font-family: 'Montserrat', sans-serif !important;
    }
 
+    header a {
+        text-decoration: none;
+        display: inline-block;
+         background-color: rgb(255, 255, 255);
+    }
+
+    header a img {
+        width: 100%;
+        height: auto;
+        display: block;
+        background-color: rgb(255, 255, 255);
+    } 
+
 
    main {
        display: flex;
@@ -105,7 +118,7 @@
    }
 
    .sidebar.collapsed .hide-on-collapse {
-       opacity: 0;
+       display: none;
    }
 
 
@@ -177,6 +190,8 @@
 
 
    /* Entorno graficas */
+
+
    #graficas_entorno {
        display: none;
        height: 100%;
@@ -320,23 +335,40 @@
        aspect-ratio: 100 / 66;
    }
 
+   #ficha  {
+       font-size: 20px;
+   }
+
+   .texto_popup_municipio {
+       font-family: 'Montserrat', sans-serif;
+       font-size: 1.1em;
+       font-weight: bold;
+       color: rgb(141, 42, 60);
+   }
    .texto_popup_titulo {
-       font-family: 'Arial', sans-serif;
-       font-size: 18px;
+       font-family: 'Montserrat', sans-serif;
+       font-size: 0.8em;
        font-weight: bold;
        color: black;
    }
 
    .texto_popup_anio {
-       font-family: 'Arial', sans-serif;
-       font-size: 12px;
+       font-family: 'Montserrat', sans-serif;
+       font-size: 0.7em;
        font-weight: bold;
        color: rgb(141, 42, 60);
    }
 
    .texto_popup {
-       font-family: 'Arial', sans-serif;
-       font-size: 15px;
+       font-family: 'Montserrat', sans-serif;
+       font-size: 0.7em;
+   }
+
+   .texto_911 {
+       font-family: 'Montserrat', sans-serif;
+       font-size: 0.9em;
+       color: white;
+       font-style: italic;
    }
 
    .resaltado {
@@ -383,4 +415,85 @@
     .btn-cerrar:hover {
          background-color: rgb(179, 142, 93);
          color: white;
+    }
+
+
+    /* Sidebar */
+   .acordion {
+       margin: 2vh 0 2vh 0vw;
+       padding: 0 12px;
+   }
+
+   .acordion p {
+       font-size: 13px;
+       margin: 10px 0 3px 0;
+   }
+
+    .acordion select {
+        width: 100%;
+        font-size: 13px;
+        padding: 4px 6px;
+        border-radius: 4px;
+        border: none;
+        /*display: none;  Ocultamos el select nativo, usamos el custom */
+    }
+
+    #buscador {
+        width: 100%;
+        font-size: 13px;
+        padding: 4px 6px;
+        border-radius: 4px;
+        border: none;
+    } 
+
+
+
+    
+    .graficas {
+        position: relative;
+    }
+
+    .fullscreenBtn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 10;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border: none;
+        border-radius: 6px;
+        background-color: rgba(98, 17, 50, 0.85);
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .fullscreenBtn:hover {
+        background-color: rgb(179, 142, 93);
+    }
+
+    .graficas.grafica-expandida {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3vh 3vw;
+        box-sizing: border-box;
+    }
+
+    .graficas.grafica-expandida canvas {
+        width: 90vw !important;
+        height: 80vh !important;
+        max-width: 1400px;
     }

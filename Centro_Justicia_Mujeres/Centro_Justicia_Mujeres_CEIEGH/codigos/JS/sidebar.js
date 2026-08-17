@@ -8,6 +8,7 @@ function toggleSidebar() {
         acordion.style.display = "none";  // Oculta todos los acordeones
     });
 }
+
 document.querySelectorAll(".sidebar-link").forEach(link => {
     link.addEventListener("click", function () {
 

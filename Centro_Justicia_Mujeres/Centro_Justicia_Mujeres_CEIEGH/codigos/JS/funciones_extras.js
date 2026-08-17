@@ -2,6 +2,14 @@
 ///// Mapa /////
 ///////////////
 
+opciones = {
+  Pachuca_de_Soto: Pachuca_de_Soto,
+  Mineral_del_Monte: Mineral_del_Monte,
+}
+
+
+
+
 // Leyenda de colores y pintar el mapa
 
 function getGradientColor(startColor, endColor, percent) {
@@ -110,7 +118,7 @@ function resetHighlight(e) {
 function descargarFicha() {
 
   ficha = document.getElementById("ficha")
-  ficha.querySelector("img").src = "Img/Popup_entorno_descargar.png"
+  ficha.querySelector("img").src = "Img/Popup911_descargar.png"
 
   setTimeout(() => {
   
@@ -119,7 +127,7 @@ html2canvas(ficha, {
     useCORS: true
   }).then(canvas => {
     const link = document.createElement("a");
-    link.download =  "CJMH_" + (columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
+    link.download =  "CJMH_" + document.getElementById("selector_municipio").value.replace(/_/g, " ") + "_" + (columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio) + "_" + (columna_seleccionada().violencia == "" ? "Todas las violencias" : columna_seleccionada().violencia) + "_" + (columna_seleccionada().modalidad == "" ? "Todas las modalidades" : columna_seleccionada().modalidad) + "_" + colonia_seleccionada_popup + ".png";
     link.href = canvas.toDataURL();
     link.click();
   });
@@ -165,38 +173,49 @@ function clicFeature(e) {
 
   const popupContent = `
 <div id="ficha" class="contenedor_popup" style="background: rgb(246, 210, 211); position: relative;">
-    <img src="Img/Popup_entorno_boton_new.png" alt="" style="width: 100%; height: auto;">
-    <div style="position: absolute; top: 37%; left: 28%; right: 26%; text-align: center;">
+    <img src="Img/Popup911_boton.png" alt="" style="width: 100%; height: auto;">
+
+    <div style="position: absolute; top: 32%; left: 28%; right: 26%; text-align: center;">
+            <div class="texto_popup_municipio">
+                <span> ${document.getElementById("selector_municipio").value.replace(/_/g, " ")} </span>
+            </div>
+      </div>
+
+    <div style="position: absolute; top: 41%; left: 28%; right: 26%; text-align: center;">
             <div class="texto_popup_titulo">
                 <span>${propiedades.Localidad_correcion} </span>
             </div>
             <div class="texto_popup_anio">
                 <span>${columna_seleccionada().anio == "General" ? "2022-2025" : columna_seleccionada().anio}</span>
             </div>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 61%; left: 27%;">
-            <span class="resaltado">Número de usuarias en la colonia:</span> <strong>${propiedades[col]} </strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 65%; left: 27%;">
-            <strong>(${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal)</strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 71%; left: 27%;">
-            <span class="resaltado">Total de usuarias en el municipio:</span> <strong>${cuentas.total_anio}</strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 77%; left: 27%;">
-            <span class="resaltado">${columna_seleccionada().violencia == "" ? "Todos los tipos de violencia" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia == 0 ? `${cuentas.total_anio}` : `${cuentas.total_violencia} usuarias`}</strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 81%; left: 27%;">
-            <strong>${columna_seleccionada().violencia == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 87%; left: 27%;">
-            <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Todos los tipos de modalidad" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad == 0 ? `${cuentas.total_anio}` : `${cuentas.total_modalidad} usuarias`}</strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 91%; left: 27%;">
-             <strong>${columna_seleccionada().modalidad == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
-        </div>
-        <div class="texto_popup" style="position: absolute; top: 85%; left: 78%;">
-            <button class="boton_ficha" onclick="descargarFicha()">Descargar ficha</button>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 60%; left: 27%;">
+          <span class="resaltado">Número de usuarias en la colonia:</span> <strong>${propiedades[col].toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} </strong>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 64%; left: 27%;">
+          <strong>(${((propiedades[col] / cuentas.total_anio) * 100 || 0).toFixed(2)}% del total municipal) </strong>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 70%; left: 27%;">
+          <span class="resaltado">Total de usuarias en el municipio:</span> <strong>${cuentas.total_anio.toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</strong>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 76%; left: 27%;">
+          <span class="resaltado">${columna_seleccionada().violencia == "" ? "Todos los tipos de violencia" : columna_seleccionada().violencia}:</span> <strong>${cuentas.total_violencia == 0 ? `${cuentas.total_anio.toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : `${cuentas.total_violencia.toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} usuarias`}</strong>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 80%; left: 27%;">
+          <strong>${columna_seleccionada().violencia == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 86%; left: 27%;">
+          <span class="resaltado">${columna_seleccionada().modalidad == "" ? "Todos los tipos de modalidad" : columna_seleccionada().modalidad}:</span> <strong>${cuentas.total_modalidad == 0 ? `${cuentas.total_anio.toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : `${cuentas.total_modalidad.toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} usuarias`}</strong>
+      </div>
+      <div class="texto_popup" style="position: absolute; top: 90%; left: 27%;">
+            <strong>${columna_seleccionada().modalidad == "" ? "usuarias (total municipal)" : "(total municipal)"}</strong>
+      </div>
+      
+      <div class="texto_popup" style="position: absolute; top: 84%; left: 78%;">
+          <button class="boton_ficha" onclick="descargarFicha()">Descargar ficha</button>
+      </div>
+      <div class="texto_911" style="position: absolute; top: 79%; left: 17%;">
+             <strong>${propiedades.Violencia_contra_la_mujer_911_2025}</strong>
       </div>
 </div>
 `;
@@ -313,19 +332,12 @@ function valores_maximo_minimo_columna(columna) {
 }
 
 
-// Buscador de colonias
-let colonias_lista = datos.features.map(feature => feature.properties.Localidad_correcion).sort();
-const listaElement = document.getElementById("lista");
-colonias_lista.forEach(colonia => {
-  const option = document.createElement("option");
-  option.value = colonia;
-  listaElement.appendChild(option);
-});
+
 
 
 function buscar_en_mapa(nombre_colonia) {
   datos_capa.eachLayer(function(layer) {
-    console.log(layer.feature.properties.Localidad_correcion);
+    // console.log(layer.feature.properties.Localidad_correcion);
     if (layer.feature.properties.Localidad_correcion.toLowerCase() === nombre_colonia.toLowerCase()) {
       map.fitBounds(layer.getBounds(), { maxZoom: 15 });
       layer.fire('click');
@@ -469,7 +481,7 @@ function anio_datos_grafico() {
       .slice(0, 10);
     } else {
     columnas_nombres = columnas_geojson.filter(columna =>
-      !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion") && !columna.includes("General") && !columna.includes("_")
+      !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion") && !columna.includes("General") && !columna.includes("_") && !columna.includes("CVEGEO")
     );
 
     const acumulado = datos.features.reduce((acc, feature) => {
@@ -547,7 +559,8 @@ function anio_datos_colonia_grafico(colonia) {
     !columna.includes("Modalidad") &&
     !columna.includes("Localidad_correcion") &&
     !columna.includes("General") &&
-    !columna.includes("_")
+    !columna.includes("_") &&
+    !columna.includes("CVEGEO")
   );
 
   const feature = datos.features.find(
@@ -586,15 +599,15 @@ function datos_reporte(colonia) {
 
 
   const columnas_general = columnas_geojson.filter(columna =>
-    !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion")
+    !columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("Localidad_correcion") && !columna.includes("CVEGEO")
   );
 
   const columnas_violencia = columnas_geojson.filter(columna =>
-    columna.includes("Violencia") && !columna.includes("Modalidad")
+    columna.includes("Violencia") && !columna.includes("Modalidad") && !columna.includes("contra_la_mujer_911_2025")
   );
 
   const columnas_modalidad = columnas_geojson.filter(columna =>
-    columna.includes("Modalidad") && !columna.includes("Violencia")
+    columna.includes("Modalidad") && !columna.includes("Violencia")  && !columna.includes("contra_la_mujer_911_2025")
   );
 
   const acumulado_general = columnas_general.reduce((acc, columna) => {
@@ -712,7 +725,13 @@ document.addEventListener("click", (e) => {
 
 });
 
+document.addEventListener("click", (e) => {
 
+  if (e.target.closest("#btnTour")) {
+    e.preventDefault();
+    startDashboardTour(); 
+  }
+});
 
 
 

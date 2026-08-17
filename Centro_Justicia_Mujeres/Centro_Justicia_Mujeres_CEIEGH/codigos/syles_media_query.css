@@ -57,23 +57,41 @@
         aspect-ratio: 100 / 66;
     }
 
+    #ficha  {
+       font-size: 10px;
+   }
+
+    .texto_popup_municipio {
+       font-family: 'Montserrat', sans-serif;
+       font-size: 1.21em;
+       font-weight: bold;
+       color: rgb(141, 42, 60);
+   }
+
   .texto_popup_titulo {
        font-family: 'Arial', sans-serif;
-       font-size: 9px;
+       font-size: 0.75em;
        font-weight: bold;
        color: black;
    }
 
    .texto_popup_anio {
        font-family: 'Arial', sans-serif;
-       font-size: 7px;
+       font-size: 0.7em;
        font-weight: bold;
        color: rgb(141, 42, 60);
    }
 
    .texto_popup {
        font-family: 'Arial', sans-serif;
-       font-size: 6.5px;
+       font-size: 0.65em;
+   }
+   
+    .texto_911 {
+       font-family: 'Montserrat', sans-serif;
+       font-size: 0.835em;
+       color: white;
+       font-style: italic;
    }
 
    .resaltado {
@@ -96,6 +114,8 @@
        color: transparent;
        font-weight: bold;
    }
+
+
 
    .leaflet-popup-content-wrapper,
    .leaflet-popup-tip {

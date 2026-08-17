@@ -33,6 +33,9 @@ function llenar_selector(id, valores, disabled = false) {
     const listaElement = document.getElementById(id);
     if (!listaElement) return;
 
+    // Guardar el valor actual antes de limpiar
+    const valorAnterior = listaElement.value;
+
     listaElement.innerHTML = "";                        // limpiar opciones anteriores
 
     const option = document.createElement("option");
@@ -43,13 +46,117 @@ function llenar_selector(id, valores, disabled = false) {
     valores.forEach(v => {
         if (!v) return;
         const option = document.createElement("option");
-        option.value = v;
-        option.text  = v;
+        if (typeof v === 'object' && v !== null && v.count !== undefined) {
+            option.value = v.value;
+            option.text  = `${v.value} (${v.count})`;
+        } else {
+            option.value = v;
+            option.text  = v;
+        }
         listaElement.appendChild(option);
     });
 
     listaElement.disabled = disabled;
     listaElement.value = "Todos";
+
+    // --- Construir/actualizar el custom dropdown visual ---
+    const wrapperId = id + "_wrapper";
+    let wrapper = document.getElementById(wrapperId);
+    if (!wrapper) {
+        wrapper = document.createElement("div");
+        wrapper.id = wrapperId;
+        wrapper.className = "custom-select-wrapper";
+        listaElement.parentNode.insertBefore(wrapper, listaElement.nextSibling);
+    }
+
+    // Limpiar contenido previo del wrapper
+    wrapper.innerHTML = "";
+
+    // Trigger (la parte visible que se ve como un select)
+    const trigger = document.createElement("div");
+    trigger.className = "custom-select-trigger" + (disabled ? " disabled-trigger" : "");
+    trigger.textContent = "Todos las opciones";
+    wrapper.appendChild(trigger);
+
+    // Dropdown (el menú desplegable)
+    const dropdown = document.createElement("div");
+    dropdown.className = "custom-select-dropdown" + (disabled ? " disabled" : "");
+    wrapper.appendChild(dropdown);
+
+    // Opción "Todos"
+    const todosOption = document.createElement("div");
+    todosOption.className = "custom-select-option selected";
+    todosOption.dataset.value = "Todos";
+    todosOption.innerHTML = '<span>Todos las opciones</span>';
+    dropdown.appendChild(todosOption);
+
+    // Opciones del listado
+    valores.forEach(v => {
+        if (!v) return;
+        const optDiv = document.createElement("div");
+        optDiv.className = "custom-select-option";
+        if (typeof v === 'object' && v !== null && v.count !== undefined) {
+            optDiv.dataset.value = v.value;
+            optDiv.innerHTML = `<span>${v.value}</span><span class="count-badge">${v.count}</span>`;
+        } else {
+            optDiv.dataset.value = v;
+            optDiv.innerHTML = `<span>${v}</span>`;
+        }
+        dropdown.appendChild(optDiv);
+    });
+
+    // --- Eventos del custom dropdown ---
+
+    // Abrir/cerrar al hacer click en el trigger
+    trigger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (disabled) return;
+        const isOpen = dropdown.classList.contains("open");
+        // Cerrar todos los demás dropdowns abiertos
+        document.querySelectorAll(".custom-select-dropdown.open").forEach(d => {
+            if (d !== dropdown) d.classList.remove("open");
+        });
+        document.querySelectorAll(".custom-select-trigger.open").forEach(t => {
+            if (t !== trigger) t.classList.remove("open");
+        });
+        if (isOpen) {
+            dropdown.classList.remove("open");
+            trigger.classList.remove("open");
+        } else {
+            dropdown.classList.add("open");
+            trigger.classList.add("open");
+        }
+    });
+
+    // Seleccionar opción
+    dropdown.querySelectorAll(".custom-select-option").forEach(optDiv => {
+        optDiv.addEventListener("click", function(e) {
+            e.stopPropagation();
+            if (disabled) return;
+            const val = this.dataset.value;
+            // Actualizar el select nativo
+            listaElement.value = val;
+            // Disparar evento change en el select nativo para que los listeners existentes funcionen
+            listaElement.dispatchEvent(new Event("change"));
+            // Cerrar dropdown
+            dropdown.classList.remove("open");
+            trigger.classList.remove("open");
+            // Actualizar texto del trigger
+            const textSpan = this.querySelector("span");
+            trigger.textContent = textSpan ? textSpan.textContent : val;
+            // Marcar opción como seleccionada
+            dropdown.querySelectorAll(".custom-select-option").forEach(o => o.classList.remove("selected"));
+            this.classList.add("selected");
+        });
+    });
+
+    // Cerrar al hacer click fuera
+    document.addEventListener("click", function cerrar(e) {
+        if (!wrapper.contains(e.target)) {
+            dropdown.classList.remove("open");
+            trigger.classList.remove("open");
+        }
+    }, { once: false });
 }
 
 
@@ -69,7 +176,10 @@ function resetear_selector_desde(desde) {
 
 
 function iniciar_filtros() {
-    let reinos = [...new Set(diccionario.map(i => i.reino).filter(Boolean))].sort();
+    let reinos = [...new Set(diccionario.map(i => i.reino).filter(Boolean))].sort().map(r => ({
+        value: r,
+        count: diccionario.filter(i => i.reino === r).reduce((sum, i) => sum + (i.n || 0), 0)
+    }));
     llenar_selector(selector_ids.reino, reinos, false);
 
     resetear_selector_desde("orden");
@@ -90,11 +200,14 @@ function al_cambiar_reino() {
                 .filter(i => i.reino === valor)
                 .map(i => i.orden)
                 .filter(Boolean)
-        )].sort();
+        )].sort().map(o => ({
+            value: o,
+            count: diccionario.filter(i => i.reino === valor && i.orden === o).reduce((sum, i) => sum + (i.n || 0), 0)
+        }));
         llenar_selector(selector_ids.orden, ordenes, false);
     }
 
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 function al_cambiar_orden() {
@@ -112,11 +225,14 @@ function al_cambiar_orden() {
                 .filter(i => i.reino === seleccion.reino && i.orden === valor)
                 .map(i => i.familia)
                 .filter(Boolean)
-        )].sort();
+        )].sort().map(f => ({
+            value: f,
+            count: diccionario.filter(i => i.reino === seleccion.reino && i.orden === valor && i.familia === f).reduce((sum, i) => sum + (i.n || 0), 0)
+        }));
         llenar_selector(selector_ids.familia, familias, false);
     }
 
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 function al_cambiar_familia() {
@@ -129,20 +245,19 @@ function al_cambiar_familia() {
     resetear_selector_desde("nombre");
 
     if (valor && valor !== "Todos") {
-        let nombres = [...new Set(
-            diccionario
-                .filter(i =>
-                    i.reino  === seleccion.reino &&
-                    i.orden  === seleccion.orden &&
-                    i.familia === valor
-                )
-                .map(i => i.nombre_cientifico)
-                .filter(Boolean)
-        )].sort();
+        let nombres = diccionario
+            .filter(i =>
+                i.reino  === seleccion.reino &&
+                i.orden  === seleccion.orden &&
+                i.familia === valor &&
+                i.nombre_cientifico
+            )
+            .map(i => ({ value: i.nombre_cientifico, count: i.n || 0 }))
+            .sort((a, b) => a.value.localeCompare(b.value));
         llenar_selector(selector_ids.nombre, nombres, false);
     }
 
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 function al_cambiar_nombre() {
@@ -152,7 +267,7 @@ function al_cambiar_nombre() {
 
     let valor = document.getElementById(selector_ids.nombre).value;
     seleccion.nombre = valor || null;
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 
@@ -162,7 +277,10 @@ function al_cambiar_nombre() {
 
 
 function iniciar_filtros_riesgo() {
-    let reinos = [...new Set(diccionario_sigeh.map(i => i.reino).filter(Boolean))].sort();
+    let reinos = [...new Set(diccionario_sigeh.map(i => i.reino).filter(Boolean))].sort().map(r => ({
+        value: r,
+        count: diccionario_sigeh.filter(i => i.reino === r).reduce((sum, i) => sum + (i.n || 0), 0)
+    }));
     llenar_selector(selector_ids_riesgo.reino, reinos, false);
     llenar_selector(selector_ids_riesgo.orden,   [], true);
     llenar_selector(selector_ids_riesgo.familia, [], true);
@@ -194,12 +312,15 @@ function al_cambiar_reino_riesgo() {
                 .filter(i => i.reino === valor)
                 .map(i => i.orden)
                 .filter(Boolean)
-        )].sort();
+        )].sort().map(o => ({
+            value: o,
+            count: diccionario_sigeh.filter(i => i.reino === valor && i.orden === o).reduce((sum, i) => sum + (i.n || 0), 0)
+        }));
         llenar_selector(selector_ids_riesgo.orden, ordenes, false);
     }
 
     modo_actual = null;
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 function al_cambiar_orden_riesgo() {
@@ -217,12 +338,15 @@ function al_cambiar_orden_riesgo() {
                 .filter(i => i.reino === seleccion.riesgo_reino && i.orden === valor)
                 .map(i => i.familia)
                 .filter(Boolean)
-        )].sort();
+        )].sort().map(f => ({
+            value: f,
+            count: diccionario_sigeh.filter(i => i.reino === seleccion.riesgo_reino && i.orden === valor && i.familia === f).reduce((sum, i) => sum + (i.n || 0), 0)
+        }));
         llenar_selector(selector_ids_riesgo.familia, familias, false);
     }
 
     modo_actual = null;
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 function al_cambiar_familia_riesgo() {
@@ -233,48 +357,86 @@ function al_cambiar_familia_riesgo() {
     llenar_selector(selector_ids_riesgo.nombre, [], true);
 
     if (valor && valor !== "Todos") {
-        let nombres = [...new Set(
-            diccionario_sigeh
-                .filter(i =>
-                    i.reino   === seleccion.riesgo_reino  &&
-                    i.orden   === seleccion.riesgo_orden  &&
-                    i.familia === valor
-                )
-                .map(i => i.nombre_cientifico)
-                .filter(Boolean)
-        )].sort();
+        let nombres = diccionario_sigeh
+            .filter(i =>
+                i.reino   === seleccion.riesgo_reino  &&
+                i.orden   === seleccion.riesgo_orden  &&
+                i.familia === valor &&
+                i.nombre_cientifico
+            )
+            .map(i => ({ value: i.nombre_cientifico, count: i.n || 0 }))
+            .sort((a, b) => a.value.localeCompare(b.value));
         llenar_selector(selector_ids_riesgo.nombre, nombres, false);
     }
 
     modo_actual = null;
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 function al_cambiar_nombre_riesgo() {
     let valor = document.getElementById(selector_ids_riesgo.nombre).value;
     seleccion.riesgo_nombre = valor !== "Todos" ? valor : null;
     modo_actual = null;
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 }
 
 
-
+let busqueda_general = {
+    busqueda_general: null,
+    reino: null,
+    orden: null,
+    familia: null,
+    nombre: null,
+    reino_length: 0,
+    orden_length: 0,
+    familia_length: 0,
+    nombre_length: 0
+}
 
 function generar_datos_filtrados(datos) {
+    busqueda_general.busqueda_general = seleccion.busqueda
 
     if (seleccion.busqueda) {
-        return datos.filter(i => i.nombre_comun === seleccion.busqueda);
+        const busqueda = seleccion.busqueda
+
+        const existe = datos.find(
+            i => (i.nombre_comun ?? "").trim().toLowerCase() === busqueda.trim().toLowerCase()
+        );
+
+        if (existe) {
+            return datos.filter(
+                i => (i.nombre_comun ?? "").trim().toLowerCase() === busqueda.trim().toLowerCase()
+            );
+        }
+
+        busqueda_general.busqueda_general = "Busqueda general";
+        //console.log("Imprimiendo busqueda general: ", busqueda_general.busqueda_general, " | ", seleccion.busqueda);
+
+        let datos_fil = datos.filter(
+            i =>(i.nombre_comun ?? "").trim().toLowerCase().includes(busqueda.trim().toLowerCase())
+        );
+
+        busqueda_general.reino   = [...new Set(datos_fil.map(i => i.reino).filter(Boolean))].sort();
+        busqueda_general.orden   = [...new Set(datos_fil.map(i => i.orden).filter(Boolean))].sort();
+        busqueda_general.familia = [...new Set(datos_fil.map(i => i.familia).filter(Boolean))].sort();
+        busqueda_general.nombre  = [...new Set(datos_fil.map(i => i.nombre_cientifico).filter(Boolean))].sort();
+
+        busqueda_general.reino_length   = busqueda_general.reino.length;
+        busqueda_general.orden_length   = busqueda_general.orden.length;
+        busqueda_general.familia_length = busqueda_general.familia.length;
+        busqueda_general.nombre_length  = busqueda_general.nombre.length;
+       
+        return datos_fil;
     }
 
    if (sidebar_seleccion === "riesgo") {
     let resultado;
 
     if (!seleccion.riesgo || seleccion.riesgo.length === 0) {
-        resultado = sigeh;
+        resultado = taxonomia_sigeh;
     } else {
-        resultado = sigeh.filter(i => {
-
-            console.log(`Evaluando ${seleccion.riesgo}`);
+        console.log(`Evaluando ${seleccion.riesgo}`);
+        resultado = taxonomia_sigeh.filter(i => {
 
             // criterios NOM-059
             const coincideNom059 = seleccion.riesgo.some(criterio =>
@@ -520,33 +682,82 @@ function renderizar_segun_zoom(nivel) {
 ///  Generar busqueda ///
 /////////////////////////
 
-let busqueda_lista = [... new Set(datos.map(i => i.nombre_comun).filter(Boolean).sort())];
-const listaElement = document.getElementById("lista");
-busqueda_lista.forEach(nombre => {
-    const option = document.createElement("option");
-    option.value = nombre;
-    listaElement.appendChild(option);
-}); 
 
-document.getElementById("buscador").addEventListener("input", function () {
-  const valor = this.value.trim();
+function llenar_lista_busqueda(items) {
+    const listaElement = document.getElementById("lista");
+    if (!listaElement) return;
+
+    listaElement.innerHTML = "";
+
+    items.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.nombre_comun;
+        if (item.n) {
+            option.label = `${item.nombre_cientifico} (${item.n})`;
+        }
+        listaElement.appendChild(option);
+    });
+}
+
+function actualizar_sugerencias_busqueda(valor) {
+    let valor_lim = valor.trim().toLowerCase();
+
+    if (!valor_lim) {
+        llenar_lista_busqueda(busqueda_lista);
+        return;
+    }
+
+    let coincidencias = busqueda_lista.filter(item =>
+        (item.nombre_comun ?? "").trim().toLowerCase().includes(valor_lim)
+    );
+    llenar_lista_busqueda(coincidencias);
+}
+
+function inicializar_busqueda() {
   
-  if (busqueda_lista.includes(valor)) {
-    seleccion.busqueda = valor;
-    iniciar_filtros();  
-    
-    seleccion.reino   = null;
-    seleccion.orden   = null;
-    seleccion.familia = null;
-    seleccion.nombre  = null;
-    seleccion.riesgo  = null;
-  } else {
-    seleccion.busqueda = null;
-  }
+    if (!Array.isArray(taxonomia) || taxonomia.length === 0) return;
 
-  modo_actual = null;
-  actualizar_mapa(datos = datos);
-});
+    const listaElement = document.getElementById("lista");
+    if (!listaElement) return;
+
+    actualizar_sugerencias_busqueda("");
+    // listaElement.innerHTML = "";
+    
+    // busqueda_lista.forEach(item => {
+    //     const option = document.createElement("option");
+    //     option.value = item.nombre_comun;
+    //     if (item.n) {
+    //         option.label = `${item.nombre_cientifico} (${item.n})`;
+    //     }
+    //     listaElement.appendChild(option);
+    // });
+
+    const buscador = document.getElementById("buscador");
+    if (!buscador) return;
+
+ 
+    buscador.addEventListener("input", function () {
+        const valor = this.value;
+        actualizar_sugerencias_busqueda(valor);
+        if (busqueda_lista.some(item => item.nombre_comun.trim().toLowerCase().includes(valor.trim().toLowerCase())) && valor.length > 3) {
+            seleccion.busqueda = valor;
+            iniciar_filtros();
+
+            seleccion.reino   = null;
+            seleccion.orden   = null;
+            seleccion.familia = null;
+            seleccion.nombre  = null;
+            seleccion.riesgo  = null;
+        } else {
+            seleccion.busqueda = null;
+        }
+
+        modo_actual = null;
+        actualizar_mapa(datos = taxonomia);
+    });
+
+
+}
 
 /////////////
 /// Modal ///
@@ -614,7 +825,7 @@ function actualizar_riesgo() {
     }
 
     modo_actual = null;
-    actualizar_mapa(datos = datos);
+    actualizar_mapa(datos = taxonomia);
 
 
 
@@ -630,8 +841,15 @@ function actualizar_riesgo() {
 
 
 // Para iniciar el proceso 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    const cargados = await cargarDiccionariosAplicacion();
+    if (!cargados) {
+        console.error("No se pudieron cargar los datos JSON para inicializar la aplicación.");
+        return;
+    }
+
     iniciar_filtros();
+    inicializar_busqueda();
 
     document.getElementById(selector_ids.reino)
         .addEventListener("change", al_cambiar_reino);
@@ -682,20 +900,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("buscador").value = "";
                 iniciar_filtros();
                 modo_actual = null;
-                actualizar_riesgo()
-                actualizar_mapa(datos = datos);
+                actualizar_riesgo();
+                actualizar_mapa(datos = taxonomia);
 
             } else if (seccion === "mapa") {
                 seleccion.riesgo = null;
                 modo_actual = null;
-                actualizar_mapa(datos = datos);     
+                actualizar_mapa(datos = taxonomia);
             }
         });
     });
 
-
-
-
+    generar_datos_filtrados(datos = taxonomia);
+    actualizar_mapa(datos = taxonomia);
 });
-
-generar_datos_filtrados(datos = datos)

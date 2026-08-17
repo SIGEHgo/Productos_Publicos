@@ -45,11 +45,11 @@ function descargarReporteColonia(colonia) {
   doc.setTextColor(...blanco);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
-  doc.text("Reporte Estadístico", margen, 10);
+  doc.text("Reporte Estadístico", margen, 12);
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  doc.text("Mujeres en situación de violencia de género", margen, 16);
-  doc.text(`${colonia}`, margen, 22);
+  doc.text("Mujeres en situación de violencia de género", margen, 18);
+  doc.text(`${colonia}, ${document.getElementById("selector_municipio").value.replace(/_/g, " ")}`, margen, 24);
 
 
   const logoHeight = 10;
@@ -73,7 +73,7 @@ function descargarReporteColonia(colonia) {
   // ══════════════════════════════════════════════════════════════════════════
   const tarjetas = [
     { titulo: "Usuarias en la colonia", valor: txt(casos_colonia_general), sub: "2022-2025" },
-    { titulo: "% respecto al municipio", valor: porcentaje_colonia + "%", sub: `de ${casos_total_municipio} usuarias` },
+    { titulo: "% respecto al municipio", valor: porcentaje_colonia + "%", sub: `de ${casos_total_municipio.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} usuarias` },
     { titulo: "Violencia más frecuente", valor: violencia_mas_frecuente,     sub: `${violencia_mas_frecuente_valor} registros` },
     { titulo: "Modalidad más frecuente", valor: modalidad_mas_frecuente,     sub: `${modalidad_mas_frecuente_valor} registros` },
   ];
@@ -231,7 +231,7 @@ function descargarReporteColonia(colonia) {
   // const url = doc.output('bloburl');
   // window.open(url);
 
-  const nombreArchivo = `CJMH_Reporte_${colonia}.pdf`;
+  const nombreArchivo = `CJMH_Reporte_${colonia}_${document.getElementById("selector_municipio").value.replace(/_/g, " ")}.pdf`;
   doc.save(nombreArchivo);
 }
 

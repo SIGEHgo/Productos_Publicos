@@ -56,9 +56,11 @@ info.onAdd = function (map) {
 }
 
 info.update = function (props) {
-    this._div.innerHTML = '<h6>' +"Año: " + "<b>"+ (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio)  +"</b>"+ '</h6>' +  
+    this._div.innerHTML = '<h6>' +"Municipio: " + "<b>"+ (document.getElementById("selector_municipio").value.replace(/_/g, " "))  +"</b>"+ '</h6>' +  
+    '<h6>' +"Año: " + "<b>"+ (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio)  +"</b>"+ '</h6>' +  
     '<h6>' + "Tipo de violencia: " + "<b>" + (columna_seleccionada().violencia === "" ? "Todas" : columna_seleccionada().violencia.replace("Violencia ", ""))  + "</b></h6>" +
     '<h6>' + "Tipo de modalidad: " + "<b>" + (columna_seleccionada().modalidad === "" ? "Todas" : columna_seleccionada().modalidad.replace("Modalidad ", "")) + "</b></h6>" +
+    '<h6>' + "Usuarias: " + "<b>" + (cuentas_para_popup().total_modalidad_tipo).toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + "</b></h6>" +
     (props ?
        "Colonia: " +  '<b>' + props.Localidad_correcion + '</b><br />' 
         //"<p style='font-size: xx-small'>Clic en la localidad para más información.</p>"  + "Valor: " + props[columna_seleccionada()]
@@ -123,23 +125,53 @@ function actualizarMapa() {
   datos_capa.setStyle(pintar_por_columna);
   info.update();
 
-
   document.getElementById("periodo_texto_front").textContent = "Año: " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
-  document.getElementById("periodo_texto_back").textContent = "Municipio: " + cuentas_para_popup().total_anio + " usuarias";
+  document.getElementById("periodo_texto_back").textContent = "Municipio: " + cuentas_para_popup().total_anio.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + " usuarias";
 
   document.getElementById("violencia_texto_front").textContent = "Tipo de violencia: " + (columna_seleccionada().violencia == "" ? "Todas" : columna_seleccionada().violencia.replace("Violencia ", ""));
-  document.getElementById("violencia_texto_back").textContent = (columna_seleccionada().violencia == "" ? "Violencia Todas" : columna_seleccionada().violencia) + ": " + (cuentas_para_popup().total_violencia == 0 ? cuentas_para_popup().total_anio : cuentas_para_popup().total_violencia) + " usuarias";
+  document.getElementById("violencia_texto_back").textContent = (columna_seleccionada().violencia == "" ? "Violencia Todas" : columna_seleccionada().violencia) + ": " + (cuentas_para_popup().total_violencia == 0 ? cuentas_para_popup().total_anio.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : cuentas_para_popup().total_violencia).toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + " usuarias";
   
   document.getElementById("modalidad_texto_front").textContent = "Tipo de modalidad: " + (columna_seleccionada().modalidad == "" ? "Todas" : columna_seleccionada().modalidad.replace("Modalidad ", ""));
-  document.getElementById("modalidad_texto_back").textContent = (columna_seleccionada().modalidad == "" ? "Modalidad Todas" : columna_seleccionada().modalidad) + ": " + (cuentas_para_popup().total_modalidad == 0 ? cuentas_para_popup().total_anio : cuentas_para_popup().total_modalidad) + " usuarias";
+  document.getElementById("modalidad_texto_back").textContent = (columna_seleccionada().modalidad == "" ? "Modalidad Todas" : columna_seleccionada().modalidad) + ": " + (cuentas_para_popup().total_modalidad == 0 ? cuentas_para_popup().total_anio.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : cuentas_para_popup().total_modalidad).toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + " usuarias";
+}
+
+let colonia_buscada = "";
+
+function actualizar_municipio() {
+  datos = opciones[document.getElementById("selector_municipio").value];
+  map.removeLayer(datos_capa);
+
+  datos_capa = L.geoJSON(datos, {
+    style: pintar_por_columna,
+    onEachFeature: onEachFeature,
+  });
+  datos_capa.addTo(map);
+  
+  actualizarMapa();
+  actualizar_grafica();
+
+  const caja = datos_capa.getBounds();
+  const caja_margen = caja.pad(3.5); 
+  map.fitBounds(caja);
+  map.setMaxBounds(caja_margen);
+
+  // Buscador de colonias
+  let colonias_lista = datos.features.map((feature) => feature.properties.Localidad_correcion).sort();
+  const listaElement = document.getElementById("lista");
+  listaElement.innerHTML = ""; // Limpiar las opciones anteriores
+  colonias_lista.forEach((colonia) => {
+    const option = document.createElement("option");
+    option.value = colonia;
+    listaElement.appendChild(option);
+  });
+  colonia_buscada = "";
+  document.getElementById("buscador").value = "";
+  document.getElementById("boton_descargar_reporte").style.display = "none"; // Ocultar el botón de descarga al cambiar de municipio
 }
 
 
 
-
-
-let colonia_buscada = "";
-
+document.getElementById("selector_municipio").addEventListener("change", actualizar_municipio);
 document.getElementById("selector_anio").addEventListener("change", actualizarMapa);
 document.getElementById("selector_violencia").addEventListener("change", actualizarMapa);
 document.getElementById("selector_modalidad").addEventListener("change", actualizarMapa);
@@ -154,38 +186,38 @@ function actualizar_grafica() {
   if (interes) {
     actualizador_anio_grafica.data.datasets[0].data = anio_datos_colonia_grafico(colonia_buscada).map(d => d.v);
     actualizador_anio_grafica.data.labels = anio_datos_colonia_grafico(colonia_buscada).map(d => d.l);
-    actualizador_anio_grafica.options.plugins.title.text = "Distribución por año";
-    actualizador_anio_grafica.options.plugins.subtitle.text = " Colonia: " + colonia_buscada;
+    actualizador_anio_grafica.options.plugins.title.text = "Usuarias atendidas por año";
+    actualizador_anio_grafica.options.plugins.subtitle.text = " Colonia: " + colonia_buscada + ", " + document.getElementById("selector_municipio").value.replace(/_/g, " ") + " · " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
     actualizador_anio_grafica.update();
 
     actualizador_violencia_grafica.data.datasets[0].data = violencia_datos_colonia_grafico(colonia_buscada).map(d => d.v);
     actualizador_violencia_grafica.data.labels = violencia_datos_colonia_grafico(colonia_buscada).map(d => d.l);
-    actualizador_violencia_grafica.options.plugins.title.text = "Distribución por tipo de violencia";
-    actualizador_violencia_grafica.options.plugins.subtitle.text = " Colonia: " + colonia_buscada;
+    actualizador_violencia_grafica.options.plugins.title.text = "Tipos de violencia registrados";
+    actualizador_violencia_grafica.options.plugins.subtitle.text = " Colonia: " + colonia_buscada + ", " + document.getElementById("selector_municipio").value.replace(/_/g, " ") + " · " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
     actualizador_violencia_grafica.update();
 
     actualizador_modalidad_grafica.data.datasets[0].data = modalidad_datos_colonia_grafico(colonia_buscada).map(d => d.v);
     actualizador_modalidad_grafica.data.labels = modalidad_datos_colonia_grafico(colonia_buscada).map(d => d.l);
-    actualizador_modalidad_grafica.options.plugins.title.text = "Distribución por tipo de modalidad";
-    actualizador_modalidad_grafica.options.plugins.subtitle.text = " Colonia: " + colonia_buscada;
+    actualizador_modalidad_grafica.options.plugins.title.text = "Modalidades registradas";
+    actualizador_modalidad_grafica.options.plugins.subtitle.text = " Colonia: " + colonia_buscada + ", " + document.getElementById("selector_municipio").value.replace(/_/g, " ") +  " · " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
     actualizador_modalidad_grafica.update();
   }else {
     actualizador_anio_grafica.data.datasets[0].data = anio_datos_grafico().map(d => d.v);
     actualizador_anio_grafica.data.labels = anio_datos_grafico().map(d => d.l);
-    actualizador_anio_grafica.options.plugins.title.text = columna_seleccionada().anio == "General" ? "Distribución por año" : "Colonias con mayor número de mujeres usuarias en " + columna_seleccionada().anio;
-    actualizador_anio_grafica.options.plugins.subtitle.text = "";
+    actualizador_anio_grafica.options.plugins.title.text = columna_seleccionada().anio == "General" ? "Usuarias atendidas por año" : "Mujeres usuarias por colonia ";
+    actualizador_anio_grafica.options.plugins.subtitle.text = document.getElementById("selector_municipio").value.replace(/_/g, " ")  + " · " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
     actualizador_anio_grafica.update();
 
     actualizador_violencia_grafica.data.datasets[0].data = existe_violencia_seleccionada().map(d => d.v);
     actualizador_violencia_grafica.data.labels = existe_violencia_seleccionada().map(d => d.l);
-    actualizador_violencia_grafica.options.plugins.title.text = columna_seleccionada().violencia === "" ? "Distribución por tipo de violencia" : "Colonias con mayor número de " + columna_seleccionada().violencia;
-    actualizador_violencia_grafica.options.plugins.subtitle.text = "";
+    actualizador_violencia_grafica.options.plugins.title.text = columna_seleccionada().violencia === "" ? "Tipos de violencia registrados" : "Violencia" + columna_seleccionada().violencia.toLowerCase().replace("violencia", "") + " por colonia";
+    actualizador_violencia_grafica.options.plugins.subtitle.text = document.getElementById("selector_municipio").value.replace(/_/g, " ")  + " · " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
     actualizador_violencia_grafica.update();
 
     actualizador_modalidad_grafica.data.datasets[0].data = existe_modalidad_seleccionada().map(d => d.v);
     actualizador_modalidad_grafica.data.labels = existe_modalidad_seleccionada().map(d => d.l);
-    actualizador_modalidad_grafica.options.plugins.title.text = columna_seleccionada().modalidad === "" ? "Distribución por tipo de modalidad" : "Colonias con mayor número de " + columna_seleccionada().modalidad;
-    actualizador_modalidad_grafica.options.plugins.subtitle.text = "";
+    actualizador_modalidad_grafica.options.plugins.title.text = columna_seleccionada().modalidad === "" ? "Modalidades registradas" : "Modalidad" + columna_seleccionada().modalidad.toLowerCase().replace("modalidad", "") + " por colonia";
+    actualizador_modalidad_grafica.options.plugins.subtitle.text = document.getElementById("selector_municipio").value.replace(/_/g, " ")  + " · " + (columna_seleccionada().anio === "General" ? "2022-2025" : columna_seleccionada().anio);
     actualizador_modalidad_grafica.update();
   }
 };
@@ -193,6 +225,7 @@ function actualizar_grafica() {
 document.getElementById("selector_anio").addEventListener("change", actualizar_grafica);
 document.getElementById("selector_violencia").addEventListener("change", actualizar_grafica);
 document.getElementById("selector_modalidad").addEventListener("change", actualizar_grafica);
+
 
 document.getElementById("buscador").addEventListener("change", function() {
   colonia_buscada = this.value;
@@ -213,10 +246,6 @@ document.getElementById("buscador").addEventListener("change", function() {
 });
 
 // Limitar vista, zoom y centrado al cargar el mapa
-const caja = datos_capa.getBounds();
-const caja_margen = caja.pad(3.5); 
-map.fitBounds(caja);
-map.setMaxBounds(caja_margen);
 map.setMinZoom(11);
 
 

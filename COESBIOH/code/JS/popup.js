@@ -7,15 +7,15 @@ function construir_popup(data, vector) {
 
   html += `<tr><td colspan="2" class="imagen">
     ${
-      data.url_imagen
-        ? `<img src="${data.url_imagen}">`
+      data.url_imagen && (data.estado_imagen == 200 || data.id)//.estado_imagen 200 si es de especies en riesgo, .id si es de avistamientos
+        ? `<img id="myImg" src="${data.url_imagen}" alt="${data.nombre_cientifico}" />`
         : `<div class="sin-imagen">Imagen no disponible</div>`
     }
     ${data.nombre_comun ? `<div class="autor">Nombre común: ${data.nombre_comun}</div>` : ""}
   </td></tr>`;
 
   html += data.fotografia ? `<tr><td>Fotografia:</td><td> © <a href="https://www.inaturalist.org/people/${data.user_id}" target="_blank">${data.fotografia}</a> </td></tr>` : "";
-  html += data.fecha ? `<tr><td>Fecha</td><td> ${data.fecha} </td></tr>` : "";
+  html += data.fecha ? `<tr><td>Observado:</td><td> ${data.fecha} </td></tr>` : "";
   //html += data.fotografia ? `<tr><td colspan="2" style="text-align:center;font-size:11px;"> © Todos los derechos reservados </td></tr>` : "";
 
   html += `<tr><th colspan="2" class="seccion">Taxonomía</th></tr>`;

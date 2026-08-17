@@ -63,16 +63,16 @@ info.update = function () {
   
 
   if (seleccion.riesgo_reino && seleccion.riesgo_reino !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") {
-    contenido += "<h6>Riesgo por reino: <b>" + seleccion.riesgo_reino + "</b></h6>";
+    contenido += "<h5 style='justify-self: center;'>Especies en riesgo</h5><h6>Reino: <b>" + seleccion.riesgo_reino + "</b></h6>";
   }
   if (seleccion.riesgo_orden && seleccion.riesgo_orden !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") {
-    contenido += "<h6>Riesgo por orden: <b>" + seleccion.riesgo_orden + "</b></h6>";
+    contenido += "<h6>Orden: <b>" + seleccion.riesgo_orden + "</b></h6>";
   }
   if (seleccion.riesgo_familia && seleccion.riesgo_familia !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") { 
-    contenido += "<h6>Riesgo por familia: <b>" + seleccion.riesgo_familia + "</b></h6>";
+    contenido += "<h6>Familia: <b>" + seleccion.riesgo_familia + "</b></h6>";
   }
   if (seleccion.riesgo_nombre && seleccion.riesgo_nombre !== "Todos" && sidebar_seleccion !== "mapa" && sidebar_seleccion !== "busqueda") {
-    contenido += "<h6>Riesgo por nombre científico: <b>" + seleccion.riesgo_nombre + "</b></h6>";
+    contenido += "<h6>Nombre científico: <b>" + seleccion.riesgo_nombre + "</b></h6>";
   }
 
 
@@ -80,7 +80,7 @@ info.update = function () {
   
 
   if (seleccion.reino && seleccion.reino !== "Todos") {
-    contenido += "<h6>Reino: <b>" + seleccion.reino + "</b></h6>";
+    contenido += "<h5 style='justify-self: center;'>Avistamientos</h5><h6>Reino: <b>" + seleccion.reino + "</b></h6>";
   }
   if (seleccion.orden && seleccion.orden !== "Todos") {
     contenido += "<h6>Orden: <b>" + seleccion.orden + "</b></h6>";
@@ -93,12 +93,35 @@ info.update = function () {
   }
 
   if (!contenido) {
-    if (busqueda_lista.map((x) => x.toLowerCase()).includes(document.getElementById("buscador").value.trim().toLowerCase())) {
-      contenido = "<h6><i>Busqueda: <b>" + document.getElementById("buscador").value.trim().toLowerCase() + "</b></i></h6>";
+    if (seleccion.busqueda !== null) {
+      if (busqueda_lista.some((item) => item.nombre_comun === seleccion.busqueda)) {
+        const TaxonomiaBusqueda = busqueda_lista.find((x) => x.nombre_comun == seleccion.busqueda,);
+        //console.log(TaxonomiaBusqueda);
+        contenido = "<h5 style='justify-self: center;'>Avistamientos</h5><h6><i>Busqueda: <b>" + seleccion.busqueda + "</b></i></h6>";
+        if (TaxonomiaBusqueda)
+          contenido += `<h6>Reino: <b>${TaxonomiaBusqueda.reino}</b></h6>
+            <h6>Orden: <b>${TaxonomiaBusqueda.orden}</b></h6>
+            <h6>Familia: <b>${TaxonomiaBusqueda.familia}</b></h6>
+            <h6>Nombre científico: <b>${TaxonomiaBusqueda.nombre_cientifico}</b></h6>`;
+      } else{
+        contenido = "<h5 style='justify-self: center;'>Avistamientos</h5><h6><i>Busqueda: <b>" + seleccion.busqueda + "</b></i></h6>" +
+        "<h6>Reino: <b>" + (busqueda_general.reino_length > 3 ? busqueda_general.reino_length : busqueda_general.reino.join(', ')) + "</b></h6>" +
+        "<h6>Orden: <b>" + (busqueda_general.orden_length > 3 ? busqueda_general.orden_length : busqueda_general.orden.join(', ')) + "</b></h6>" +
+        "<h6>Familia: <b>" + (busqueda_general.familia_length > 3 ? busqueda_general.familia_length : busqueda_general.familia.join(', ')) + "</b></h6>" +
+        "<h6>Nombre científico: <b>" + (busqueda_general.nombre_length > 3 ? busqueda_general.nombre_length : busqueda_general.nombre.join(', ')) + "</b></h6>";
+      }
     } else {
-      contenido = "<h6><i>Todos los reinos</i></h6>";
-    }
+        contenido =
+          `<h5 style='justify-self: center;'>${
+            document.querySelectorAll(".sidebar-link.active")[0].dataset
+              .seccion == "riesgo"
+              ? "Especies en riesgo"
+              : "Avistamientos"
+          }</h5>` + "<h6><i>Todos los reinos</i></h6>";
+      }
   }
+
+    
 
   contenido +=
     "<h6>Observaciones en visualización: <b>" +
@@ -145,7 +168,7 @@ map.on('zoomend', function () {
     }
 });
 
-actualizar_mapa(datos = datos);
+actualizar_mapa(datos = taxonomia);
 
 
 

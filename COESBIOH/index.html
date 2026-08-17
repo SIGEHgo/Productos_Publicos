@@ -4,27 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reconstrucción del Sistema Estatal de Biodiversidad</title>
-
-    
-    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/> <!-- Leaflet -->
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />          <!-- CSS de markercluster -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />  <!-- CSS de markercluster -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-minimap/dist/Control.MiniMap.min.css" />          <!-- MiniMap -->
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">   <!--Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
-
     <link rel="stylesheet" href="code/styles.css">  <!-- Mi CSS -->
     <link rel="stylesheet" href="code/style_switch.css">
-
+    <link rel="stylesheet" href="code/style_zoom.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">          <!-- Letra Monserrat -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>          <!-- Para leer archivos csv -->
-
 </head>
 <body>
     <header>
@@ -32,7 +24,6 @@
         <img src="Img/Logotipo_PLANEACION.png" style="width: 20%;">
         <img src="Img/Logotipo_COESBIOH.png" style="width: 13%;">
     </header>
-
     <main>
         <nav class="sidebar collapsed d-flex flex-column flex-shrink-0 position-fixed" id="sidebar">
             <!-- Botón de colapso -->
@@ -165,7 +156,22 @@
 
                     </ul>
                 </div>
+                <a href="#" class="sidebar-link" data-seccion="cobertura_potencial">
+                    <i class="fa-solid fa-globe me-3"></i>
+                    <span class="hide-on-collapse">Cobertura Potencial</span>
+                </a>
+                <div id="cobertura_potencial-contenido" class="acordion" style="display: none;">
+                    <ul id='cobertura_potencial_capas' class="capas">
+                        <!-- <li class="capa_i">
+                            <div class="toggle">
+                                <input type="checkbox" id="btn">
+                                <label for="btn"></label>
+                            </div>
+                            <span class="capa_label">Capa_i</span>
+                        </li> -->
 
+                    </ul>
+                </div>
 
 
 
@@ -189,20 +195,18 @@
             </div>
         </nav>
 
-
-
         <div class="mapa_interfaz">
             <div id="map"></div>
         </div>
 
-
-
-
-
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
 
     </main>
-    
-
+     
 <div id="contenedor-modales"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -215,150 +219,18 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>  <!--Bootstrap JS -->
 
-<script src="code/JS/datos.js"></script>
-<script src="code/JS/diccionario.js"></script>
-<script src="code/JS/diccionario_sigeh.js"></script>
+<!-- <script src="code/JS/datos.js"></script> -->
+<script src="code/JS/diccionario_loader.js"></script>
+
 <script src="code/JS/hidalgo.js"></script>
-<script src="code/JS/taxonomia_sigeh.js"></script>
+<!-- <script src="code/JS/taxonomia_sigeh.js"></script> -->
 
 <script src="code/JS/sidebar.js"></script>
 <script src="code/JS/funciones_extras.js"></script>
 <script src="code/JS/mapa.js"></script>
-
 <script src="code/JS/popup.js"></script>
-
-
-
-<script>
+<script src="code/JS/image_zoom.js"></script>
     
-                    let catalogo;
-                    const RUTA_CATALOGO = 'outputs/otras_fuentes_de_info/catalogo.csv';
-                    const capasEnMapa = {};
-
-                    Papa.parse(RUTA_CATALOGO, {
-                        download: true,
-                        header: true,
-                        complete: function(results) {
-                            console.log(results.data)
-                            catalogo = results.data;
-                            agregarCatalogo(results.data);
-                        },
-                        error: function(err) {
-                            console.error("Error al leer el CSV:", err);
-                        }
-                    });
-
-                    function agregarCatalogo(capas) {
-                        const contenedor = document.getElementById('capas_info_extra');
-                        capas.forEach(capa => {
-                            const li = document.createElement('li');
-                            li.classList.add('capa_i');
-                            li.style.cursor = 'pointer'; 
-                            const div = document.createElement('div');
-                            div.classList.add('toggle');
-                            const input = document.createElement('input');
-                            input.type = 'checkbox';
-                            input.id = `btn_${capa.nombre_capa}`;
-                        
-                            input.onchange = (e) => {
-                                e.stopPropagation(); 
-                                fetchCapa(capa, input);
-                            };
-                            const label = document.createElement('label');
-                            label.htmlFor = `btn_${capa.nombre_capa}`;
-                            div.appendChild(input);
-                            div.appendChild(label);
-                            const span = document.createElement('span');
-                            span.classList.add('capa_label');
-                            span.innerText = capa.nombre_explicito;
-                            li.onclick = (e) => {
-                                if (e.target !== input && e.target !== label) {
-                                    input.checked = !input.checked;
-                                    input.dispatchEvent(new Event('change'));
-                                }
-                            };
-                            li.appendChild(div);
-                            li.appendChild(span);
-                            contenedor.appendChild(li);
-                        });
-                    }
-                    var LeafIcon = L.Icon.extend({
-                        options: {
-                            
-                        }
-                    });
-                    var greenIcon = new LeafIcon({iconUrl: 'img/marker-icon-green.png'});
-                    var grayIcon = new LeafIcon({iconUrl: 'img/marker-icon-grey.png'});
-                    L.icon = function (options) {
-                        return new L.Icon(options);
-                    };
-                    async function fetchCapa(capa, boton) {
-                        const idCapa = capa.nombre_capa;
-                        const estilos = capa.estilos;
-                        const campoEstilo = capa.campo_fill_color;
-                        const tipoGeom = capa.tipo_geometria;
-                        
-                        if (capasEnMapa[idCapa]) {
-                            map.removeLayer(capasEnMapa[idCapa]);
-                            delete capasEnMapa[idCapa];
-                            return;
-                        }
-                        
-                        try {
-                            const response = await fetch(`outputs/otras_fuentes_de_info/${idCapa}.geojson`);
-                            if (!response.ok) throw new Error("No se encontró el archivo");
-                            const data = await response.json();
-                            console.log(tipoGeom)
-                            let nuevaCapa;
-                            if (tipoGeom === 'POINT') {
-                                nuevaCapa = L.geoJSON(data, {
-                                    pointToLayer: function (feature, latlng) {
-                                        return L.marker(latlng, { icon: idCapa=='plagas'?greenIcon : grayIcon });
-                                    },
-                                    onEachFeature: (feature, layer) => {
-                                        if (feature.properties) {
-                                            layer.bindPopup(Object.entries(feature.properties)
-                                                .map(([k, v]) => v ? `<b>${k}:</b> ${v}` : '')
-                                                .join("<br>"));
-                                        }
-                                    }
-                                });
-                            }
-                            else{
-                                nuevaCapa = L.geoJSON(data, {
-                                    pane:'otrasCapas',
-                                    onEachFeature: (feature, layer) => {
-                                        if (feature.properties && tipoGeom !== 'POINT') {
-                                            layer.bindPopup(Object.entries(feature.properties)
-                                                .map(([k, v]) => v ? `<b>${k}:</b> ${v}` : '')
-                                                .join("<br>"));
-                                        }
-                                    },
-                                    style: function(feature) {
-                                        const color_i = feature.properties[campoEstilo] 
-                                            ? JSON.parse(estilos).filter((item) => item.clases === feature.properties[campoEstilo])[0].color 
-                                            : '#3388ff';
-                                        return {
-                                            fillColor: color_i,
-                                            fillOpacity: 0.8,
-                                            color: color_i,
-                                            opacity: 1,
-                                            weight: 3
-                                        }
-                                    }
-                                });}
-
-                            nuevaCapa.addTo(map);
-//                          nuevaCapa.bringToBack();
-                            capasEnMapa[idCapa] = nuevaCapa;
-                            boton.disabled = false;
-                            boton.style.backgroundColor = "#add8e6";
-
-                        } catch (err) {
-                            console.error("Error cargando la capa:", err);
-                            boton.disabled = false;
-                        }
-                    }
-                </script>
+</script>          
 </body>
 </html>

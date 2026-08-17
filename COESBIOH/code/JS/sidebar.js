@@ -58,8 +58,8 @@ accordionTitles.forEach(title => {
 });
 
 
-// Solo endemicas y lo de la NOM-059
-document.querySelectorAll(".capa_i").forEach(li => {
+// Solo endemicas y lo de la NOM-059 (only inside #riesgo-contenido)
+document.querySelectorAll("#riesgo-contenido .capa_i").forEach(li => {
     li.addEventListener("click", function(e) {
         const input = this.querySelector("input[type='checkbox']");
         const texto = this.querySelector("label");

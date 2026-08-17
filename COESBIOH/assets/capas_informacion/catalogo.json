@@ -1,0 +1,158 @@
+[
+  {
+    "nombre_capa": "plagas",
+    "nombre_explicito": "Plagas",
+    "descripcion": "Identificación de plagas en especies arbóreas",
+    "tipo_geometria": "POINT",
+    "estilos": null,
+    "campo_fill_color": null
+  },
+  {
+    "nombre_capa": "suelos_contaminados",
+    "nombre_explicito": "Suelos contaminados",
+    "descripcion": "Georreferenciación de parámetros químicos contaminantes y su concentración",
+    "tipo_geometria": "POINT",
+    "estilos": null,
+    "campo_fill_color": null
+  },
+  {
+    "nombre_capa": "regiones_hidrolog",
+    "nombre_explicito": "Regiones hidrológicas",
+    "descripcion": "En México se ubican 37 regiones hidrológicas definidas a partir de grandes parteaguas del país. En cada una de estas regiones hidrológicas está contenida, al menos una cuenca, y a su vez, no existe cuenca alguna que esté en más de una región hidrológica",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Confluencia de las Huastecas", "color": "#9AB17A" },
+      { "clases": "Río Tecolutla", "color": "#81A6C6" },
+      { "clases": "Humedales de Jilotepec-Ixtlahuaca", "color": "#AACDDC" },
+      { "clases": "Llanos de Apan", "color": "#F3E3D0" },
+      { "clases": "Remanentes del complejo lacustre de la Cuenca de México", "color": "#D2C4B4" }
+    ],
+    "campo_fill_color": "Nombre"
+  },
+  {
+    "nombre_capa": "regiones_terrest",
+    "nombre_explicito": "Regiones terrestres prioritarias",
+    "descripcion": "La identificación de las regiones terrestres prioritarias (RTP) se llevó a cabo por medio de dos talleres multidisciplinarios con la participación de 65 expertos, pertenecientes a 37 instituciones, realizados entre 1996 y 1999, en los que se delimitaron 152 polígonos en función de diversos criterios biológicos, de amenaza para el mantenimiento de la biodiversidad, que representaban una oportunidad para la conservación, y de su correspondencia espacial con rasgos topográficos, cuencas hidrológicas, áreas naturales protegidas, tipos de sustrato y de vegetación en un sistema de información geográfica",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Sierra Gorda-río Moctezuma", "color": "#F3E3D0" },
+      { "clases": "Bosques Mesófilos de la Sierra Madre Oriental", "color": "#9AB17A" }
+    ],
+    "campo_fill_color": "Nombre"
+  },
+  {
+    "nombre_capa": "sitios_de_conserv",
+    "nombre_explicito": "Sitios de conservación",
+    "descripcion": "",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Bosque", "color": "#B6CEB4" },
+      { "clases": "Selva", "color": "#96A78D" },
+      { "clases": "Cuerpo de agua", "color": "#AACDDC" },
+      { "clases": "Matorral", "color": "#FBE8CE" }
+    ],
+    "campo_fill_color": "Tipo"
+  },
+  {
+    "nombre_capa": "sitios_de_proteccion",
+    "nombre_explicito": "Sitios de protección",
+    "descripcion": "",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Altiplanicie Pulquera", "color": "#FF9A86" },
+      { "clases": "Comarca Minera", "color": "#FFB399" },
+      { "clases": "Cuenca de Mexico", "color": "#FFD6A6" },
+      { "clases": "Huasteca", "color": "#FFF0BE" },
+      { "clases": "Sierra Alta", "color": "#BBDCE5" },
+      { "clases": "Sierra Baja", "color": "#ECEEDF" },
+      { "clases": "Sierra de Tenango", "color": "#D9C4B0" },
+      { "clases": "Sierra Gorda", "color": "#CFAB8D" },
+      { "clases": "Valle de Tulancingo", "color": "#96A78D" },
+      { "clases": "Valle del Mezquital", "color": "#B6CEB4" }
+    ],
+    "campo_fill_color": "region_natural"
+  },
+  {
+    "nombre_capa": "sitios_de_restauracion",
+    "nombre_explicito": "Sitios prioritarios de restauración",
+    "descripcion": "Los SPR representan áreas de alto valor biológico que requieren acciones de restauración para asegurar en el largo plazo la persistencia de la biodiversidad que albergan, así como las funciones ecológicas que los mantienen y los bienes y servicios ecosistémicos que proveen, además de contribuir a incrementar la conectividad ecológica y la recuperación de hábitats de las especies más vulnerables ante diversos factores del cambio global (Tobón et al. 2016, 2017)",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Altiplanicie Pulquera", "color": "#FF9A86" },
+      { "clases": "Comarca Minera", "color": "#FFB399" },
+      { "clases": "Cuenca de Mexico", "color": "#FFD6A6" },
+      { "clases": "Huasteca", "color": "#FFF0BE" },
+      { "clases": "Sierra Alta", "color": "#BBDCE5" },
+      { "clases": "Sierra Baja", "color": "#ECEEDF" },
+      { "clases": "Sierra de Tenango", "color": "#D9C4B0" },
+      { "clases": "Sierra Gorda", "color": "#CFAB8D" },
+      { "clases": "Valle de Tulancingo", "color": "#96A78D" },
+      { "clases": "Valle del Mezquital", "color": "#B6CEB4" }
+    ],
+    "campo_fill_color": "region_natural"
+  },
+  {
+    "nombre_capa": "umas",
+    "nombre_explicito": "Unidades de Manejo Ambiental (UMA)",
+    "descripcion": "Las Unidades de Manejo para la Conservación de la Vida Silvestre (UMAs) son espacios de promoción de esquemas alternativos de producción compatibles con la conservación de la vida silvestre",
+    "tipo_geometria": "POLYGON",
+    "estilos": [
+      { "clases": "(0,65]", "color": "#F2EAE0" },
+      { "clases": "(65,123]", "color": "#FFF1D3" },
+      { "clases": "(123,376]", "color": "#FFB090" },
+      { "clases": "(376,1.48e+03]", "color": "#CA5995" },
+      { "clases": "(1.48e+03,4.4e+03]", "color": "#5D1C6A" }
+    ],
+    "campo_fill_color": "hectareas_quantil"
+  },
+  {
+    "nombre_capa": "ecorregiones",
+    "nombre_explicito": "Ecorregiones",
+    "descripcion": "Las ecorregiones son un esfuerzo mundial para tratar de regionalizar amplias extensiones de territorio, considerando que incluso en condiciones climatológicas, geológicas y edafológicas similares, las regiones que\nhan estado separadas por su historia geológica suficiente tiempo tienen floras y faunas distintas (Challenger\ny Soberon, 2008)",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Veracruz moist forests", "color": "#F075AE" },
+      { "clases": "Trans-Mexican Volcanic Belt pine-oak forests", "color": "#F7DB91" },
+      { "clases": "Veracruz montane forests", "color": "#FFFDCE" },
+      { "clases": "Central Mexican matorral", "color": "#9BC264" },
+      { "clases": "Sierra Madre Oriental pine-oak forests", "color": "#FF8C00" },
+      { "clases": "Meseta Central matorral", "color": "#FF5F00" }
+    ],
+    "campo_fill_color": "Nombre"
+  },
+  {
+    "nombre_capa": "rios",
+    "nombre_explicito": "Ríos",
+    "descripcion": "De acuerdo con datos de la Comisión Nacional del Agua (Conagua) México cuenta con una red hidrográfica de 633 mil kilómetros de longitud, donde destacan 51 ríos por los que fluye el 87% del escurrimiento superficial y cuyas cuencas cubren el 65% de la superficie nacional",
+    "tipo_geometria": "LINESTRING",
+    "estilos": [
+      { "clases": "INTERMITENTE", "color": "#A1E3F9" },
+      { "clases": "PERENNE", "color": "#3674B5" }
+    ],
+    "campo_fill_color": "condicion"
+  },
+  {
+    "nombre_capa": "sitios_ramsar",
+    "nombre_explicito": "Sitios Ramsar",
+    "descripcion": "Un sitio Ramsar es un humedal designado como de importancia internacional según la Convención de Ramsar, un tratado ambiental establecido en 1971. Este tratado tiene como objetivo promover la conservación y el uso sostenible de los humedales, ecosistemas vitales caracterizados por la presencia de agua",
+    "tipo_geometria": "POLYGON",
+    "estilos": [
+      { "clases": "Laguna Tecocomulco", "color": "#3674B5" },
+      { "clases": "El Tejocotal", "color": "#A1E3F9" },
+      { "clases": "Laguna de Meztitlán", "color": "#BBDCE5" }
+    ],
+    "campo_fill_color": "Cobertura"
+  },
+  {
+    "nombre_capa": "ANP",
+    "nombre_explicito": "Áreas Naturales Protegidas (ANP)",
+    "descripcion": "Son zonas del territorio nacional y aquellas sobre las que la Nación ejerce soberanía y jurisdicción, en las que los ambientes originales no han sido significativamente alterados por la actividad del ser humano, o que sus ecosistemas y funciones integrales requieren ser preservadas y restauradas",
+    "tipo_geometria": "MULTIPOLYGON",
+    "estilos": [
+      { "clases": "Estatal", "color": "#621132" },
+      { "clases": "Federal", "color": "#96A78D" },
+      { "clases": "Municipal", "color": "#F3E3D0" }
+    ],
+    "campo_fill_color": "Jurisdiccion"
+  }
+]
