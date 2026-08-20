@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Incidentes 911</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" /> <!-- Leaflet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> <!--Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script> <!-- Para leer excel -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="codigos/styles.css"> <!-- Mis estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">          <!-- Letra Monserrat -->
+    <link rel="stylesheet" href="codigos/intro.css" />
+
+</head>
+
+<body>
+    <header>
+        <div class="titulo_analisis">
+            Análisis de Incidentes 911
+        </div>
+
+        <button class="toggle-btn" aria-label="Toggle sidebar" onclick="toggleSidebar()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <main>
+        <nav class="sidebar d-flex flex-column flex-shrink-0 position-fixed">
+    Municipio:
+    <input type="text" id="selector_municipio" list="Mpios" placeholder="" style="width: 18vw;"
+        onchange="Rellenar_Colonia(this.value)">
+    <datalist id="Mpios" style="width: 18vw;"></datalist>
+
+    <div id="filtro-colonia">
+        Colonia:
+        <input type="text" id="selector_colonia" list="Cols" placeholder="" style="width: 18vw;"
+            onchange="Rellenar_Clasificacion(estado.municipio,this.value)">
+        <datalist id="Cols" style="width: 18vw;"></datalist>
+    </div>
+
+    Clasificación:
+    <input type="text" id="selector_clasificacion" list="Clas" placeholder="" style="width: 18vw;"
+        onchange="Rellenar_Incidente(estado.municipio, estado.colonia, this.value)">
+    <datalist id="Clas" style="width: 18vw;"></datalist>
+
+    <div id="filtro-incidente">
+        Incidente:
+        <input type="text" id="selector_incidente" list="Inds" placeholder="" style="width: 18vw;"
+            onchange="estado.incidente=this.value; notificarCambio()">
+        <datalist id="Inds" style="width: 18vw;"></datalist>
+    </div>
+
+    <button id="tour-btn" class="tour-btn" type="button" onclick="startDashboardTour()">Explicación 
+        <img src="assets/patch-question.svg" fill="white" alt="Bootstrap" width="32" height="32">
+    </button>
+</nav>
+
+
+        <!--MAPA-->
+        <div class="mapa_interfaz">
+            <div id="graficas-superiores">
+                <div class="chart-container">
+                    <div id="map"></div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="heatmap"></canvas>
+                </div>
+            </div>
+            <div id="graficas-inferiores">
+                <div class="chart-container">
+                    <canvas id="miTreemap"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="miBarras"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="codigos/JS/state.js"></script>
+    <script src="codigos/JS/funciones_extras.js"></script>
+    <script src="codigos/JS/Cargar_Resumen.js"></script>
+    <script src="codigos/JS/Cargar_Municipal.js"></script>
+    <script src="codigos/JS/charts/mapaChart.js"></script>
+    <script src="codigos/JS/charts/treemapChart.js"></script>
+    <script src="codigos/JS/charts/serieTemporalChart.js"></script>
+    <script src="codigos/JS/charts/heatmapChart.js"></script>
+    <script src="codigos/JS/logica.js"></script>
+    <script>
+        function startDashboardTour() {
+            const tour = introJs();
+            tour.setOptions({
+                steps: [
+                    {
+                        element: document.querySelector('#selector_municipio'),
+                        intro: 'Fuente: Registros de llamadas a emergencias durante 2025 en el estado de Hidalgo, obtenidos a través de la Secretaría de Seguridad Pública.<br><br>Puedes seleccionar por Municipio, Colonia y Tipo de delito.<br>La forma en que aparecen los datos corresponde a la jerarquía de incidencia de delitos.',
+                        position: 'right',
+                        tooltipClass: 'custom-tooltip',
+                        highlightClass: 'custom-highlight'
+                    },
+                    {
+                        element: document.querySelector('#map'),
+                        intro: 'Las colonias se muestran con círculos de radio proporcional al número de llamadas.',
+                        position: 'left'
+                    },
+                    {
+                        element: document.querySelector('#miTreemap'),
+                        intro: 'Para cada colonia, estos son sus principales llamadas por delitos.<br><br>Puedes pasar el cursor sobre cada recuadro para ver la información detallada.',
+                        position: 'left'
+                    },
+                    {
+                        element: document.querySelector('#miBarras'),
+                        intro: 'A lo largo del año, estas han sido las frecuencias de las llamadas por mes.',
+                        position: 'left'
+                    },
+                    {
+                        element: document.querySelector('#heatmap'),
+                        intro: 'En una semana promedio, estas son las frecuencias de las llamadas por hora y día de la semana.',
+                        position: 'top'
+                    }
+                ],
+                showBullets: true,
+                showProgress: true,
+                showStepNumbers: true,
+                exitOnEsc: true,
+                exitOnOverlayClick: true,
+                nextLabel: 'Siguiente',
+                prevLabel: 'Anterior',
+                skipLabel: '×',
+                doneLabel: 'Entendido'
+            });
+            tour.start();
+        }
+    </script>
+            <script src="codigos/JS/intro.js"></script>
+
+</body>
+</html>
