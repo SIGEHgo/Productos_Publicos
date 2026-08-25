@@ -5,6 +5,7 @@
 opciones = {
   Pachuca_de_Soto: Pachuca_de_Soto,
   Mineral_del_Monte: Mineral_del_Monte,
+  Epazoyucan: Epazoyucan,
 }
 
 
