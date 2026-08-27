@@ -38,14 +38,24 @@
 @media (max-width: 767px) {
 
     header {
-        font-size: clamp(0.8rem, 3.2vw, 1.1rem) !important;
-        padding: 0 2vw;
+        justify-content: center;
+        padding: 0 3vw;
     }
 
-    header a img {
-        width: 0% !important;
+    #link_logo_planeacion,
+    #link_logo_cjmh {
         display: none;
     }
+
+    .header-title {
+        flex: 1 1 100%;
+        width: 100%;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: break-word;
+        line-height: 1.2;
+    }
+
 
     .sidebar {
         width: 80vw !important;
@@ -71,7 +81,7 @@
 
     .toggle-btn {
         position: fixed;
-        bottom: 7vh;
+        bottom: 4vh;
         left: 2vw;
         z-index: 9999;
         background-color: rgba(98, 17, 50, 0.8);
@@ -108,13 +118,20 @@
         padding: 6px 8px;
     }
 
+    #graficas_entorno{
+        height: 90vh;
+        margin: 0;
+        padding: 0;
+    }
+
 
     /* ---------- Entorno de gráficas ---------- */
     #graficas_entorno_superior {
         flex-direction: column;
-        height: auto;
+        height: 15vh;
         gap: 1vh;
-        padding: 1vh 0;
+        padding: 0;
+        margin: 0;
     }
 
     .flip-container {
@@ -131,14 +148,34 @@
        scroll vertical en el contenedor, en vez de repartir
        porcentajes de un 90vh (que las dejaba muy chicas) */
     #graficas_entorno_inferior {
-        height: 70vh;
+        height: 65vh;
         overflow-y: auto;
         gap: 2vh;
     }
 
+    #graficas_entorno_inferior.slick-initialized {
+    display: block;      /* Slick maneja su propio layout, no flex */
+    height: auto;
+    overflow: visible;
+    }
+
+    .slick-slide .graficas {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 0;
+    }
+
+    .slick-dots {
+        bottom: -22px;
+    }
+
+    .slick-prev, .slick-next {
+        z-index: 10;
+    }
+
     .graficas {
         width: 94%;
-        height: 60vh;
+        height: 50vh !important;
         flex: 0 0 auto;
     }
 

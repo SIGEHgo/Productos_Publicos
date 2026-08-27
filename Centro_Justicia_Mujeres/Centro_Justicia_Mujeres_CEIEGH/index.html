@@ -43,9 +43,13 @@ Sugiero que se haga en JS.
      crossorigin=""/> <!-- Leaflet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">   <!--Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">         <!-- Slick -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">   <!-- Slick -->
+
     <link rel="stylesheet" href="codigos/styles.css">  <!-- Mi CSS -->
     <link rel="stylesheet" href="codigos/syles_media_query.css">  <!-- Media Query CSS -->
     <link rel="stylesheet" href="codigos/intro.css">  <!-- Animación de la intro CSS -->
+
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>  <!-- MathJax -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">    <!-- Letra Monserrat -->
     <link rel="icon" type="image/png" href="https://cdn.hidalgo.gob.mx/logo.png">   <!-- Mini Logo Gobierno -->
@@ -53,11 +57,13 @@ Sugiero que se haga en JS.
 </head>
 <body>
     <header>
-        Atención a mujeres en situación de violencia de género
-        <a href="https://labpoliticas.hidalgo.gob.mx/" target="_blank" rel="noopener noreferrer" style="width: 20%; ">
+        <span class="header-title">Atención a mujeres en situación de violencia de género</span>
+        <a href="https://labpoliticas.hidalgo.gob.mx/" target="_blank" rel="noopener noreferrer"
+        id="link_logo_planeacion" style="width: 20%;">
             <img src="Img/Logotipo_Planeacion.png" id="logo_planeacion_index">
         </a>
-        <a href="https://justiciamujeres.hidalgo.gob.mx/" target="_blank" rel="noopener noreferrer" style="width: 13%;">
+        <a href="https://justiciamujeres.hidalgo.gob.mx/" target="_blank" rel="noopener noreferrer"
+        id="link_logo_cjmh" style="width: 13%;">
             <img src="Img/Logotipo_CJMH.png" id="logo_cjmh_index">
         </a>
     </header>
@@ -252,7 +258,9 @@ Sugiero que se haga en JS.
 <script src="codigos/JS/intro.js"></script>
 <script src="codigos/JS/tour.js"></script>
 <script src="codigos/JS/zoom_graficas.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>                              <!-- jspdf -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>     <!-- jspdf -->
+<script src="codigos/JS/carousel_moviles.js"></script>                                           <!-- jspdf -->
 
 <script>
     actualizar_municipio();
