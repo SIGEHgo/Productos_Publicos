@@ -1,128 +1,236 @@
-@media (max-width: 767px) {
-    header {
-        font-size: 0.9rem !important;
-    }
+/* MEDIA QUERIES - Celulares y tablets */
+
+
+/* TABLET (768px - 1024px) */
+
+/* @media (max-width: 1024px) and (min-width: 768px) {
 
     .sidebar {
-        width: 40vw !important;
+        width: 28vw;
     }
-
     .sidebar.collapsed {
-        width: 10vw !important;
+        width: 6vw;
     }
 
     .mapa_interfaz {
-        margin-left: 40vw !important;
-        width: calc(100vw - 40vw) !important;
+        margin-left: 28vw;
+        width: calc(100vw - 28vw);
     }
 
-    .sidebar.collapsed + .mapa_interfaz {
-        margin-left: 10vw !important;
-        width: calc(100vw - 10vw) !important;
-    }
-
+    .sidebar.collapsed + .mapa_interfaz,
     main .sidebar.collapsed ~ .mapa_interfaz {
-        margin-left: 10vw !important;
-        width: calc(100vw - 10vw) !important;
+        margin-left: 6vw;
+        width: calc(100vw - 6vw);
     }
 
-    header img {
-        height: 20% !important;
-        width: auto !important;
+    .contenedor_popup,
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+        width: min(80vw, 480px);
+        aspect-ratio: 100 / 66;
+    }
+} */
+
+
+/* ---------------------------------------------------------
+   MÓVIL 
+   --------------------------------------------------------- */
+@media (max-width: 767px) {
+
+    header {
+        font-size: clamp(0.8rem, 3.2vw, 1.1rem) !important;
+        padding: 0 2vw;
     }
 
+    header a img {
+        width: 0% !important;
+        display: none;
+    }
+
+    .sidebar {
+        width: 80vw !important;
+        height: 90vh;
+        top: 10vh;
+        left: -100vw;                 /* oculto fuera de pantalla por defecto */
+        transition: left 0.3s ease;  
+        z-index: 9998;
+    }
+
+    /* Sidebar visible: se quita ".collapsed" al hacer clic
+       (esto ya lo maneja sidebar.js sin cambios) */
+    .sidebar:not(.collapsed) {
+        left: 0;
+    }
+
+    /* Sidebar "colapsado" en móvil el cual esta oculto fuera de pantalla */
+    .sidebar.collapsed {
+        width: 80vw !important;
+        left: -80vw;
+    }
+
+
+    .toggle-btn {
+        position: fixed;
+        bottom: 7vh;
+        left: 2vw;
+        z-index: 9999;
+        background-color: rgba(98, 17, 50, 0.8);
+        border-radius: 6px;
+        width: 40px;
+        height: 50px;
+        transition: transform 5s;
+    }
+
+
+    /* ---------- Mapa / contenido principal ----------
+       Ya NO depende del ancho del sidebar: siempre 100vw */
+    .mapa_interfaz,
+    .sidebar.collapsed + .mapa_interfaz,
+    main .sidebar.collapsed ~ .mapa_interfaz {
+        margin-left: 0 !important;
+        width: 100vw !important;
+    }
+
+
+    /* ---------- Acordeones del sidebar ---------- */
+    .acordion {
+        margin: 1.5vh 0 1.5vh 0;
+        padding: 0 4vw;
+    }
+
+    .acordion p {
+        font-size: 0.8rem;
+    }
+
+    .acordion select,
+    #buscador {
+        font-size: 0.85rem;
+        padding: 6px 8px;
+    }
+
+
+    /* ---------- Entorno de gráficas ---------- */
     #graficas_entorno_superior {
-        display: flex;
-       flex-direction: column;
-       justify-content: space-around;
-       /* separación uniforme */
-       align-items: center;
+        flex-direction: column;
+        height: auto;
+        gap: 1vh;
+        padding: 1vh 0;
     }
 
     .flip-container {
-        width: 100% !important;
-        height: 30% !important;
+        width: 92% !important;
+        height: 4vh !important;
     }
 
-    .front, .back {
-        font-size: 0.9rem !important;
+    .front,
+    .back {
+        font-size: 0.85rem !important;
+    }
+
+    /* Las 3 gráficas se apilan con alto fijo legible y
+       scroll vertical en el contenedor, en vez de repartir
+       porcentajes de un 90vh (que las dejaba muy chicas) */
+    #graficas_entorno_inferior {
+        height: 70vh;
+        overflow-y: auto;
+        gap: 2vh;
+    }
+
+    .graficas {
+        width: 94%;
+        height: 60vh;
+        flex: 0 0 auto;
+    }
+
+    .fullscreenBtn {
+        display: none;  /* ocultar botón de pantalla completa en móvil */
+    }
+
+    #boton_informe_entorno {
+        height: auto;
+        padding: 1.5vh 0;
+    }
+
+    #boton_descargar_reporte {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
     }
 
 
-
-    /* Para el popup */
-
-    .contenedor_popup {
-        width: 260px; 
+    /* Popup del mapa (Leaflet) */
+    .contenedor_popup,
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+        width: min(90vw, 320px) !important;
         aspect-ratio: 100 / 66;
+        background: transparent;
     }
 
-    #ficha  {
-       font-size: 10px;
-   }
+    #ficha {
+        font-size: 10px;
+    }
 
     .texto_popup_municipio {
-       font-family: 'Montserrat', sans-serif;
-       font-size: 1.21em;
-       font-weight: bold;
-       color: rgb(141, 42, 60);
-   }
+        font-size: 1.15em;
+    }
 
-  .texto_popup_titulo {
-       font-family: 'Arial', sans-serif;
-       font-size: 0.75em;
-       font-weight: bold;
-       color: black;
-   }
+    .texto_popup_titulo {
+        font-size: 0.75em;
+    }
 
-   .texto_popup_anio {
-       font-family: 'Arial', sans-serif;
-       font-size: 0.7em;
-       font-weight: bold;
-       color: rgb(141, 42, 60);
-   }
+    .texto_popup_anio {
+        font-size: 0.7em;
+    }
 
-   .texto_popup {
-       font-family: 'Arial', sans-serif;
-       font-size: 0.65em;
-   }
-   
+    .texto_popup {
+        font-size: 0.65em;
+    }
+
     .texto_911 {
-       font-family: 'Montserrat', sans-serif;
-       font-size: 0.835em;
-       color: white;
-       font-style: italic;
-   }
+        font-size: 0.8em;
+    }
 
-   .resaltado {
-       font-weight: bold;
-       color: rgb(141, 42, 60);
-   }
-
-   .boton_ficha {
-        background-color: transparent;
-        color: transparent;
-        border: none;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
+    .boton_ficha {
         padding: 6px 4px;
-        cursor: pointer;    
-   }
-
-   .boton_ficha:hover {
-       color: transparent;
-       font-weight: bold;
-   }
+    }
 
 
+    /* ---------- Modal de información ---------- */
+    .modal-body {
+        font-size: 0.9rem;
+    }
 
-   .leaflet-popup-content-wrapper,
-   .leaflet-popup-tip {
-       width: 300px; 
-       aspect-ratio: 100 / 66;
-       background: transparent;
-   }
+    .btnTour{
+        display: none;
+    }
+}
 
 
+/* ---------------------------------------------------------
+   MÓVIL MUY PEQUEÑO (hasta 380px)
+   Ajuste puntual para celulares angostos (ej. iPhone SE)
+   --------------------------------------------------------- */
+@media (max-width: 380px) {
+
+    .sidebar {
+        width: 85vw !important;
+        left: -85vw;
+    }
+
+    .sidebar.collapsed {
+        width: 85vw !important;
+        left: -85vw;
+    }
+
+    .sidebar:not(.collapsed) {
+        left: 0;
+    }
+
+    .flip-container {
+        height: 60px !important;
+    }
+
+    .graficas {
+        height: 190px;
+    }
 }
