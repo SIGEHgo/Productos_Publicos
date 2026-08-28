@@ -1,0 +1,317 @@
+/* ==========================================================================
+   tour.css
+   Rediseño visual del tour guiado (Intro.js) del sitio
+   "Atención a mujeres en situación de violencia de género".
+
+   Este archivo NO modifica la lógica del tour (codigos/JS/tour.js).
+   Solo sobreescribe la apariencia por defecto de Intro.js (codigos/intro.css)
+   reutilizando sus mismas clases (.introjs-*), respetando la paleta de
+   marca del sitio ya definida en styles.css:
+     - Guinda:        rgb(98, 17, 50)
+     - Dorado/arena:  rgb(179, 142, 93)
+     - Tipografía:    'Montserrat', sans-serif
+
+   Inspiración visual: tarjeta con encabezado de color sólido, etiqueta
+   superior, barra de progreso y botones de navegación diferenciados
+   (uno sólido / uno tenue), similar a un tour de tipo "paso a paso".
+   ========================================================================== */
+
+:root {
+  --tour-color-primary: rgb(98, 17, 50);
+  --tour-color-primary-dark: rgb(75, 12, 39);
+  --tour-color-accent: rgb(179, 142, 93);
+  --tour-color-accent-light: rgb(224, 205, 178);
+  --tour-color-text: rgb(51, 39, 44);
+  --tour-color-text-muted: rgba(51, 39, 44, 0.65);
+  --tour-color-surface: #ffffff;
+  --tour-color-track: rgba(98, 17, 50, 0.12);
+  --tour-radius-card: 16px;
+  --tour-radius-btn: 10px;
+  --tour-font: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ---------- Tarjeta principal ---------- */
+.introjs-tooltip {
+  font-family: var(--tour-font);
+  background-color: var(--tour-color-surface);
+  border-radius: var(--tour-radius-card);
+  border: none;
+  overflow: hidden;
+  min-width: 300px;
+  max-width: 360px;
+  box-shadow:
+    0 16px 40px rgba(98, 17, 50, 0.22),
+    0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Cabecera (guinda) ---------- */
+.introjs-tooltip-header {
+  position: static; /* evita que sea el contexto de posicionamiento del botón "Omitir tour" */
+  background: linear-gradient(135deg, var(--tour-color-primary), var(--tour-color-primary-dark));
+  padding: 18px 24px 16px;
+  min-height: 0;
+}
+
+/* Etiqueta superior tipo "TOUR GUIADO" (estática, no depende del paso) */
+.introjs-tooltip-header::before {
+  content: "Tour guiado";
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--tour-color-accent-light);
+  margin-bottom: 4px;
+}
+
+/* El tour actual no define "title" por paso; se oculta para no dejar
+   un hueco vacío. Si en el futuro se agrega texto de título por paso,
+   basta con eliminar esta regla. */
+.introjs-tooltip-title {
+  display: none;
+}
+
+/* ---------- Cuerpo / texto descriptivo ---------- */
+.introjs-tooltiptext {
+  padding: 18px 24px 6px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--tour-color-text);
+}
+
+/* ---------- Barra de progreso ---------- */
+.introjs-progress {
+  height: 6px;
+  margin: 6px 24px 4px;
+  border-radius: 999px;
+  background-color: var(--tour-color-track);
+  overflow: hidden;
+}
+
+.introjs-progressbar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--tour-color-accent), var(--tour-color-primary));
+  border-radius: 999px;
+  transition: width 0.25s ease-out;
+}
+
+/* ---------- Contador "Paso X de Y" ---------- */
+.introjs-helperNumberLayer {
+  padding: 4px 24px 12px;
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tour-color-text-muted);
+}
+
+.introjs-helperNumberLayer::before {
+  content: "Paso ";
+}
+
+/* ---------- Bullets ----------
+   Se ocultan porque, junto con la barra de progreso y el contador de
+   pasos, resultan redundantes y saturan visualmente la tarjeta. */
+.introjs-bullets {
+  display: none;
+}
+
+/* ---------- Pie: botones de navegación ---------- */
+.introjs-tooltipbuttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px 16px 128px; /* espacio izq. reservado para "Omitir tour" */
+  border-top: 1px solid rgba(98, 17, 50, 0.1);
+}
+
+.introjs-tooltipbuttons::after {
+  content: none;
+}
+
+.introjs-button {
+  box-sizing: border-box;
+  position: static;
+  float: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  border-radius: var(--tour-radius-btn);
+  border: 1px solid transparent;
+  font-family: var(--tour-font);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-shadow: none;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.introjs-button:active {
+  transform: scale(0.97);
+}
+
+/* Botón "Anterior": tenue, secundario */
+.introjs-prevbutton {
+  background-color: #f1eeec;
+  border-color: #e3dedb;
+  color: var(--tour-color-text);
+}
+
+.introjs-prevbutton:hover,
+.introjs-prevbutton:focus {
+  background-color: #e6e1de;
+  border-color: #d6cfca;
+  color: var(--tour-color-text);
+}
+
+.introjs-prevbutton.introjs-disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Botón "Siguiente" / "Entendido": sólido, principal */
+.introjs-nextbutton,
+.introjs-nextbutton.introjs-disabled {
+  background-color: var(--tour-color-primary);
+  border-color: var(--tour-color-primary);
+  color: #ffffff;
+}
+
+.introjs-nextbutton:hover,
+.introjs-nextbutton:focus {
+  background-color: var(--tour-color-primary-dark);
+  border-color: var(--tour-color-primary-dark);
+  color: #ffffff;
+}
+
+.introjs-donebutton {
+  background-color: var(--tour-color-primary);
+  border-color: var(--tour-color-primary);
+  color: #ffffff;
+}
+
+.introjs-donebutton:hover,
+.introjs-donebutton:focus {
+  background-color: var(--tour-color-primary-dark);
+  border-color: var(--tour-color-primary-dark);
+}
+
+/* ---------- "Omitir tour" (reubicado abajo a la izquierda) ---------- */
+.introjs-skipbutton {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: 28px;
+  left: 20px;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  font-family: var(--tour-font);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tour-color-text-muted);
+  text-decoration: none;
+}
+
+.introjs-skipbutton:hover,
+.introjs-skipbutton:focus {
+  color: var(--tour-color-primary);
+  text-decoration: underline;
+}
+
+/* ---------- Flecha de la tarjeta ---------- */
+.introjs-arrow.top,
+.introjs-arrow.top-right,
+.introjs-arrow.top-middle {
+  border-bottom-color: var(--tour-color-surface);
+}
+
+.introjs-arrow.bottom,
+.introjs-arrow.bottom-right,
+.introjs-arrow.bottom-middle {
+  border-top-color: var(--tour-color-surface);
+}
+
+.introjs-arrow.left,
+.introjs-arrow.left-bottom {
+  border-right-color: var(--tour-color-surface);
+}
+
+.introjs-arrow.right,
+.introjs-arrow.right-bottom {
+  border-left-color: var(--tour-color-surface);
+}
+
+/* ---------- Resaltado del elemento activo y overlay ----------
+   Intro.js aplica box-shadow/background-color de forma inline vía JS,
+   por lo que aquí el !important es indispensable para poder
+   personalizar el color acorde a la marca. */
+.introjs-helperLayer {
+  border-radius: 10px !important;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .introjs-tooltip {
+    min-width: 260px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .introjs-tooltip-header {
+    padding: 16px 20px 14px;
+  }
+
+  .introjs-tooltiptext {
+    padding: 16px 20px 4px;
+    font-size: 14px;
+  }
+
+  .introjs-progress {
+    margin: 6px 20px 4px;
+  }
+
+  .introjs-helperNumberLayer {
+    padding: 4px 20px 10px;
+  }
+
+  .introjs-tooltipbuttons {
+    padding: 14px 16px 14px 108px;
+  }
+
+  .introjs-skipbutton {
+    left: 16px;
+    bottom: 20px;
+    font-size: 12px;
+  }
+
+  .introjs-button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .introjs-tooltip {
+    min-width: 220px;
+  }
+
+  /* En pantallas muy pequeñas "Omitir tour" pasa a su propia línea
+     encima del pie de botones, para evitar solapamientos. */
+  .introjs-tooltipbuttons {
+    padding: 30px 16px 14px;
+    justify-content: space-between;
+  }
+
+  .introjs-skipbutton {
+    bottom: auto;
+    top: 8px;
+    left: 16px;
+  }
+}

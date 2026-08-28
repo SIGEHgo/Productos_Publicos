@@ -204,11 +204,12 @@ async function startDashboardTour() {
     showBullets: true,
     showProgress: true,
     showStepNumbers: true,
+    stepNumbersOfLabel: "de",
     exitOnEsc: true,
     exitOnOverlayClick: true,
     nextLabel: "Siguiente",
     prevLabel: "Anterior",
-    skipLabel: "×",
+    skipLabel: "Omitir tour",
     doneLabel: "Entendido",
   });
 
