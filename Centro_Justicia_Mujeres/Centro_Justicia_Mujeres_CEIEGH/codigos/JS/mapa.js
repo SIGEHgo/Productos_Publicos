@@ -117,6 +117,18 @@ datos_capa = L.geoJSON(datos, {
 });
 datos_capa.addTo(map);
 
+limites_filtrados = limites.features.filter(function(feature) {
+return feature.properties.NOM_MUN === document.getElementById("selector_municipio").value.replace(/_/g, " ");
+});
+
+limites_capa = L.geoJSON(limites_filtrados, {
+  style: {
+    color: 'purple',
+    weight: 1,
+    fillOpacity: 0
+  }
+}).addTo(map);
+
 
 
 // Popup
@@ -140,6 +152,21 @@ let colonia_buscada = "";
 function actualizar_municipio() {
   datos = opciones[document.getElementById("selector_municipio").value];
   map.removeLayer(datos_capa);
+  map.removeLayer(limites_capa);
+
+  
+  limites_filtrados = limites.features.filter(function(feature) {
+  return feature.properties.NOM_MUN === document.getElementById("selector_municipio").value.replace(/_/g, " ");
+  });
+
+  limites_capa = L.geoJSON(limites_filtrados, {
+    style: {
+      color: 'purple',
+      weight: 3,
+      fillOpacity: 0
+    }
+  }).addTo(map);
+
 
   datos_capa = L.geoJSON(datos, {
     style: pintar_por_columna,
