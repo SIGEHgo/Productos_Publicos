@@ -566,6 +566,43 @@ aside.filtros_panel.collapsed {
     padding: 4px 16px 16px;
 }
 
+.filtros_footer {
+    padding: 14px 16px 16px;
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.btn-descargar-excel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #246554;
+    border-radius: var(--radius-sm);
+    background: #2E7D6B;
+    color: #fff;
+    font: 600 13px var(--font-display);
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+}
+
+.btn-descargar-excel:hover:not(:disabled) {
+    border-color: #1E5F50;
+    background: #246554;
+}
+
+.btn-descargar-excel:focus-visible {
+    outline: 2px solid var(--c-emergencia);
+    outline-offset: 2px;
+}
+
+.btn-descargar-excel:disabled {
+    cursor: default;
+    opacity: .6;
+}
+
 .filtro-titulo {
     font-family: var(--font-display);
     font-size: 14px;
@@ -799,4 +836,7 @@ input.text-control:focus {
 
 
 
-
+/* Quitar rectangulo negro al hacer click sobre un poligono*/
+path.leaflet-interactive:focus {
+  outline: none;
+}

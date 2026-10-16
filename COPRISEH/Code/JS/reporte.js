@@ -946,7 +946,7 @@
   /** Descarga el documento final con un nombre descriptivo basado en el folio. */
   async function generarReporte(registro) {
     const { doc, datos } = await construirDocumentoReporte(registro);
-    doc.save(`Reporte_COPRISEH_Folio_${sanearNombreArchivo(datos.folio)}.pdf`);
+    doc.save(`Reporte-${sanearNombreArchivo(datos.folio)}-Indicadores-Microbiologicos-Fisicoquimicos.pdf`);
     return { folio: datos.folio, paginas: doc.getNumberOfPages(), filas: datos.resultados.length };
   }
 

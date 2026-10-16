@@ -240,6 +240,7 @@ async function cargarDatos() {
  
   const respuesta = await fetch("Outputs/Layers/COPRISEH datos 2026 Hidalgo.json");
   datosCOPRISEH = await respuesta.json();
+  document.getElementById('btnDescargarExcel').disabled = false;
 
   llenarSelect('selectRegion', datosCOPRISEH, 'Región');
   actualizarOpcionesMunicipios();
@@ -347,10 +348,8 @@ function filtrarPorParametros(datos, columnas) {
   return resultado;
 }
 
-function tieneParametroFueraDeLimite(registro) {
-  return Object.keys(registro).some(clave =>
-    clave.endsWith('_L') && registro[clave] === 'Fuera del límite'
-  );
+function tieneParametroFueraDeLimite(registro, parametros) {
+  return parametros.some(parametro => registro[`${parametro}_L`] === 'Fuera del límite');
 }
 
 // Estado filtros
@@ -367,9 +366,7 @@ function leerEstadoFiltros() {
   };
 }
 
-function aplicarFiltros() {
-  const estado = leerEstadoFiltros();
-
+function obtenerDatosFiltrados(estado = leerEstadoFiltros()) {
   let datosFiltrados = datosCOPRISEH;
   datosFiltrados = filtrarPorMotivo(datosFiltrados, estado.motivos);
   datosFiltrados = filtrarPorProcedencia(datosFiltrados, estado.procedencias);
@@ -377,15 +374,24 @@ function aplicarFiltros() {
   datosFiltrados = filtrarPorFecha(datosFiltrados, estado.desde, estado.hasta);
   datosFiltrados = filtrarPorParametros(datosFiltrados, estado.parametros);
   if (estado.soloFueraDeLimite) {
-    datosFiltrados = datosFiltrados.filter(tieneParametroFueraDeLimite);
+    datosFiltrados = datosFiltrados.filter(registro =>
+      tieneParametroFueraDeLimite(registro, estado.parametros)
+    );
   }
+
+  return datosFiltrados;
+}
+
+function aplicarFiltros() {
+  const estado = leerEstadoFiltros();
+  const datosFiltrados = obtenerDatosFiltrados(estado);
 
   actualizarIndicadorFiltroEspacial(estado);
 
   console.log('[Filtros combinados] total final:', datosFiltrados.length, 'de', datosCOPRISEH.length);
 
   renderizarMarcadores(datosFiltrados);
-  actualizarIndicadores(datosFiltrados);
+  actualizarIndicadores(datosFiltrados, estado.parametros);
 
   return datosFiltrados;
 }
@@ -549,7 +555,7 @@ function crearContenidoDetalle(registro) {
     <section class="detail-parameters">
       <h3>Parámetros</h3>
       <table>
-        <thead><tr><th>Parámetro</th><th>Clasificación</th></tr></thead>
+        <thead><tr><th>Parámetro</th><th>Condición</th></tr></thead>
         <tbody>${parametros || '<tr><td colspan="2">Sin parámetros disponibles</td></tr>'}</tbody>
       </table>
     </section>
@@ -567,12 +573,14 @@ document.getElementById('btnCloseDetail').addEventListener('click', cerrarDetall
 document.getElementById('scrim').addEventListener('click', cerrarDetalleMuestra);
 
 // Actualiza los números de la barra superior según los datos ya filtrados
-function actualizarIndicadores(datos) {
+function actualizarIndicadores(datos, parametros) {
   document.getElementById('valorIndicador1').textContent = datos.length;
-  document.getElementById('valorIndicador2').textContent = obtenerSeleccionados('chipsParametros', 'parametro').length;
+  document.getElementById('valorIndicador2').textContent = parametros.length;
   document.getElementById('valorIndicador3').textContent = new Set(datos.map(r => r.Municipio)).size;
   document.getElementById('valorIndicador4').textContent = new Set(datos.map(r => r['Región'])).size;
-  document.getElementById('valorIndicador5').textContent = datos.filter(tieneParametroFueraDeLimite).length;
+  document.getElementById('valorIndicador5').textContent = datos.filter(registro =>
+    tieneParametroFueraDeLimite(registro, parametros)
+  ).length;
 }
 
 
@@ -605,6 +613,15 @@ function limpiarFiltros() {
 
 document.getElementById('btnClearFilters').addEventListener('click', limpiarFiltros);
 document.getElementById('btnClearSpatialFilter').addEventListener('click', quitarFiltroEspacial);
+document.getElementById('btnDescargarExcel').addEventListener('click', function () {
+  const datosFiltrados = obtenerDatosFiltrados();
+  const hoja = XLSX.utils.json_to_sheet(datosFiltrados, {
+    header: Object.keys(datosCOPRISEH[0] || {})
+  });
+  const libro = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(libro, hoja, 'Muestras');
+  XLSX.writeFile(libro, 'Indicadores-Microbiológicos-Fisicoquímicos-filtradas.xlsx');
+});
 document.getElementById('btnSoloFueraLimite').addEventListener('click', function () {
   const activo = this.getAttribute('aria-pressed') !== 'true';
   this.setAttribute('aria-pressed', String(activo));
