@@ -62,7 +62,7 @@
                 <div class="indicador-valor" id="valorIndicador4">0</div>
             </div>
             <div class="indicador" id="indicador5">
-                <div class="indicador-titulo">Fuera de límite:</div>
+                <div class="indicador-titulo">Fuera de la norma:</div>
                 <div class="indicador-valor" id="valorIndicador5">0</div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                         <button class="check-item limit-filter" id="btnSoloFueraLimite"
                             type="button" aria-pressed="false">
                             <span class="check-box" aria-hidden="true"></span>
-                            <span>Solo fuera de límite</span>
+                            <span>Solo fuera de la norma</span>
                         </button>
                     </div>
 
@@ -136,6 +136,13 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="filtros_footer">
+                    <button class="btn-descargar-excel" id="btnDescargarExcel" type="button" disabled>
+                        <i class="fa-solid fa-file-excel" aria-hidden="true"></i>
+                        <span>Descargar datos filtrados</span>
+                    </button>
                 </div>
 
             </aside>
@@ -215,6 +222,7 @@
     <script src = "Code/JS/mapa.js"></script>
     <!-- jsPDF se carga desde el mismo CDN que ya utiliza el sitio para sus dependencias. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <script src="Code/JS/reporte.js"></script>
     <script src="Code/JS/funciones_extras.js"></script>
 
