@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoreo de indicadores microbiológicos y fisicoquímicos</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/> <!-- Leaflet -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ScanEx/Leaflet-IconLayers@master/src/iconLayers.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">   <!--Bootstrap -->
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+
+     <link rel="stylesheet" href="Code/styles.css">  <!-- Mi CSS -->
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">    <!-- Letra Monserrat -->
+     <link rel="icon" type="image/png" href="https://cdn.hidalgo.gob.mx/logo.png">   <!-- Mini Logo Gobierno -->
+
+</head>
+<body>
+    <div id="app">
+        <header class="encabezado">
+            <button class="btn-icon" id="boton_filtros" title="Mostrar u ocultar filtros"
+                aria-label="Mostrar u ocultar filtros">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+            </button>
+
+            <a href="https://labpoliticas.hidalgo.gob.mx/" target="_blank" rel="noopener noreferrer"
+                class="logo logo-planeacion">
+                <img src="Img/Logotipo_Planeacion.png" alt="Unidad de Planeación y Prospectiva">
+            </a>
+
+            <div class="encabezado-titulo">
+                Monitoreo de indicadores microbiológicos y fisicoquímicos
+            </div>
+
+            <a href="https://copriseh.hidalgo.gob.mx/" target="_blank" rel="noopener noreferrer"
+                class="logo logo-salud">
+                <img src="Img/Logotipo_Salud.png" alt="Secretaría de Salud">
+            </a>
+        </header>
+
+        <div class="barra-indicadores" id="barraIndicadores">
+            <div class="indicador" id="indicador1">
+                <div class="indicador-titulo">Muestras totales:</div>
+                <div class="indicador-valor" id="valorIndicador1">0</div>
+            </div>
+            <div class="indicador" id="indicador2">
+                <div class="indicador-titulo">Parametros:</div>
+                <div class="indicador-valor" id="valorIndicador2">0</div>
+            </div>
+            <div class="indicador" id="indicador3">
+                <div class="indicador-titulo">Municipios:</div>
+                <div class="indicador-valor" id="valorIndicador3">0</div>
+            </div>
+            <div class="indicador" id="indicador4">
+                <div class="indicador-titulo">Regiones:</div>
+                <div class="indicador-valor" id="valorIndicador4">0</div>
+            </div>
+            <div class="indicador" id="indicador5">
+                <div class="indicador-titulo">Fuera de límite:</div>
+                <div class="indicador-valor" id="valorIndicador5">0</div>
+            </div>
+        </div>
+
+
+        <div class="contenido" id="contenido">
+
+            <aside class="filtros_panel" id="filtros_panel">
+
+                <div class="filtros_encabezado">
+                    <h2>Filtros</h2>
+                    <button class="clear-link" id="btnClearFilters">Limpiar</button>
+                </div>
+
+                <div class="filtro-cuerpo">
+
+                    <div class="filtro-seccion">
+                        <p class="filtro-titulo">Parametros</p>
+
+                        <div class="check-list" id="chipsParametros"></div>
+                    </div>
+
+                    <div class="filtro-seccion">
+                        <button class="check-item limit-filter" id="btnSoloFueraLimite"
+                            type="button" aria-pressed="false">
+                            <span class="check-box" aria-hidden="true"></span>
+                            <span>Solo fuera de límite</span>
+                        </button>
+                    </div>
+
+                    <div class="filtro-seccion">
+                        <p class="filtro-titulo">Motivo</p>
+
+                        <div class="chip-group" id="chipsMotivo"></div>
+                    </div>
+
+                    <div class="filtro-seccion">
+                        <p class="filtro-titulo">Procedencia</p>
+
+                        <div class="chip-group" id="chipsProcedencia"></div>
+                    </div>
+
+
+                    <div class="filtro-seccion">
+                        <p class="filtro-titulo">Ubicación</p>
+                        <div class="field-row">
+                            <label class="field-label" for="selectRegion">Región</label>
+                            <select class="select-control" id="selectRegion">
+                                <option value="">Todas las regiones</option>
+                            </select>
+                        </div>
+                        <div class="field-row">
+                            <label class="field-label" for="selectMunicipio">Municipio</label>
+                            <select class="select-control" id="selectMunicipio">
+                                <option value="">Todos los municipios</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="filtro-seccion">
+                        <p class="filtro-titulo">Fecha de muestreo</p>
+
+                        <div class="field-row">
+                            <label class="field-label" for="dateFrom">Desde</label>
+                            <input type="date" class="text-control" id="dateFrom">
+                        </div>
+                        <div class="field-row">
+                            <label class="field-label" for="dateTo">Hasta</label>
+                            <input type="date" class="text-control" id="dateTo">
+                        </div>
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <div id="mapa"></div>
+
+            <div class="map-search">
+                <div class="map-search-input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7"/>
+                        <path d="M20 20l-4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                    <input id="folioSearchInput" type="text" placeholder="Buscar por folio"
+                        aria-label="Buscar muestra por folio" autocomplete="off">
+                </div>
+                <div class="search-results" id="folioSearchResults"></div>
+            </div>
+
+            <section class="layers-panel" id="layersPanel" aria-label="Capas del mapa">
+                <button class="layers-head" id="layersToggle" type="button" aria-expanded="true" aria-controls="layersBody">
+                    <span>Capas</span>
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="layers-body" id="layersBody">
+                    <p class="layers-label">Tipo de mapa</p>
+                    <div class="layers-icon-control" id="iconLayersMount"></div>
+                    <div class="layers-overlays" role="group" aria-label="Capas geográficas">
+                        <p class="layers-label">Delimitaciones</p>
+                        <label class="layer-row" for="layerRegiones">
+                            <input id="layerRegiones" type="checkbox" checked>
+                            <span>Región</span>
+                        </label>
+                        <label class="layer-row" for="layerMunicipios">
+                            <input id="layerMunicipios" type="checkbox" checked>
+                            <span>Municipios</span>
+                        </label>
+                    </div>
+                    <div class="spatial-filter" id="spatialFilter" hidden>
+                        <p class="layers-label">Filtro espacial activo</p>
+                        <strong id="spatialFilterLabel"></strong>
+                        <button class="spatial-filter-clear" id="btnClearSpatialFilter" type="button">Quitar filtro</button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="detail-panel" id="detailPanel" aria-label="Detalle de muestra" aria-hidden="true">
+                <div class="detail-motivo-strip" id="detailStrip"></div>
+                <div class="detail-head">
+                    <div>
+                        <div class="detail-eyebrow">Ficha de muestra</div>
+                        <!-- <span class="detail-motivo-badge" id="detailBadge">—</span> -->
+                        <div class="detail-id" id="detailId"></div>
+                    </div>
+                    <button class="detail-close" id="btnCloseDetail" type="button" aria-label="Cerrar ficha">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="detail-body" id="detailBody"></div>
+            </aside>
+
+        </div>
+
+        <div class="scrim" id="scrim"></div>
+
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ScanEx/Leaflet-IconLayers@master/src/iconLayers.js"></script>
+    <script src = "Code/JS/mapa.js"></script>
+    <!-- jsPDF se carga desde el mismo CDN que ya utiliza el sitio para sus dependencias. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <script src="Code/JS/reporte.js"></script>
+    <script src="Code/JS/funciones_extras.js"></script>
+
+</body>
+</html>
+
+
+

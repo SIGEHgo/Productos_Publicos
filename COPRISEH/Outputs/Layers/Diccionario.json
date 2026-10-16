@@ -1,0 +1,67 @@
+[
+  {
+    "Parametros": "Arsénico",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 0.025 mg/L"
+  },
+  {
+    "Parametros": "Cloro",
+    "Unidades": "mg/L",
+    "Limites permisibles": "0.2 mg/L a 1.5 mg/L"
+  },
+  {
+    "Parametros": "Cloruros",
+    "Unidades": "",
+    "Limites permisibles": "Pendiente"
+  },
+  {
+    "Parametros": "Color",
+    "Unidades": "UC",
+    "Limites permisibles": "≤ 15 UC"
+  },
+  {
+    "Parametros": "Dureza Total",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 500 mg/L"
+  },
+  {
+    "Parametros": "Fluoruros",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 1.5 mg/L"
+  },
+  {
+    "Parametros": "Manganeso",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 0.15 mg/L"
+  },
+  {
+    "Parametros": "Nitritos",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 0.9 mg/L"
+  },
+  {
+    "Parametros": "pH",
+    "Unidades": "Unidades de pH",
+    "Limites permisibles": "6.5 a 8.5"
+  },
+  {
+    "Parametros": "Plomo",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 0.01 mg/L"
+  },
+  {
+    "Parametros": "Sólidos Totales",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 1000 mg/L"
+  },
+  {
+    "Parametros": "Sulfatos",
+    "Unidades": "mg/L",
+    "Limites permisibles": "≤ 400 mg/L"
+  },
+  {
+    "Parametros": "Turbiedad",
+    "Unidades": "UNT",
+    "Limites permisibles": "≤ 4 UNT"
+  }
+]

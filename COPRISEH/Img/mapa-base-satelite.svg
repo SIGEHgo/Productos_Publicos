@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Mapa satelital">
+  <rect width="80" height="80" rx="10" fill="#47594a"/>
+  <path d="M0 0h33L26 17 9 23 0 17zm45 0h35v19L63 26 49 18zM0 43l18-8 15 9-6 19L0 68zm48 6 12-12 20 7v28H53z" fill="#687052"/>
+  <path d="m-7 55 94-40M29-7l19 94M-5 28l87 35" fill="none" stroke="#c9c5b5" stroke-width="5"/>
+  <path d="m-7 55 94-40M29-7l19 94M-5 28l87 35" fill="none" stroke="#aaa89c" stroke-width="1.2"/>
+  <path d="M4 80 29 53l13-4 17 11 23-4" fill="none" stroke="#648c91" stroke-width="5"/>
+</svg>
