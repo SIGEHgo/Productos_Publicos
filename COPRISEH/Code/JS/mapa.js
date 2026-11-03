@@ -1,4 +1,8 @@
-const mapa = L.map('mapa', { maxZoom: 18, minZoom: 9 }).setView([20.09, -98.76], 8);
+const esMapaMovilInicial = window.matchMedia('(max-width: 880px)').matches;
+const mapa = L.map('mapa', {
+  maxZoom: 18,
+  minZoom: esMapaMovilInicial ? 8 : 9
+}).setView([20.09, -98.76], 8);
 
 // Limitar vista, zoom y centrado al cargar el mapa
 const caja = L.latLngBounds(
@@ -7,6 +11,7 @@ const caja = L.latLngBounds(
 );
 const caja_margen = caja.pad(3.5); 
 mapa.fitBounds(caja);
+if (esMapaMovilInicial) mapa.zoomOut(1, { animate: false });
 mapa.setMaxBounds(caja_margen);
 
 const mapaPredeterminado = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

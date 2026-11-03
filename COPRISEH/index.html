@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Monitoreo de indicadores microbiológicos y fisicoquímicos</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -15,6 +15,7 @@
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
 
      <link rel="stylesheet" href="Code/styles.css">  <!-- Mi CSS -->
+     <link rel="stylesheet" href="Code/dispositivo_movil.css">  <!-- Ajustes para teléfonos y tabletas -->
      <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">    <!-- Letra Monserrat -->
      <link rel="icon" type="image/png" href="https://cdn.hidalgo.gob.mx/logo.png">   <!-- Mini Logo Gobierno -->
 
@@ -23,7 +24,7 @@
     <div id="app">
         <header class="encabezado">
             <button class="btn-icon" id="boton_filtros" title="Mostrar u ocultar filtros"
-                aria-label="Mostrar u ocultar filtros">
+                aria-label="Mostrar u ocultar filtros" aria-expanded="true" aria-controls="filtros_panel">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
                 </svg>
@@ -74,7 +75,13 @@
 
                 <div class="filtros_encabezado">
                     <h2>Filtros</h2>
-                    <button class="clear-link" id="btnClearFilters">Limpiar</button>
+                    <button class="clear-link" id="btnClearFilters" type="button">Limpiar</button>
+                    <button class="filters-close-mobile" id="btnCerrarFiltros" type="button"
+                        aria-label="Cerrar filtros" title="Cerrar filtros">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </button>
                 </div>
 
                 <div class="filtro-cuerpo">

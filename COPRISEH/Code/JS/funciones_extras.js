@@ -8,14 +8,29 @@ function ajustar_mapa_suave(){
   })(inicio);
 }
 
+function esVistaMovil(){
+  return window.matchMedia('(max-width: 880px)').matches;
+}
+
+function actualizarScrim(){
+  const filtrosAbiertos = esVistaMovil() &&
+    !document.getElementById('filtros_panel').classList.contains('collapsed');
+  const detalleAbierto = document.getElementById('detailPanel').classList.contains('open');
+  document.getElementById('scrim').classList.toggle('show', filtrosAbiertos || detalleAbierto);
+}
+
 function abrir_panel_filtros(){
   document.getElementById('filtros_panel').classList.remove('collapsed');
   document.getElementById('boton_filtros').classList.remove('show');
+  document.getElementById('boton_filtros').setAttribute('aria-expanded', 'true');
+  actualizarScrim();
   ajustar_mapa_suave();
 }
 
 function cerrar_panel_filtros(){
   document.getElementById('filtros_panel').classList.add('collapsed');
+  document.getElementById('boton_filtros').setAttribute('aria-expanded', 'false');
+  actualizarScrim();
   ajustar_mapa_suave();
 }
 
@@ -28,6 +43,27 @@ document.getElementById('boton_filtros').addEventListener('click', function() {
     } else {
         cerrar_panel_filtros();
     }
+});
+
+document.getElementById('btnCerrarFiltros').addEventListener('click', cerrar_panel_filtros);
+
+// En móviles se inicia con el mapa visible; al cambiar de tamaño se conserva
+// abierto el panel de escritorio y se repliega al entrar al modo móvil.
+let vistaMovilFiltros = esVistaMovil();
+if (vistaMovilFiltros) cerrar_panel_filtros();
+window.addEventListener('resize', function(){
+  const vistaMovilActual = esVistaMovil();
+  if (vistaMovilActual === vistaMovilFiltros) return;
+
+  vistaMovilFiltros = vistaMovilActual;
+  if (vistaMovilActual) {
+    cerrar_panel_filtros();
+  } else {
+    document.getElementById('filtros_panel').classList.remove('collapsed');
+    document.getElementById('boton_filtros').setAttribute('aria-expanded', 'true');
+    actualizarScrim();
+    ajustar_mapa_suave();
+  }
 });
 
 
@@ -526,7 +562,7 @@ function abrirDetalleMuestra(registro) {
   }
   document.getElementById('detailPanel').classList.add('open');
   document.getElementById('detailPanel').setAttribute('aria-hidden', 'false');
-  document.getElementById('scrim').classList.add('show');
+  actualizarScrim();
 }
 
 // Construye las filas y la tabla de parámetros según las columnas del registro.
@@ -565,12 +601,15 @@ function crearContenidoDetalle(registro) {
 function cerrarDetalleMuestra() {
   document.getElementById('detailPanel').classList.remove('open');
   document.getElementById('detailPanel').setAttribute('aria-hidden', 'true');
-  document.getElementById('scrim').classList.remove('show');
+  actualizarScrim();
   window.muestraSeleccionada = null;
 }
 
 document.getElementById('btnCloseDetail').addEventListener('click', cerrarDetalleMuestra);
-document.getElementById('scrim').addEventListener('click', cerrarDetalleMuestra);
+document.getElementById('scrim').addEventListener('click', function(){
+  cerrarDetalleMuestra();
+  if (esVistaMovil()) cerrar_panel_filtros();
+});
 
 // Actualiza los números de la barra superior según los datos ya filtrados
 function actualizarIndicadores(datos, parametros) {

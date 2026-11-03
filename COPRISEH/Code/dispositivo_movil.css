@@ -1,0 +1,419 @@
+/*
+ * Ajustes para teléfonos y tabletas.
+ * Se carga después de Code/styles.css para conservar intacta la vista de escritorio.
+ */
+
+.filters-close-mobile {
+    display: none;
+}
+
+@media (max-width: 880px) {
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    #app {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .encabezado {
+        flex: 0 0 64px;
+        height: 64px;
+        min-height: 64px;
+        gap: 6px;
+        padding: 6px 10px;
+    }
+
+    .encabezado .btn-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .encabezado .btn-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .logo-planeacion,
+    .logo-salud {
+        display: none;
+    }
+
+    .logo-planeacion img,
+    .logo-salud img {
+        width: auto;
+        height: auto;
+        max-width: 56px;
+        max-height: 38px;
+        object-fit: contain;
+    }
+
+    .encabezado-titulo {
+        min-width: 0;
+        font-size: clamp(14px, 4.2vw, 17px);
+        line-height: 1.2;
+        overflow: hidden;
+        text-align: center;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+    .barra-indicadores {
+        flex: 0 0 46px;
+        height: 46px;
+        min-height: 46px;
+        gap: 0;
+        padding: 0 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .barra-indicadores::-webkit-scrollbar {
+        display: none;
+    }
+
+    .indicador {
+        flex: 0 0 auto;
+        gap: 5px;
+        padding: 0 11px;
+    }
+
+    .indicador:first-child {
+        padding-left: 4px;
+    }
+
+    #indicador3,
+    #indicador4 {
+        display: none;
+    }
+
+    .indicador-titulo,
+    .indicador-valor {
+        font-size: 11px;
+    }
+
+    .contenido {
+        position: relative;
+        flex: 1 1 auto;
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    #mapa {
+        width: 100%;
+        height: 100%;
+    }
+
+    .map-search {
+        top: 10px;
+        right: 10px;
+        left: 48px;
+        width: auto;
+        max-width: none;
+    }
+
+    .map-search-input-wrap {
+        min-height: 46px;
+    }
+
+    .map-search input {
+        min-height: 44px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .search-results {
+        max-height: 38dvh;
+    }
+
+    .search-result-item {
+        min-height: 48px;
+        justify-content: center;
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    aside.filtros_panel {
+        position: absolute;
+        z-index: 1200;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: min(92vw, 390px);
+        max-width: calc(100vw - 20px);
+        height: auto;
+        min-height: 0;
+        margin-left: 0;
+        overflow: hidden;
+        border-right: 1px solid var(--line);
+        box-shadow: var(--shadow-2);
+        transform: translateX(0);
+        transition: transform .22s ease;
+        will-change: transform;
+    }
+
+    aside.filtros_panel.collapsed {
+        margin-left: 0;
+        box-shadow: none;
+        transform: translateX(-102%);
+        pointer-events: none;
+    }
+
+    .filtros_encabezado {
+        flex: 0 0 auto;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+
+    .filtros_encabezado h2 {
+        flex: 1;
+        font-size: 17px;
+    }
+
+    .filtros_encabezado .clear-link {
+        min-height: 42px;
+        padding: 0 4px;
+        font-size: 13px;
+    }
+
+    .filters-close-mobile {
+        display: flex;
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        color: var(--ink-soft);
+        cursor: pointer;
+    }
+
+    .filters-close-mobile svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .filters-close-mobile:focus-visible {
+        outline: 2px solid var(--guinda-700);
+        outline-offset: 2px;
+    }
+
+    .filtro-cuerpo {
+        min-height: 0;
+        padding: 4px 16px 18px;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filtro-seccion {
+        padding: 16px 0;
+    }
+
+    .filtro-titulo {
+        font-size: 14px;
+    }
+
+    .chip-group {
+        gap: 8px;
+    }
+
+    .chip {
+        min-height: 42px;
+        padding: 8px 11px 8px 9px;
+        font-size: 13px;
+    }
+
+    .check-item {
+        min-height: 44px;
+        padding: 8px 6px;
+        font-size: 14px;
+    }
+
+    .check-box {
+        width: 19px;
+        height: 19px;
+    }
+
+    .check-item.checked .check-box::after {
+        left: 6px;
+        top: 4px;
+        width: 5px;
+        height: 9px;
+    }
+
+    select.select-control,
+    input.text-control {
+        min-height: 46px;
+        padding: 10px 11px;
+        font-size: 16px;
+    }
+
+    .field-label {
+        font-size: 12px;
+    }
+
+    .filtros_footer {
+        flex: 0 0 auto;
+        padding: 12px 16px max(14px, env(safe-area-inset-bottom));
+    }
+
+    .btn-descargar-excel {
+        min-height: 48px;
+        font-size: 14px;
+    }
+
+    .layers-panel {
+        right: 10px;
+        bottom: 10px;
+        width: 186px;
+        max-width: calc(100vw - 20px);
+    }
+
+    .layers-head {
+        min-height: 42px;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .layers-body {
+        padding: 9px 10px 11px;
+    }
+
+    .layer-row {
+        min-height: 36px;
+        font-size: 13px;
+    }
+
+    .layer-row input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .leyenda-marcadores {
+        max-width: 46vw;
+    }
+
+    .detail-panel {
+        z-index: 1300;
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        height: min(72dvh, 680px);
+        max-height: 100%;
+        border: 0;
+        border-top: 1px solid var(--line);
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 -8px 28px rgba(30, 20, 15, .18);
+        transform: translateY(100%);
+        transition: transform .24s ease;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .detail-panel.open {
+        transform: translateY(0);
+    }
+
+    .detail-motivo-strip {
+        border-radius: 16px 16px 0 0;
+    }
+
+    .detail-head {
+        flex: 0 0 auto;
+        padding: 13px 16px 10px;
+    }
+
+    .detail-close {
+        width: 42px;
+        height: 42px;
+        margin: -6px -7px 0 0;
+    }
+
+    .detail-body {
+        min-height: 0;
+        padding: 6px 16px 20px;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .detail-row {
+        padding: 11px 0;
+    }
+
+    .detail-row .dl {
+        font-size: 11px;
+    }
+
+    .detail-row .dv {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .detail-parameters {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .detail-parameters table {
+        min-width: 100%;
+        font-size: 12px;
+    }
+
+    .detail-parameters th,
+    .detail-parameters td {
+        padding: 9px 6px;
+    }
+
+    .detail-download {
+        min-height: 46px;
+        font-size: 14px;
+    }
+
+    .scrim {
+        z-index: 1100;
+    }
+}
+
+@media (max-width: 420px) {
+    .encabezado {
+        gap: 5px;
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+
+    .encabezado .btn-icon {
+        width: 36px;
+        flex: 0 0 36px;
+    }
+
+    .indicador {
+        padding-right: 9px;
+        padding-left: 9px;
+    }
+
+    .indicador-titulo,
+    .indicador-valor {
+        font-size: 10px;
+    }
+
+    .leyenda-marcadores {
+        max-width: 42vw;
+    }
+}
